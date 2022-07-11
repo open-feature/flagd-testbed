@@ -1,0 +1,12 @@
+{
+  "flags": {
+    "boolean-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": true,
+        "off": false
+      },
+      "defaultVariant": "on"
+    }
+  }
+}
