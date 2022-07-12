@@ -7,6 +7,22 @@
         "off": false
       },
       "defaultVariant": "on"
+    },
+    "string-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "red": "#CC0000",
+        "blue": "#0000CC"
+      },
+      "defaultVariant": "red"
+    },
+    "number-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "one": 1,
+        "two": 2
+      },
+      "defaultVariant": "one"
     }
   }
 }
