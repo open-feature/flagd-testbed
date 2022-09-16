@@ -1,16 +1,62 @@
 Feature: Flag evaluation
 
+  # basic evaluation
   Scenario: Resolves boolean value
-    Given A boolean flag called boolean-flag with value true exists
-    When Flag is evaluated with default value false
-    Then The resolved value should match the flag value
+    When a boolean flag with key 'boolean-flag' is evaluated with default value 'false'
+    Then the resolved boolean value should be 'true'
 
   Scenario: Resolves string value
-    Given A string flag called string-flag with value #CC0000 exists
-    When Flag is evaluated with default value #0000CC
-    Then The resolved value should match the flag value
+    When a string flag with key 'string-flag' is evaluated with default value 'bye'
+    Then the resolved string value should be 'hi'
 
-  Scenario: Resolves number value
-    Given A number flag called number-flag with value 1 exists
-    When Flag is evaluated with default value 2
-    Then The resolved value should match the flag value
+  Scenario: Resolves integer value
+    When an integer flag with key 'integer-flag' is evaluated with default value 1
+    Then the resolved integer value should be 10
+
+  Scenario: Resolves float value
+    When a float flag with key 'float-flag' is evaluated with default value 0.1
+    Then the resolved float value should be 0.5
+  
+  Scenario: Resolves object value
+    When an object flag with key 'object-flag' is evaluated with a null default value
+    Then the resolved object value should be contain fields 'showImages', 'title', and 'imagesPerPage', with values 'true', 'Check out these pics!' and 100, respectively
+
+  # detailed evaluation
+  Scenario: Resolves boolean details
+    When a boolean flag with key 'boolean-flag' is evaluated with details and default value 'false'
+    Then the resolved boolean details value should be 'true', the variant should be 'on', and the reason should be 'DEFAULT'
+
+  Scenario: Resolves string details
+    When a string flag with key 'string-flag' is evaluated with details and default value 'bye'
+    Then the resolved string details value should be 'hi', the variant should be 'greeting', and the reason should be 'DEFAULT'
+
+  Scenario: Resolves integer details
+    When an integer flag with key 'integer-flag' is evaluated with details and default value 1
+    Then the resolved integer details value should be 10, the variant should be 'ten', and the reason should be 'DEFAULT'
+
+  Scenario: Resolves float details
+    When a float flag with key 'float-flag' is evaluated with details and default value 0.1
+    Then the resolved float details value should be 0.5, the variant should be 'half', and the reason should be 'DEFAULT'
+
+  Scenario: Resolves object details
+    When an object flag with key 'object-flag' is evaluated with details and a null default value
+    Then the resolved object details value should be contain fields 'showImages', 'title', and 'imagesPerPage', with values 'true', 'Check out these pics!' and 100, respectively
+    And the variant should be 'template', and the reason should be 'DEFAULT'
+
+  # context-aware evaluation
+  Scenario: Resolves based on context
+    When context contains keys 'fn', 'ln', 'age', 'customer' with values 'Sulisław', 'Świętopełk', 29, 'false'
+    And a flag with key 'context-aware' is evaluated with default value 'EXTERNAL'
+    Then the resolved string response should be 'INTERNAL'
+    And the resolved flag value is 'EXTERNAL' when the context is empty
+
+  # errors
+  Scenario: Flag not found
+    When a non-existent string flag with key 'missing-flag' is evaluated with details and a default value 'uh-oh'
+    Then then the default string value should be returned
+    And the reason should indicate an error and the error code should be FLAG_NOT_FOUND
+
+  Scenario: Type error
+    When a string flag with key 'wrong-flag' is evaluated as an integer, with details and a default value 13
+    Then then the default integer value should be returned
+    And the reason should indicate an error and the error code should be TYPE_MISMATCH
