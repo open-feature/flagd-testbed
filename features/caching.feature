@@ -1,5 +1,7 @@
 Feature: Flag caching
 
+# This test suite contains scenarios relating to caching, particularly when an SDK is configured to use a flagd provider. Not all providers may observe these caching semantics.
+
   Background:
     Given an openfeature client is registered with cache enabled
 
