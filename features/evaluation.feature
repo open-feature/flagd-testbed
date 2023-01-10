@@ -1,5 +1,11 @@
 Feature: Flag evaluation
 
+# This test suite contains scenarios to test the flag evaluation API.
+
+
+  Background:
+    Given an openfeature client is registered with cache disabled
+
   # basic evaluation
   Scenario: Resolves boolean value
     When a boolean flag with key "boolean-flag" is evaluated with default value "false"
@@ -16,7 +22,7 @@ Feature: Flag evaluation
   Scenario: Resolves float value
     When a float flag with key "float-flag" is evaluated with default value 0.1
     Then the resolved float value should be 0.5
-  
+
   Scenario: Resolves object value
     When an object flag with key "object-flag" is evaluated with a null default value
     Then the resolved object value should be contain fields "showImages", "title", and "imagesPerPage", with values "true", "Check out these pics!" and 100, respectively
@@ -24,24 +30,24 @@ Feature: Flag evaluation
   # detailed evaluation
   Scenario: Resolves boolean details
     When a boolean flag with key "boolean-flag" is evaluated with details and default value "false"
-    Then the resolved boolean details value should be "true", the variant should be "on", and the reason should be "DEFAULT"
+    Then the resolved boolean details value should be "true", the variant should be "on", and the reason should be "STATIC"
 
   Scenario: Resolves string details
     When a string flag with key "string-flag" is evaluated with details and default value "bye"
-    Then the resolved string details value should be "hi", the variant should be "greeting", and the reason should be "DEFAULT"
+    Then the resolved string details value should be "hi", the variant should be "greeting", and the reason should be "STATIC"
 
   Scenario: Resolves integer details
     When an integer flag with key "integer-flag" is evaluated with details and default value 1
-    Then the resolved integer details value should be 10, the variant should be "ten", and the reason should be "DEFAULT"
+    Then the resolved integer details value should be 10, the variant should be "ten", and the reason should be "STATIC"
 
   Scenario: Resolves float details
     When a float flag with key "float-flag" is evaluated with details and default value 0.1
-    Then the resolved float details value should be 0.5, the variant should be "half", and the reason should be "DEFAULT"
+    Then the resolved float details value should be 0.5, the variant should be "half", and the reason should be "STATIC"
 
   Scenario: Resolves object details
     When an object flag with key "object-flag" is evaluated with details and a null default value
     Then the resolved object details value should be contain fields "showImages", "title", and "imagesPerPage", with values "true", "Check out these pics!" and 100, respectively
-    And the variant should be "template", and the reason should be "DEFAULT"
+    And the variant should be "template", and the reason should be "STATIC"
 
   # context-aware evaluation
   Scenario: Resolves based on context
