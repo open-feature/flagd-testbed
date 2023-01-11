@@ -1,0 +1,59 @@
+name: Run Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: flagd-testbed
+
+jobs:
+  release-please:
+    permissions:
+      contents: write # for google-github-actions/release-please-action to create release commit
+      pull-requests: write # for google-github-actions/release-please-action to create release PR
+    runs-on: ubuntu-latest
+
+    # Release-please creates a PR that tracks all changes
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          command: manifest
+          token: ${{secrets.GITHUB_TOKEN}}
+          default-branch: main
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      release_tag_name: ${{ steps.release.outputs.tag_name }}
+
+  push-module:
+    needs: release-please
+    name: push schema to buf registry
+    permissions:
+      packages: write
+    runs-on: ubuntu-latest
+    if: ${{ needs.release-please.outputs.release_created }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ needs.release-please.outputs.release_tag_name }}
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/open-feature/${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.IMAGE_NAME }}:latest
