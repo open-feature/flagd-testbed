@@ -1,4 +1,4 @@
-name: build
+name: ci
 
 on:
   pull_request:
@@ -19,6 +19,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: gherkin-lint
+        uses: nhatthm/gherkin-lint-action@v1
+        with:
+          feature_files: features/*
 
       - name: Build Docker image
         uses: docker/build-push-action@v2

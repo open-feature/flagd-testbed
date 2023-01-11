@@ -9,3 +9,10 @@ The _flagd-testbed_ container is a docker image built on flagd, which essentiall
 ## Gherkin test suite
 
 The test suite is a set of [_gherkin_](https://cucumber.io/docs/gherkin/) tests that define expected behavior associated with the flags defined in the flagd-testbed. Combined with the _flagd-provider_ for that SDK and the flagd-testbed, these comprise a complete integration tests suite.
+
+### Lint Gherkin files
+
+The Gherkin files structure can be linted using [gherkin-lint](https://github.com/vsiakka/gherkin-lint). The following commands require Node.js 10 or later.
+
+1. npm install
+1. npm run gherkin-lint
