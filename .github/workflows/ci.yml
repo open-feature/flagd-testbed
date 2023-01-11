@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: gherkin-lint
-        uses: nhatthm/gherkin-lint-action@v1
+        uses: nhatthm/gherkin-lint-action@v1.0.0
         with:
           feature_files: features/*
 
