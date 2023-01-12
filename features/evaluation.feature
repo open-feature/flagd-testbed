@@ -3,7 +3,7 @@ Feature: Flag evaluation
 # This test suite contains scenarios to test the flag evaluation API.
 
   Background:
-    Given an openfeature client is registered with cache disabled
+    Given a provider is registered with cache disabled
 
   # basic evaluation
   Scenario: Resolves boolean value
