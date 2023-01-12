@@ -1,4 +1,4 @@
-name: build
+name: ci
 
 on:
   pull_request:
@@ -9,15 +9,25 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build and push Docker image
+      - name: Node
+        uses: actions/setup-node@v3
+      - run: npm ci
+
+      - name: Lint Gherkin
+        run: npm run gherkin-lint
+
+      - name: Build Docker image
         uses: docker/build-push-action@v2
         with:
           push: false
