@@ -4,7 +4,7 @@ Feature: Flag evaluation
 
 
   Background:
-    Given an openfeature client is registered with cache disabled
+    Given a provider is registered with cache disabled
 
   # basic evaluation
   Scenario: Resolves boolean value
