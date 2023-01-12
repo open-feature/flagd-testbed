@@ -55,5 +55,5 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ env.REGISTRY }}/open-feature/${{ env.IMAGE_NAME }}:${{ steps.release.outputs.tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.IMAGE_NAME }}:latest
