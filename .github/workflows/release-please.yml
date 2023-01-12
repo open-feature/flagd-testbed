@@ -31,9 +31,9 @@ jobs:
       release_created: ${{ steps.release.outputs.release_created }}
       release_tag_name: ${{ steps.release.outputs.tag_name }}
 
-  push-module:
+  build-push:
     needs: release-please
-    name: push schema to buf registry
+    name: build and push image to the github registery
     permissions:
       packages: write
     runs-on: ubuntu-latest
