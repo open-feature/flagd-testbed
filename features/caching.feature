@@ -74,7 +74,7 @@ Feature: Flag caching
 
   Scenario: Invalidates cache on object flag configuration update
     Given an object flag with key "object-flag" is evaluated with details and a null default value
-    Given an object flag with key "object-flag-copy" is evaluated with details and a null default value
+    And an object flag with key "object-flag-copy" is evaluated with details and a null default value
     When the flag's configuration with key "object-flag" is updated to defaultVariant "empty"
     And sleep for 50 milliseconds
     And an object flag with key "object-flag" is evaluated with details and a null default value
