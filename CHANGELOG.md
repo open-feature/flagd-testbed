@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/open-feature/test-harness/compare/v0.2.1...v0.2.2) (2023-01-26)
+
+
+### Bug Fixes
+
+* change second Given to And ([#28](https://github.com/open-feature/test-harness/issues/28)) ([13d5bd5](https://github.com/open-feature/test-harness/commit/13d5bd50a542c7cc1c297d022438af4c47e19b58))
+
 ## [0.2.1](https://github.com/open-feature/test-harness/compare/v0.2.0...v0.2.1) (2023-01-12)
 
 
