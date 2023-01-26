@@ -1,4 +1,4 @@
-FROM ghcr.io/open-feature/flagd:v0.3.1
+FROM ghcr.io/open-feature/flagd:v0.3.2
 
 COPY testing-flags.json testing-flags.json
 LABEL org.opencontainers.image.source = "https://github.com/open-feature/test-harness"
