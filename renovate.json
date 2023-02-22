@@ -3,6 +3,7 @@
   "extends": [
     "config:base"
   ],
+  "semanticCommitType": "feat",
   "regexManagers": [
     {
       "fileMatch": ["^Dockerfile$"],
