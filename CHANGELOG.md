@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/open-feature/test-harness/compare/v0.2.3...v0.2.4) (2023-02-24)
+
+
+### Features
+
+* increase sleep in caching tests from 50ms to 100ms ([#40](https://github.com/open-feature/test-harness/issues/40)) ([5baf0cc](https://github.com/open-feature/test-harness/commit/5baf0cc4b768652da77431cb38def588ba70a0fd))
+
 ## [0.2.3](https://github.com/open-feature/test-harness/compare/v0.2.2...v0.2.3) (2023-02-24)
 
 
