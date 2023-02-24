@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.3](https://github.com/open-feature/test-harness/compare/v0.2.2...v0.2.3) (2023-02-24)
+
+
+### Features
+
+* semanticCommitType set to feat to create releases from flagd upgrades ([#37](https://github.com/open-feature/test-harness/issues/37)) ([84f821c](https://github.com/open-feature/test-harness/commit/84f821ca5f575d3c501a40b4efbf0918b3d34196))
+* symlink to testing-flags.json ([#39](https://github.com/open-feature/test-harness/issues/39)) ([147487e](https://github.com/open-feature/test-harness/commit/147487e69d19ef8098942d14ddbf860a2587d366))
+
 ## [0.2.2](https://github.com/open-feature/test-harness/compare/v0.2.1...v0.2.2) (2023-01-26)
 
 
