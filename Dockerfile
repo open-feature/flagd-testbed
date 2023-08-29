@@ -1,6 +1,10 @@
-FROM ghcr.io/open-feature/flagd:v0.5.2
+FROM ghcr.io/open-feature/flagd:v0.6.3 as flagd
 
-COPY testing-flags.json testing-flags.json
+FROM busybox:1.36
+
+COPY --from=flagd /flagd-build /flagd
+COPY flags/* .
+COPY wrapper.sh .
 LABEL org.opencontainers.image.source = "https://github.com/open-feature/test-harness"
 
-ENTRYPOINT ["/flagd", "start", "-f", "file:testing-flags.json"]
+ENTRYPOINT ["sh", "wrapper.sh"]
