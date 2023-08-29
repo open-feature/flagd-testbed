@@ -13,7 +13,7 @@ handle_int() {
 trap handle_term SIGTERM
 trap handle_int SIGINT
 
-# start change scriptm and flagd
+# start change script and flagd
 sh ./change-flag.sh &
 ./flagd start -f 'file:testing-flags.json' -f 'file:changing-flag.json' &
 
