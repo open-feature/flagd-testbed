@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"time"
 
 	"github.com/fsnotify/fsnotify"
 	"golang.org/x/exp/maps"
@@ -126,6 +127,13 @@ func (s *SyncImpl) readFlags() ([]byte, error) {
 
 	for _, path := range s.filePaths {
 		bytes, err := os.ReadFile(path)
+		if len(bytes) == 0 {
+			// this is a fitly hack
+			// file writes are NOT atomic and often when they are changed they have transitional empty states
+			// this "re-reads" the file in these cases 10ms later
+			time.Sleep(10 * time.Millisecond)
+			bytes, err = os.ReadFile(path)
+		}
 		if err != nil {
 			return nil, err
 		}
