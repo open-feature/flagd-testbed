@@ -111,6 +111,7 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 				}
 				err = stream.Send(&v1.SyncFlagsResponse{
 					FlagConfiguration: string(marshalled),
+					State:             v1.SyncState_SYNC_STATE_ALL,
 				})
 				if err != nil {
 					log.Println("error sending stream:", err)
