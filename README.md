@@ -19,10 +19,10 @@ Test this from the command line with [grpcurl](https://github.com/fullstorydev/g
 
 ```shell
 # request all flags
-grpcurl -import-path '/path/to/proto/dir'  -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/FetchAllFlag
+grpcurl -import-path '/path/to/proto/dir' -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/FetchAllFlags
 ```
 
 ```shell
 # open a stream for getting flag changes
-grpcurl -import-path '/path/to/proto/dir'  -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/SyncFlags
+grpcurl -import-path '/path/to/proto/dir' -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/SyncFlags
 ```
