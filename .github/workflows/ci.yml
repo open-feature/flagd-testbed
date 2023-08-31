@@ -30,11 +30,13 @@ jobs:
       - name: Lint Gherkin
         run: npm run gherkin-lint
 
-      - name: Build sync binary
+      - name: Setup go
         uses: actions/setup-go@93397bea11091df50f3d7e59dc26a7711a8bcfbe # v4
         with:
           go-version: ${{ env.GO_VERSION }}
-        - run: make build-sync
+
+      - name: Build sync binary
+        run: make build-sync
 
       - name: Build flagd-testbed Docker image
         uses: docker/build-push-action@v4
