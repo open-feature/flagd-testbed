@@ -15,14 +15,4 @@ See the [flagd docs](https://flagd.dev/) for more information on flagd.
 The _sync_-testbed_ container is a docker image built on conforming to the sync.proto - a grpc which flagd or flagd in-process providers can use as a sync-source.
 It features an identical set of flags to the [flagd-testbed container](#flagd-testbed-container)
 
-Test this from the command line with [grpcurl](https://github.com/fullstorydev/grpcurl) (requires you have a copy of [sync.proto](https://raw.githubusercontent.com/open-feature/schemas/main/protobuf/sync/v1/sync_service.proto) at `/path/to/proto/dir/`):
-
-```shell
-# request all flags
-grpcurl -import-path '/path/to/proto/dir' -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/FetchAllFlags
-```
-
-```shell
-# open a stream for getting flag changes
-grpcurl -import-path '/path/to/proto/dir' -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/SyncFlags
-```
+For details on the sync-testbed, see [sync/README.me](sync/README.md)

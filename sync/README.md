@@ -6,14 +6,16 @@ This implementation confirms to gPRC sync definition of flagd - https://buf.buil
 
 ### How to run ?
 
+#### go run / binary
+
 ```shell
-go run main.go
+go run main.go start -f your-flags.json
 ```
 
-and then, start flagd in local mode (for example with source),
+and then, start flagd in local mode (for example with source):
 
 ```shell
-go run main.go start --uri grpc://127.0.0.1:8080 --debug
+go run main.go start -f your-flags.json --uri grpc://127.0.0.1:8080 --debug
 ```
 
 #### Options
@@ -21,10 +23,12 @@ go run main.go start --uri grpc://127.0.0.1:8080 --debug
 Following options are available to the start command,
 
 ```text
+  -f string
+       file to watch (can be specified more than once)
   -certPath string
         certificate path for tls connection
   -h string
-        hostDefault of the server (default "localhost")
+        hostDefault of the server (default "0.0.0.0")
   -keyPath string
         certificate key for tls connection
   -p string
@@ -40,7 +44,19 @@ go run main.go -s=true -certPath=server.crt -keyPath=server.key
 
 Then start your flagd with gRPC TLS sync.
 
----
+### Running RPCs from the command line
+
+Test the sync from the command line with [grpcurl](https://github.com/fullstorydev/grpcurl) (requires you have a copy of [sync.proto](https://raw.githubusercontent.com/open-feature/schemas/main/protobuf/sync/v1/sync_service.proto) at `/path/to/proto/dir/`):
+
+```shell
+# request all flags
+grpcurl -import-path '/path/to/proto/dir' -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/FetchAllFlags
+```
+
+```shell
+# open a stream for getting flag changes
+grpcurl -import-path '/path/to/proto/dir' -proto sync.proto -plaintext localhost:9090 sync.v1.FlagSyncService/SyncFlags
+```
 
 ### Generate certificates ? 
 
