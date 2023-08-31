@@ -1,4 +1,4 @@
-package Core
+package sync
 
 import (
 	"context"
@@ -97,6 +97,18 @@ func NewSyncImpl(filePaths []string) (SyncImpl, error) {
 func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyncService_SyncFlagsServer) error {
 	log.Printf("Requesting flags for provider : %s", req.ProviderId)
 
+	marshalled, err := s.readFlags()
+	if err != nil {
+		log.Println("error reading flags:", err)
+	}
+	err = stream.Send(&v1.SyncFlagsResponse{
+		FlagConfiguration: string(marshalled),
+		State:             v1.SyncState_SYNC_STATE_ALL,
+	})
+	if err != nil {
+		log.Println("error sending initial stream:", err)
+	}
+
 	// Start listening for events.
 	for {
 		select {
@@ -128,10 +140,10 @@ func (s *SyncImpl) readFlags() ([]byte, error) {
 
 	for _, path := range s.filePaths {
 		bytes, err := os.ReadFile(path)
-		if len(bytes) == 0 {
+		for len(bytes) == 0 {
 			// this is a fitly hack
-			// file writes are NOT atomic and often when they are changed they have transitional empty states
-			// this "re-reads" the file in these cases 10ms later
+			// file writes are NOT atomic and often when they are occur they have transitional empty states
+			// this "re-reads" the file in these cases a bit later
 			time.Sleep(10 * time.Millisecond)
 			bytes, err = os.ReadFile(path)
 		}

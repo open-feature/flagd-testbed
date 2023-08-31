@@ -15,7 +15,7 @@ trap handle_int SIGINT
 
 # start change script and flagd
 sh ./change-flag.sh &
-./flagd start -f 'file:testing-flags.json' -f 'file:changing-flag.json' &
+"$@" &
 
 # wait on flagd
 child=$! 

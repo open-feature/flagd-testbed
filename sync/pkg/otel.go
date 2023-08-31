@@ -1,7 +1,9 @@
-package Core
+package sync
 
 import (
 	"context"
+	"log"
+
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -9,7 +11,6 @@ import (
 	"go.opentelemetry.io/otel/sdk/resource"
 	"go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.18.0"
-	"log"
 )
 
 const exporterAddress = "localhost:4317"
