@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/open-feature/test-harness/compare/v0.2.6...v0.3.0) (2023-09-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove gherkin, add events support ([#51](https://github.com/open-feature/test-harness/issues/51))
+
+### Features
+
+* dummy sync server ([#53](https://github.com/open-feature/test-harness/issues/53)) ([649c770](https://github.com/open-feature/test-harness/commit/649c77050b80bb1fd414a51077a1cbc423d1cfe3))
+* remove gherkin, add events support ([#51](https://github.com/open-feature/test-harness/issues/51)) ([335f89e](https://github.com/open-feature/test-harness/commit/335f89e6181303a7d26fdbf9c366aea850348abf))
+
 ## [0.2.6](https://github.com/open-feature/test-harness/compare/v0.2.5...v0.2.6) (2023-02-24)
 
 
