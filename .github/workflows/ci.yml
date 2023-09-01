@@ -12,6 +12,9 @@ on:
 permissions:
   contents: read
 
+env:
+  GO_VERSION: 1.19.3
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,7 +30,16 @@ jobs:
       - name: Lint Gherkin
         run: npm run gherkin-lint
 
-      - name: Build Docker image
+      - name: Build flagd-testbed Docker image
         uses: docker/build-push-action@v4
         with:
+          context: .
+          file: flagd/Dockerfile
+          push: false
+
+      - name: Build sync-testbed Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: sync/Dockerfile
           push: false

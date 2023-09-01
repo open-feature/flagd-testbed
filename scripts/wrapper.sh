@@ -1,5 +1,5 @@
 #!/bin/sh
-# wrapper script to start change-flag.sh and flagd, and forward signals to the child process
+# wrapper script to start change-flag.sh and flagd/sync, and forward signals to the child process
 
 # handle SIGINTs and SIGTERMs so we can kill the container
 handle_term() { 
@@ -13,10 +13,10 @@ handle_int() {
 trap handle_term SIGTERM
 trap handle_int SIGINT
 
-# start change script and flagd
+# start change script and our server
 sh ./change-flag.sh &
-./flagd start -f 'file:testing-flags.json' -f 'file:changing-flag.json' &
+"$@" &
 
-# wait on flagd
+# wait on server
 child=$! 
 wait "$child"

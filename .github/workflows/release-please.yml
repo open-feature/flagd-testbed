@@ -10,7 +10,9 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: flagd-testbed
+  FLAGD_IMAGE_NAME: flagd-testbed
+  SYNC_IMAGE_NAME: sync-testbed
+  GO_VERSION: 1.19.3
 
 jobs:
   release-please:
@@ -50,10 +52,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push flagd-testbed Docker image
         uses: docker/build-push-action@v4
         with:
+          context: .
+          file: flagd/Dockerfile
           push: true
           tags: |
-            ${{ env.REGISTRY }}/open-feature/${{ env.IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
-            ${{ env.REGISTRY }}/open-feature/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:latest
+
+      - name: Build and push sync-testbed Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: sync/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest
