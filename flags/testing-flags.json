@@ -8,23 +8,7 @@
       },
       "defaultVariant": "on"
     },
-    "boolean-flag-copy": {
-      "state": "ENABLED",
-      "variants": {
-        "on": true,
-        "off": false
-      },
-      "defaultVariant": "on"
-    },
     "string-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "greeting": "hi",
-        "parting": "bye"
-      },
-      "defaultVariant": "greeting"
-    },
-    "string-flag-copy": {
       "state": "ENABLED",
       "variants": {
         "greeting": "hi",
@@ -40,14 +24,6 @@
       },
       "defaultVariant": "ten"
     },
-    "integer-flag-copy": {
-      "state": "ENABLED",
-      "variants": {
-        "one": 1,
-        "ten": 10
-      },
-      "defaultVariant": "ten"
-    },
     "float-flag": {
       "state": "ENABLED",
       "variants": {
@@ -56,27 +32,7 @@
       },
       "defaultVariant": "half"
     },
-    "float-flag-copy": {
-      "state": "ENABLED",
-      "variants": {
-        "tenth": 0.1,
-        "half": 0.5
-      },
-      "defaultVariant": "half"
-    },
     "object-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "empty": {},
-        "template": {
-          "showImages": true,
-          "title": "Check out these pics!",
-          "imagesPerPage": 100
-        }
-      },
-      "defaultVariant": "template"
-    },
-    "object-flag-copy": {
       "state": "ENABLED",
       "variants": {
         "empty": {},

@@ -16,3 +16,19 @@ The _sync_-testbed_ container is a docker image built on conforming to the sync.
 It features an identical set of flags to the [flagd-testbed container](#flagd-testbed-container)
 
 For details on the sync-testbed, see [sync/README.me](sync/README.md)
+
+## Gherkin test suite
+
+The [gherkin/](gherkin/) dir includes a set of [_gherkin_](https://cucumber.io/docs/gherkin/) tests that define expected behavior associated with the configurations defined in the flagd-testbed (see [flags/](flags/)).
+Combined with the _flagd-provider_ for the associated SDK and the flagd-testbed, these comprise a complete integration test suite.
+They include tests for:
+* default value (zero-value) handling (some proto3 implementations handle these inconsistently).
+* basic event handling
+* custom JSONLogic operators (`starts_with`, `ends_with`, `fractional`, `sem_ver`)
+
+### Lint Gherkin files
+
+The Gherkin files structure can be linted using [gherkin-lint](https://github.com/vsiakka/gherkin-lint). The following commands require Node.js 10 or later.
+
+1. npm install
+1. npm run gherkin-lint

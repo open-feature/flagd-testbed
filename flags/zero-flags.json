@@ -1,0 +1,36 @@
+{
+  "flags": {
+    "boolean-zero-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "zero": false,
+        "non-zero": true
+      },
+      "defaultVariant": "zero"
+    },
+    "string-zero-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "zero": "",
+        "non-zero": "str"
+      },
+      "defaultVariant": "zero"
+    },
+    "integer-zero-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "zero": 0,
+        "non-zero": 1
+      },
+      "defaultVariant": "zero"
+    },
+    "float-zero-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "zero": 0.0,
+        "non-zero": 1.0
+      },
+      "defaultVariant": "zero"
+    }
+  }
+}
