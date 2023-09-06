@@ -6,7 +6,7 @@ FROM busybox:1.36
 COPY --from=flagd /flagd-build /flagd
 COPY flags/* .
 COPY scripts/* .
-LABEL org.opencontainers.image.source = "https://github.com/open-feature/test-harness"
+LABEL org.opencontainers.image.source = "https://github.com/open-feature/flagd-testbed"
 
 ENTRYPOINT ["sh", "wrapper.sh", "./flagd", "start", \
     "-f", "file:testing-flags.json", \
