@@ -21,10 +21,17 @@ For details on the sync-testbed, see [sync/README.me](sync/README.md)
 
 The [gherkin/](gherkin/) dir includes a set of [_gherkin_](https://cucumber.io/docs/gherkin/) tests that define expected behavior associated with the configurations defined in the flagd-testbed (see [flags/](flags/)).
 Combined with the _flagd-provider_ for the associated SDK and the flagd-testbed, these comprise a complete integration test suite.
-They include tests for:
+
+Included suites:
+
+[flagd.feature](gherkin/flagd.feature) includes tests relevant to flagd and all flagd providers:
 * default value (zero-value) handling (some proto3 implementations handle these inconsistently).
 * basic event handling
+
+[flagd-json-evaluator.feature](gherkin/flagd-json-evaluator.feature) includes tests relevant to flagd and in-process providers:
 * custom JSONLogic operators (`starts_with`, `ends_with`, `fractional`, `sem_ver`)
+* evaluator reuse via `$ref`
+
 
 ### Lint Gherkin files
 
