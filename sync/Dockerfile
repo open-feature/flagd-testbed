@@ -17,4 +17,5 @@ ENTRYPOINT ["sh", "wrapper.sh", "./sync", "start", \
     "-f", "testing-flags.json", \
     "-f", "changing-flag.json", \
     "-f", "custom-ops.json", \
+    "-f", "evaluator-refs.json", \
     "-f", "zero-flags.json"]

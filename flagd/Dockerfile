@@ -12,4 +12,5 @@ ENTRYPOINT ["sh", "wrapper.sh", "./flagd", "start", \
     "-f", "file:testing-flags.json", \
     "-f", "file:changing-flag.json", \
     "-f", "file:custom-ops.json", \
+    "-f", "file:evaluator-refs.json", \
     "-f", "file:zero-flags.json"]
