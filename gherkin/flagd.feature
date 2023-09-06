@@ -34,4 +34,3 @@ Feature: flagd providers
   Scenario: Resolves float zero value
     When a float flag with key "float-zero-flag" is evaluated with default value 0.1
     Then the resolved float value should be 0.0
-    
