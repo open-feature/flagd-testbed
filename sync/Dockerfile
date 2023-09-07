@@ -11,6 +11,11 @@ FROM busybox:1.36
 COPY --from=builder /src/sync .
 COPY flags/* .
 COPY scripts/* .
-LABEL org.opencontainers.image.source = "https://github.com/open-feature/test-harness"
+LABEL org.opencontainers.image.source = "https://github.com/open-feature/flagd-testbed"
 
-ENTRYPOINT ["sh", "wrapper.sh", "./sync", "start", "-f", "testing-flags.json", "-f", "changing-flag.json"]
+ENTRYPOINT ["sh", "wrapper.sh", "./sync", "start", \
+    "-f", "testing-flags.json", \
+    "-f", "changing-flag.json", \
+    "-f", "custom-ops.json", \
+    "-f", "evaluator-refs.json", \
+    "-f", "zero-flags.json"]
