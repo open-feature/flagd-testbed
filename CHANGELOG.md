@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/open-feature/flagd-testbed/compare/v0.3.0...v0.3.1) (2023-09-07)
+
+
+### Features
+
+* flagd gherkin suite and flags ([#54](https://github.com/open-feature/flagd-testbed/issues/54)) ([81cb78b](https://github.com/open-feature/flagd-testbed/commit/81cb78ba051da86add66ca385fa7c540f340e117))
+
 ## [0.3.0](https://github.com/open-feature/test-harness/compare/v0.2.6...v0.3.0) (2023-09-01)
 
 
