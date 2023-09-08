@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/open-feature/flagd-testbed/compare/v0.3.1...v0.3.2) (2023-09-08)
+
+
+### Bug Fixes
+
+* various gherkin fixes ([#59](https://github.com/open-feature/flagd-testbed/issues/59)) ([4b1ed83](https://github.com/open-feature/flagd-testbed/commit/4b1ed83d6251a6feae5cb10d7cd5e1f5b96c00d3))
+
 ## [0.3.1](https://github.com/open-feature/flagd-testbed/compare/v0.3.0...v0.3.1) (2023-09-07)
 
 
