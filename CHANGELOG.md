@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.0](https://github.com/open-feature/flagd-testbed/compare/v0.3.2...v0.4.0) (2023-09-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* update fractional test data for 32bit murmur3 ([#65](https://github.com/open-feature/flagd-testbed/issues/65))
+
+### Bug Fixes
+
+* update fractional test data for 32bit murmur3 ([#65](https://github.com/open-feature/flagd-testbed/issues/65)) ([bbba763](https://github.com/open-feature/flagd-testbed/commit/bbba7635f5921e98474ff6a3551ed20ca5d02d8c))
+
 ## [0.3.2](https://github.com/open-feature/flagd-testbed/compare/v0.3.1...v0.3.2) (2023-09-08)
 
 
