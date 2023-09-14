@@ -24,10 +24,10 @@ Feature: flagd json evaluation
     Then the returned value should be <value>
     Examples:
       | name    | value      |
-      | "jack"  | "clubs"    |
-      | "queen" | "diamonds" |
-      | "ace"   | "hearts"   |
-      | "joker" | "spades"   |
+      | "jack"  | "spades"   |
+      | "queen" | "clubs"    |
+      | "ten"   | "diamonds" |
+      | "nine"  | "hearts"   |
 
   Scenario Outline: Substring operators
     When a string flag with key "starts-ends-flag" is evaluated with default value "fallback"
