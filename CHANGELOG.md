@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/open-feature/flagd-testbed/compare/v0.4.0...v0.4.1) (2023-09-18)
+
+
+### Bug Fixes
+
+* update to flagd 0.6.6 ([7e92313](https://github.com/open-feature/flagd-testbed/commit/7e92313ff3255a0248ab23e8b1b47d9d5c5e0915))
+
 ## [0.4.0](https://github.com/open-feature/flagd-testbed/compare/v0.3.2...v0.4.0) (2023-09-14)
 
 
