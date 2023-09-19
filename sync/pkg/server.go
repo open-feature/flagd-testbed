@@ -137,6 +137,7 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 
 func (s *SyncImpl) readFlags() ([]byte, error) {
 	flags := make(map[string]any)
+	evaluators := make(map[string]any)
 
 	for _, path := range s.filePaths {
 		bytes, err := os.ReadFile(path)
@@ -153,10 +154,12 @@ func (s *SyncImpl) readFlags() ([]byte, error) {
 		parsed := make(map[string]map[string]any)
 		json.Unmarshal(bytes, &parsed)
 		maps.Copy(flags, parsed["flags"])
+		maps.Copy(evaluators, parsed["$evaluators"])
 	}
 
 	payload := make(map[string]any)
 	payload["flags"] = flags
+	payload["$evaluators"] = evaluators
 	marshalled, err := json.Marshal(payload)
 	if err != nil {
 		return nil, err
