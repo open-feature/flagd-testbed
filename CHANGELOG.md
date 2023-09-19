@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/open-feature/flagd-testbed/compare/v0.4.1...v0.4.2) (2023-09-19)
+
+
+### Features
+
+* add evaluator support in sync ([#68](https://github.com/open-feature/flagd-testbed/issues/68)) ([9c6fed0](https://github.com/open-feature/flagd-testbed/commit/9c6fed06cc5bd7803ae69ec0f0bfb6fc9c0b18e4))
+
 ## [0.4.1](https://github.com/open-feature/flagd-testbed/compare/v0.4.0...v0.4.1) (2023-09-18)
 
 
