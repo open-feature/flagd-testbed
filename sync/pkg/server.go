@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"net"
@@ -15,7 +16,6 @@ import (
 
 	"buf.build/gen/go/open-feature/flagd/grpc/go/sync/v1/syncv1grpc"
 	v1 "buf.build/gen/go/open-feature/flagd/protocolbuffers/go/sync/v1"
-	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -25,12 +25,6 @@ type Server struct {
 }
 
 func (s *Server) Start() {
-	err := SetupTraceProvider()
-	if err != nil {
-		log.Printf("Error setting up telemetry : %s\n", err.Error())
-		return
-	}
-
 	listen, err := net.Listen("tcp", s.Config.Host+":"+s.Config.Port)
 	if err != nil {
 		log.Printf("Error when listening to address : %s\n", err.Error())
@@ -42,8 +36,6 @@ func (s *Server) Start() {
 		log.Printf("Error building gRPC options : %s\n", err.Error())
 		return
 	}
-
-	options = append(options, grpc.StreamInterceptor(otelgrpc.StreamServerInterceptor()))
 
 	server := grpc.NewServer(options...)
 	sync, err := NewSyncImpl(s.Config.Files.Array)
@@ -114,7 +106,9 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 		select {
 		case event, ok := <-s.watcher.Events:
 			if !ok {
-				log.Println("unable to process file event")
+				message := "unable to process file event"
+				log.Println(message)
+				return errors.New(message)
 			}
 			if event.Has(fsnotify.Write) {
 				marshalled, err := s.readFlags()
@@ -126,7 +120,10 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 					State:             v1.SyncState_SYNC_STATE_ALL,
 				})
 				if err != nil {
-					log.Println("error sending stream:", err)
+					// this is probably a close
+					message := fmt.Sprintf("error sending stream, likely closed: %v", err)
+					log.Println(message)
+					return nil
 				}
 			}
 		case err, _ := <-s.watcher.Errors:
