@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/open-feature/flagd-testbed/compare/v0.4.2...v0.4.3) (2023-09-21)
+
+
+### Bug Fixes
+
+* remove otel, handle stream close ([#70](https://github.com/open-feature/flagd-testbed/issues/70)) ([30473e6](https://github.com/open-feature/flagd-testbed/commit/30473e6aba34d02162e803bea451efa1a360e95a))
+
 ## [0.4.2](https://github.com/open-feature/flagd-testbed/compare/v0.4.1...v0.4.2) (2023-09-19)
 
 
