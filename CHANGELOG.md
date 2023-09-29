@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/open-feature/flagd-testbed/compare/v0.4.3...v0.4.4) (2023-09-29)
+
+
+### Bug Fixes
+
+* zero value gherkin ([12a6651](https://github.com/open-feature/flagd-testbed/commit/12a665196fdaf3d010ddca0f56da1b410cf0e840))
+
 ## [0.4.3](https://github.com/open-feature/flagd-testbed/compare/v0.4.2...v0.4.3) (2023-09-21)
 
 
