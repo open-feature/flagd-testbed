@@ -1,5 +1,5 @@
 #!/bin/sh
-# wrapper script to start flagd/sync, and restart it every 5 seconds (to test reconnec functionality)
+# wrapper script to start flagd/sync, and restart it every 5 seconds (to test reconnect functionality)
 
 killed=0
 
