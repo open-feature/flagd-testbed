@@ -17,7 +17,7 @@ handle_int() {
 trap handle_term SIGTERM
 trap handle_int SIGINT
 
-while [ "$killed" -eq 0 ]; # stop looping if we were interupted
+while [ "$killed" -eq 0 ]; # stop looping if we were interrupted
 do
     # start change script and our server
     echo 'starting process...' 
