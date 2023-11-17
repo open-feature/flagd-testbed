@@ -62,6 +62,16 @@ jobs:
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:latest
 
+      - name: Build and push flagd-testbed-unstable Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: flagd/Dockerfile.unstable
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-unstable:${{ needs.release-please.outputs.release_tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-unstable:latest            
+
       - name: Build and push sync-testbed Docker image
         uses: docker/build-push-action@v4
         with:
@@ -71,3 +81,13 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest
+      
+      - name: Build and push sync-testbed-unstable Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: sync/Dockerfile.unstable
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}-unstable:${{ needs.release-please.outputs.release_tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}-unstable:latest
