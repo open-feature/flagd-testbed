@@ -31,28 +31,28 @@ jobs:
         run: npm run gherkin-lint
 
       - name: Build flagd-testbed Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: flagd/Dockerfile
           push: false
 
       - name: Build flagd-testbed-unstable Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: flagd/Dockerfile.unstable
           push: false
 
       - name: Build sync-testbed Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: sync/Dockerfile
           push: false
         
       - name: Build sync-testbed-unstable Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: sync/Dockerfile.unstable
