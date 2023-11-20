@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.6](https://github.com/open-feature/flagd-testbed/compare/v0.4.5...v0.4.6) (2023-11-20)
+
+
+### Bug Fixes
+
+* race condition if pid too long to kill ([#80](https://github.com/open-feature/flagd-testbed/issues/80)) ([4375630](https://github.com/open-feature/flagd-testbed/commit/4375630a08e62a0e68f77fce2ba162e288e6354b))
+
 ## [0.4.5](https://github.com/open-feature/flagd-testbed/compare/v0.4.4...v0.4.5) (2023-11-20)
 
 
