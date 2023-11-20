@@ -25,4 +25,7 @@ do
     child=$!
     sleep 5
     echo "killing pid $child..." && sleep 5 && kill -9 "$child"
+    while kill -0 "$child" 2> /dev/null; do # wait for child to exit (kill -0 is falsy if pid is gone)
+        sleep 1
+    done
 done
