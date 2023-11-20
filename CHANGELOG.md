@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.5](https://github.com/open-feature/flagd-testbed/compare/v0.4.4...v0.4.5) (2023-11-20)
+
+
+### Features
+
+* add unstable testbeds ([#77](https://github.com/open-feature/flagd-testbed/issues/77)) ([821c5de](https://github.com/open-feature/flagd-testbed/commit/821c5deb0938ed5bef53e046349a5806d53ee4a0))
+
 ## [0.4.4](https://github.com/open-feature/flagd-testbed/compare/v0.4.3...v0.4.4) (2023-09-29)
 
 
