@@ -28,6 +28,7 @@ Feature: flagd json evaluation
       | "queen" | "clubs"    |
       | "ten"   | "diamonds" |
       | "nine"  | "hearts"   |
+      | 3       | "wild"     |
 
   Scenario Outline: Substring operators
     When a string flag with key "starts-ends-flag" is evaluated with default value "fallback"
@@ -38,7 +39,8 @@ Feature: flagd json evaluation
       | "abcdef" | "prefix"  |
       | "uvwxyz" | "postfix" |
       | "abcxyz" | "prefix"  |
-      | "lmnopq" | "none" |
+      | "lmnopq" | "none"    |
+      | 3        | "none"    |
 
   Scenario Outline: Semantic version operator numeric comparision
     When a string flag with key "equal-greater-lesser-version-flag" is evaluated with default value "fallback"
@@ -50,7 +52,7 @@ Feature: flagd json evaluation
       | "2.1.0"       | "greater" |
       | "1.9.0"       | "lesser"  |
       | "2.0.0-alpha" | "lesser"  |
-      | "2.0.0.0"     | "none" |
+      | "2.0.0.0"     | "none"    |
 
   Scenario Outline: Semantic version operator semantic comparision
     When a string flag with key "major-minor-version-flag" is evaluated with default value "fallback"
@@ -61,3 +63,12 @@ Feature: flagd json evaluation
       | "3.0.1" | "minor" |
       | "3.1.0" | "major" |
       | "4.0.0" | "none"  |
+
+  Scenario Outline: Errors and edge cases
+    When an integer flag with key <key> is evaluated with default value 13
+    Then the returned value should be <value>
+    Examples:
+      | key                                 | value |
+      | "error-targeting-flag"              | 2     |
+      | "missing-variant-targeting-flag"    | 2     |
+      | "non-string-variant-targeting-flag" | 2     |
