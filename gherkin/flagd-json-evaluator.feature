@@ -65,10 +65,11 @@ Feature: flagd json evaluation
       | "4.0.0" | "none"  |
 
   Scenario Outline: Errors and edge cases
-    When an integer flag with key <key> is evaluated with default value 13
+    When an integer flag with key <key> is evaluated with default value 3
     Then the returned value should be <value>
     Examples:
       | key                                 | value |
-      | "error-targeting-flag"              | 2     |
-      | "missing-variant-targeting-flag"    | 2     |
+      | "targeting-null-variant-flag"       | 2     |
+      | "error-targeting-flag"              | 3     |
+      | "missing-variant-targeting-flag"    | 3     |
       | "non-string-variant-targeting-flag" | 2     |

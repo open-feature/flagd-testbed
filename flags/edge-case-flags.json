@@ -1,5 +1,16 @@
 {
   "flags": {
+    "targeting-null-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "one": 1,
+        "two": 2
+      },
+      "defaultVariant": "two",
+      "targeting": {
+        "if": [true, null, "one"]
+      }
+    },
     "error-targeting-flag": {
       "state": "ENABLED",
       "variants": {

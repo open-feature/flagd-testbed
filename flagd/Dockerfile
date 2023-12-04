@@ -13,5 +13,5 @@ ENTRYPOINT ["sh", "change-flag-wrapper.sh", "./flagd", "start", \
     "-f", "file:changing-flag.json", \
     "-f", "file:custom-ops.json", \
     "-f", "file:evaluator-refs.json", \
-    "-f", "file:error-flags.json", \
+    "-f", "file:edge-case-flags.json", \
     "-f", "file:zero-flags.json"]
