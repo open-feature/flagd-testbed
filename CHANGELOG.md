@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.8](https://github.com/open-feature/flagd-testbed/compare/v0.4.7...v0.4.8) (2023-12-05)
+
+
+### Features
+
+* add tests for config edge cases ([#85](https://github.com/open-feature/flagd-testbed/issues/85)) ([14eadc1](https://github.com/open-feature/flagd-testbed/commit/14eadc106a1ecdc2f381a5eee83b4f111cca3f3c))
+
 ## [0.4.7](https://github.com/open-feature/flagd-testbed/compare/v0.4.6...v0.4.7) (2023-11-27)
 
 
