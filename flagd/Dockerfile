@@ -1,5 +1,5 @@
 # we NEED flagd v0.6.4 as a minimum
-FROM ghcr.io/open-feature/flagd:v0.7.0 as flagd
+FROM ghcr.io/open-feature/flagd:v0.7.2 as flagd
 
 FROM busybox:1.36
 
@@ -13,4 +13,5 @@ ENTRYPOINT ["sh", "change-flag-wrapper.sh", "./flagd", "start", \
     "-f", "file:changing-flag.json", \
     "-f", "file:custom-ops.json", \
     "-f", "file:evaluator-refs.json", \
+    "-f", "file:edge-case-flags.json", \
     "-f", "file:zero-flags.json"]
