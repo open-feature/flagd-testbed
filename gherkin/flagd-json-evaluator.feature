@@ -64,6 +64,15 @@ Feature: flagd json evaluation
       | "3.1.0" | "major" |
       | "4.0.0" | "none"  |
 
+  Scenario Outline: Time-based operations
+    When an integer flag with key "timestamp-flag" is evaluated with default value 0
+    And a context containing a key "time", with value <time>
+    Then the returned value should be <value>
+    Examples:
+      | time       | value |
+      | 1          | -1    |
+      | 4133980802 | 1     |
+
   Scenario Outline: Errors and edge cases
     When an integer flag with key <key> is evaluated with default value 3
     Then the returned value should be <value>
