@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.9](https://github.com/open-feature/flagd-testbed/compare/v0.4.8...v0.4.9) (2023-12-15)
+
+
+### Features
+
+* add empty context test ([#88](https://github.com/open-feature/flagd-testbed/issues/88)) ([ca1d46c](https://github.com/open-feature/flagd-testbed/commit/ca1d46c9f569408d670a5ce4d349a13df5656b46))
+
 ## [0.4.8](https://github.com/open-feature/flagd-testbed/compare/v0.4.7...v0.4.8) (2023-12-05)
 
 
