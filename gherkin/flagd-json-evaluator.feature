@@ -2,7 +2,7 @@ Feature: flagd json evaluation
 
   # This test suite contains scenarios to test the json-evaluation of flagd and flag-in-process providers.
   # It's associated with the flags configured in flags/changing-flag.json, flags/zero-flags.json, flags/custom-ops.json and evaluator-refs.json.
-  # It should be used in conjunection with the suites supplied by the OpenFeature specification.
+  # It should be used in conjunction with the suites supplied by the OpenFeature specification.
 
   Background:
     Given a flagd provider is set
@@ -42,7 +42,7 @@ Feature: flagd json evaluation
       | "lmnopq" | "none"    |
       | 3        | "none"    |
 
-  Scenario Outline: Semantic version operator numeric comparision
+  Scenario Outline: Semantic version operator numeric comparison
     When a string flag with key "equal-greater-lesser-version-flag" is evaluated with default value "fallback"
     And a context containing a key "version", with value <version>
     Then the returned value should be <value>
@@ -54,7 +54,7 @@ Feature: flagd json evaluation
       | "2.0.0-alpha" | "lesser"  |
       | "2.0.0.0"     | "none"    |
 
-  Scenario Outline: Semantic version operator semantic comparision
+  Scenario Outline: Semantic version operator semantic comparison
     When a string flag with key "major-minor-version-flag" is evaluated with default value "fallback"
     And a context containing a key "version", with value <version>
     Then the returned value should be <value>
@@ -82,3 +82,4 @@ Feature: flagd json evaluation
       | "error-targeting-flag"              | 3     |
       | "missing-variant-targeting-flag"    | 3     |
       | "non-string-variant-targeting-flag" | 2     |
+      | "empty-targeting-flag"              | 1     |
