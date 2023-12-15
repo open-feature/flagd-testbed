@@ -82,3 +82,4 @@ Feature: flagd json evaluation
       | "error-targeting-flag"              | 3     |
       | "missing-variant-targeting-flag"    | 3     |
       | "non-string-variant-targeting-flag" | 2     |
+      | "empty-targeting-flag"              | 1     |
