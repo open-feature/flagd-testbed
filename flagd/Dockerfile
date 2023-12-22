@@ -1,5 +1,5 @@
 # we NEED flagd v0.6.4 as a minimum
-FROM ghcr.io/open-feature/flagd:v0.7.2 as flagd
+FROM ghcr.io/open-feature/flagd:v0.8.0 as flagd
 
 FROM busybox:1.36
 
