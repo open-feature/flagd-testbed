@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.10](https://github.com/open-feature/flagd-testbed/compare/v0.4.9...v0.4.10) (2023-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update golang.org/x/exp digest to dc181d7 ([#56](https://github.com/open-feature/flagd-testbed/issues/56)) ([bd04499](https://github.com/open-feature/flagd-testbed/commit/bd044994e61eef54b91dd0e6d6b67107aa2b233e))
+* **deps:** update module github.com/fsnotify/fsnotify to v1.7.0 ([#75](https://github.com/open-feature/flagd-testbed/issues/75)) ([d59613e](https://github.com/open-feature/flagd-testbed/commit/d59613e19543a991a6b504463be06d85036a575b))
+* **deps:** update module google.golang.org/grpc to v1.60.1 ([#57](https://github.com/open-feature/flagd-testbed/issues/57)) ([aef5f27](https://github.com/open-feature/flagd-testbed/commit/aef5f273bc759a5c4c087dda0490a52bbc4ddb4b))
+
 ## [0.4.9](https://github.com/open-feature/flagd-testbed/compare/v0.4.8...v0.4.9) (2023-12-15)
 
 
