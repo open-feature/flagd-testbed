@@ -2,7 +2,7 @@ Feature: flagd providers
 
   # This test suite contains scenarios to test flagd providers.
   # It's associated with the flags configured in flags/changing-flag.json and flags/zero-flags.json.
-  # It should be used in conjunection with the suites supplied by the OpenFeature specification.
+  # It should be used in conjunction with the suites supplied by the OpenFeature specification.
 
   Background:
     Given a flagd provider is set
