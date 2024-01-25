@@ -39,6 +39,11 @@ func (s *Server) Start() {
 
 	server := grpc.NewServer(options...)
 	sync, err := NewSyncImpl(s.Config.Files.Array)
+	if err != nil {
+		log.Printf("Error configuring the server : %s\n", err.Error())
+		return
+	}
+
 	syncv1grpc.RegisterFlagSyncServiceServer(server, &sync)
 
 	fmt.Printf("Server listening : %s\n", s.Config.Host+":"+s.Config.Port)
@@ -73,12 +78,16 @@ type SyncImpl struct {
 
 func NewSyncImpl(filePaths []string) (SyncImpl, error) {
 	watcher, err := fsnotify.NewWatcher()
-	for _, filePath := range filePaths {
+	if err != nil {
+		return SyncImpl{}, err
+	}
 
+	for _, filePath := range filePaths {
+		err := watcher.Add(filePath)
 		if err != nil {
+			log.Printf("Error watching file %s, caused by %s\n", filePath, err.Error())
 			return SyncImpl{}, err
 		}
-		watcher.Add(filePath)
 	}
 	return SyncImpl{
 		filePaths,
@@ -87,18 +96,21 @@ func NewSyncImpl(filePaths []string) (SyncImpl, error) {
 }
 
 func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyncService_SyncFlagsServer) error {
-	log.Printf("Requesting flags for provider : %s", req.ProviderId)
+	log.Printf("Requesting flags for provider: %s\n", req.ProviderId)
 
-	marshalled, err := s.readFlags()
+	// initial read
+	marshalled, err := readFlags(s.filePaths)
 	if err != nil {
-		log.Println("error reading flags:", err)
+		log.Printf("Error reading flag data: %v\n", err)
+		return err
 	}
 	err = stream.Send(&v1.SyncFlagsResponse{
 		FlagConfiguration: string(marshalled),
 		State:             v1.SyncState_SYNC_STATE_ALL,
 	})
 	if err != nil {
-		log.Println("error sending initial stream:", err)
+		log.Printf("Error sending initial stream: %v\n", err)
+		return err
 	}
 
 	// Start listening for events.
@@ -111,7 +123,7 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 				return errors.New(message)
 			}
 			if event.Has(fsnotify.Write) {
-				marshalled, err := s.readFlags()
+				marshalled, err := readFlags(s.filePaths)
 				if err != nil {
 					log.Println("error reading flags:", err)
 				}
@@ -127,29 +139,57 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 				}
 			}
 		case err, _ := <-s.watcher.Errors:
-			log.Println("error in file watcher:", err)
+			log.Println("Error in file watcher:", err)
+			return err
+		case <-stream.Context().Done():
+			log.Printf("Stream completed for provider: %s\n", req.ProviderId)
+			return nil
 		}
 	}
 }
 
-func (s *SyncImpl) readFlags() ([]byte, error) {
+func (s *SyncImpl) FetchAllFlags(context.Context, *v1.FetchAllFlagsRequest) (*v1.FetchAllFlagsResponse, error) {
+	marshalled, err := readFlags(s.filePaths)
+	if err != nil {
+		log.Printf("Error reading flags: %s\n", err.Error())
+		return nil, err
+	}
+	
+	return &v1.FetchAllFlagsResponse{
+		FlagConfiguration: string(marshalled),
+	}, nil
+}
+
+// readFlags is a helper to read given files and combine flags in them
+func readFlags(filePaths []string) ([]byte, error) {
 	flags := make(map[string]any)
 	evaluators := make(map[string]any)
 
-	for _, path := range s.filePaths {
+	for _, path := range filePaths {
 		bytes, err := os.ReadFile(path)
+		if err != nil {
+			log.Printf("File read error %s\n", err.Error())
+			return nil, err
+		}
+
 		for len(bytes) == 0 {
 			// this is a fitly hack
 			// file writes are NOT atomic and often when they are occur they have transitional empty states
 			// this "re-reads" the file in these cases a bit later
-			time.Sleep(10 * time.Millisecond)
+			log.Printf("File content not ready for %s, busy wait\n", path)
+			time.Sleep(5 * time.Millisecond)
 			bytes, err = os.ReadFile(path)
-		}
-		if err != nil {
-			return nil, err
+			if err != nil {
+				log.Printf("File read error %s\n", err.Error())
+				return nil, err
+			}
 		}
 		parsed := make(map[string]map[string]any)
-		json.Unmarshal(bytes, &parsed)
+		err = json.Unmarshal(bytes, &parsed)
+		if err != nil {
+			log.Printf("JSON unmarshal error %s\n", err.Error())
+			return nil, err
+		}
 		maps.Copy(flags, parsed["flags"])
 		maps.Copy(evaluators, parsed["$evaluators"])
 	}
@@ -159,17 +199,8 @@ func (s *SyncImpl) readFlags() ([]byte, error) {
 	payload["$evaluators"] = evaluators
 	marshalled, err := json.Marshal(payload)
 	if err != nil {
+		log.Printf("JSON marshal error %s\n", err.Error())
 		return nil, err
 	}
 	return marshalled, nil
-}
-
-func (s *SyncImpl) FetchAllFlags(context.Context, *v1.FetchAllFlagsRequest) (*v1.FetchAllFlagsResponse, error) {
-	marshalled, err := s.readFlags()
-	if err != nil {
-		log.Println("error reading flags:", err)
-	}
-	return &v1.FetchAllFlagsResponse{
-		FlagConfiguration: string(marshalled),
-	}, nil
 }
