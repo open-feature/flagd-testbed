@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.11](https://github.com/open-feature/flagd-testbed/compare/v0.4.10...v0.4.11) (2024-01-26)
+
+
+### Features
+
+* Improve sync service  ([#97](https://github.com/open-feature/flagd-testbed/issues/97)) ([99bd668](https://github.com/open-feature/flagd-testbed/commit/99bd668c58403d2676218ca669b38bf7f98f46fb))
+
 ## [0.4.10](https://github.com/open-feature/flagd-testbed/compare/v0.4.9...v0.4.10) (2023-12-22)
 
 
