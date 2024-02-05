@@ -1,16 +1,17 @@
 package sync
 
 import (
-	"buf.build/gen/go/open-feature/flagd/grpc/go/sync/v1/syncv1grpc"
-	v1 "buf.build/gen/go/open-feature/flagd/protocolbuffers/go/sync/v1"
 	"context"
 	"crypto/tls"
 	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"log"
 	"net"
 	"sync"
+
+	"buf.build/gen/go/open-feature/flagd/grpc/go/flagd/sync/v1/syncv1grpc"
+	v1 "buf.build/gen/go/open-feature/flagd/protocolbuffers/go/flagd/sync/v1"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 type Server struct {
@@ -92,7 +93,6 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 	// initial read
 	err := stream.Send(&v1.SyncFlagsResponse{
 		FlagConfiguration: string(s.fw.getCurrentData()),
-		State:             v1.SyncState_SYNC_STATE_ALL,
 	})
 	if err != nil {
 		log.Printf("Error sending initial stream: %v\n", err)
@@ -108,7 +108,6 @@ func (s *SyncImpl) SyncFlags(req *v1.SyncFlagsRequest, stream syncv1grpc.FlagSyn
 		case data := <-listener:
 			err = stream.Send(&v1.SyncFlagsResponse{
 				FlagConfiguration: string(data),
-				State:             v1.SyncState_SYNC_STATE_ALL,
 			})
 			if err != nil {
 				// this is probably a close
@@ -129,5 +128,16 @@ func (s *SyncImpl) FetchAllFlags(context.Context, *v1.FetchAllFlagsRequest) (*v1
 
 	return &v1.FetchAllFlagsResponse{
 		FlagConfiguration: string(marshalled),
+	}, nil
+}
+
+func (s *SyncImpl) GetMetadata(context.Context, *v1.GetMetadataRequest) (*v1.GetMetadataResponse, error) {
+	return &v1.GetMetadataResponse{
+		Metadata: []*v1.KeyValue{
+			{
+				Key:   "paths",
+				Value: fmt.Sprintf("%v", s.fw.paths),
+			},
+		},
 	}, nil
 }
