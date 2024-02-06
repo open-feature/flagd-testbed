@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0](https://github.com/open-feature/flagd-testbed/compare/v0.4.11...v0.5.0) (2024-02-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* add new sync proto, rm old sync proto ([#99](https://github.com/open-feature/flagd-testbed/issues/99))
+
+### Features
+
+* add new sync proto, rm old sync proto ([#99](https://github.com/open-feature/flagd-testbed/issues/99)) ([fed2389](https://github.com/open-feature/flagd-testbed/commit/fed23894bebae378f5fc7c01f1b86ef8dbf1b05e))
+
 ## [0.4.11](https://github.com/open-feature/flagd-testbed/compare/v0.4.10...v0.4.11) (2024-01-26)
 
 
