@@ -73,6 +73,16 @@ Feature: flagd json evaluation
       | 1          | -1    |
       | 4133980802 | 1     |
 
+  Scenario Outline: Targeting by targeting key
+    When a string flag with key "targeting-key-flag" is evaluated with default value "fallback"
+    And a context containing a targeting key with value <targeting key>
+    Then the returned value should be <value>
+    Then the returned reason should be <reason>
+    Examples:
+      | targeting key                          | value  | reason            |
+      | "5c3d8535-f81a-4478-a6d3-afaa4d51199e" | "hit"  | "TARGETING_MATCH" |
+      | "f20bd32d-703b-48b6-bc8e-79d53c85134a" | "miss" | "DEFAULT"         |
+
   Scenario Outline: Errors and edge cases
     When an integer flag with key <key> is evaluated with default value 3
     Then the returned value should be <value>
