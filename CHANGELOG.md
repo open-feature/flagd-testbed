@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/open-feature/flagd-testbed/compare/v0.5.0...v0.5.1) (2024-02-13)
+
+
+### Features
+
+* provider unavailable, targeting key tests ([#103](https://github.com/open-feature/flagd-testbed/issues/103)) ([db43977](https://github.com/open-feature/flagd-testbed/commit/db439774595a8f430cda82c452eaf31ff9fb836b))
+
 ## [0.5.0](https://github.com/open-feature/flagd-testbed/compare/v0.4.11...v0.5.0) (2024-02-06)
 
 
