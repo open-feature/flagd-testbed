@@ -7,7 +7,7 @@ require (
 	buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.32.0-20231031123731-ac2ec0f39838.1
 	github.com/fsnotify/fsnotify v1.7.0
 	golang.org/x/exp v0.0.0-20240213143201-ec583247a57a
-	google.golang.org/grpc v1.61.0
+	google.golang.org/grpc v1.61.1
 )
 
 require (
