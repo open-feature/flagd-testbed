@@ -4,7 +4,10 @@ buf.build/gen/go/grpc-ecosystem/grpc-gateway/protocolbuffers/go v1.31.0-20220906
 buf.build/gen/go/grpc-ecosystem/grpc-gateway/protocolbuffers/go v1.32.0-20220906183531-bc28b723cd77.1/go.mod h1:XdxZqtnJr4q2vF8RLEhC903d6Nxxtz1vEMTyTAyvSUs=
 buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20231031123731-ac2ec0f39838.2 h1:DCww6WQNaepShZVh/jDVpIfCHQy5QwrpKl8iYAZeaV8=
 buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20231031123731-ac2ec0f39838.2/go.mod h1:NmrKm2OIzFV3sUPs9cWMCmbYeCM3xVEzt4YzFgY5HO4=
+buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20240215170432-1e611e2999cc.2 h1:CVXDGFFCbKvCZGTINLgzEfVSo4O99xEnskbxYm3fHjU=
+buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20240215170432-1e611e2999cc.2/go.mod h1:w6OZGD9znwVaPAz4wWi89GUMseHXzr4Fh+TS1SNz6JI=
 buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.28.1-20231031123731-ac2ec0f39838.4/go.mod h1:+Bnrjo56uVn/aBcLWchTveR8UeCj+KSJN4fE0xSmBNc=
+buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.28.1-20240215170432-1e611e2999cc.4/go.mod h1:+Bnrjo56uVn/aBcLWchTveR8UeCj+KSJN4fE0xSmBNc=
 buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.31.0-20230822184021-85780df4e019.1 h1:wUBsJv3Ay8PI+6acTN7DV2oVYQb+YjJd6z5bm5dNjxE=
 buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.31.0-20230822184021-85780df4e019.1/go.mod h1:kmgvCcQsQkpZ5yNLgO2B22ysHjnfm3IyzymmFHB60vY=
 buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.32.0-20231031123731-ac2ec0f39838.1 h1:3lJuvwwH33XzkBJiLTNDfRHd5lc/MtQzXjCTQFLr8pU=
