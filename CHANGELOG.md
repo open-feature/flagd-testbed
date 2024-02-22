@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.2](https://github.com/open-feature/flagd-testbed/compare/v0.5.1...v0.5.2) (2024-02-22)
+
+
+### Bug Fixes
+
+* **deps:** update golang.org/x/exp digest to ec58324 ([#100](https://github.com/open-feature/flagd-testbed/issues/100)) ([210c78b](https://github.com/open-feature/flagd-testbed/commit/210c78b292e2ff4ad805ea953f956c31a5c5751a))
+* **deps:** update module google.golang.org/grpc to v1.61.1 ([#106](https://github.com/open-feature/flagd-testbed/issues/106)) ([8201fdc](https://github.com/open-feature/flagd-testbed/commit/8201fdc5afe261174c9abf141b1ad4efa9492c94))
+* update server.go to use new metadata struct ([#112](https://github.com/open-feature/flagd-testbed/issues/112)) ([6780f99](https://github.com/open-feature/flagd-testbed/commit/6780f9960832be94674b4b62edd85057640b4fbe))
+
 ## [0.5.1](https://github.com/open-feature/flagd-testbed/compare/v0.5.0...v0.5.1) (2024-02-13)
 
 
