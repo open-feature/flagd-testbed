@@ -1,6 +1,6 @@
 module github.com/open-feature/test-harness/sync
 
-go 1.19
+go 1.21
 
 require (
 	buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20231031123731-ac2ec0f39838.2

@@ -12,7 +12,7 @@ env:
   REGISTRY: ghcr.io
   FLAGD_IMAGE_NAME: flagd-testbed
   SYNC_IMAGE_NAME: sync-testbed
-  GO_VERSION: 1.19.3
+  GO_VERSION: "~1.21"
 
 jobs:
   release-please:
