@@ -132,12 +132,5 @@ func (s *SyncImpl) FetchAllFlags(context.Context, *v1.FetchAllFlagsRequest) (*v1
 }
 
 func (s *SyncImpl) GetMetadata(context.Context, *v1.GetMetadataRequest) (*v1.GetMetadataResponse, error) {
-	return &v1.GetMetadataResponse{
-		Metadata: []*v1.KeyValue{
-			{
-				Key:   "paths",
-				Value: fmt.Sprintf("%v", s.fw.paths),
-			},
-		},
-	}, nil
+	return &v1.GetMetadataResponse{}, nil
 }
