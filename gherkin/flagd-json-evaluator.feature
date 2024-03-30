@@ -29,6 +29,28 @@ Feature: flagd json evaluation
       | "ten"   | "diamonds" |
       | "nine"  | "hearts"   |
 
+  Scenario Outline: Fractional operator with shared seed
+    When a string flag with key "fractional-flag-A-shared-seed" is evaluated with default value "fallback"
+    And a context containing a nested property with outer key "user" and inner key "name", with value <name>
+    Then the returned value should be <value>
+    Examples:
+      | name    | value      |
+      | "jack"  | "hearts"   |
+      | "queen" | "spades"    |
+      | "ten"   | "hearts" |
+      | "nine"  | "diamonds"   |
+
+  Scenario Outline: Second fractional operator with shared seed
+    When a string flag with key "fractional-flag-B-shared-seed" is evaluated with default value "fallback"
+    And a context containing a nested property with outer key "user" and inner key "name", with value <name>
+    Then the returned value should be <value>
+    Examples:
+      | name    | value |
+      | "jack"  | "hearts-B"   |
+      | "queen" | "spades-B"    |
+      | "ten"   | "hearts-B" |
+      | "nine"  | "diamonds-B"   |
+
   Scenario Outline: Substring operators
     When a string flag with key "starts-ends-flag" is evaluated with default value "fallback"
     And a context containing a key "id", with value <id>

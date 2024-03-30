@@ -20,6 +20,48 @@
         ]
       }
     },
+    "fractional-flag-A-shared-seed": {
+      "state": "ENABLED",
+      "variants": {
+        "clubs": "clubs",
+        "diamonds": "diamonds",
+        "hearts": "hearts",
+        "spades": "spades",
+        "wild": "wild"
+      },
+      "defaultVariant": "wild",
+      "targeting": {
+        "fractional": [
+          { "var": "user.name" },
+          "shared-seed",
+          [ "clubs", 25 ],
+          [ "diamonds", 25 ],
+          [ "hearts", 25 ],
+          [ "spades", 25 ]
+        ]
+      }
+    },
+    "fractional-flag-B-shared-seed": {
+      "state": "ENABLED",
+      "variants": {
+        "clubs": "clubs-B",
+        "diamonds": "diamonds-B",
+        "hearts": "hearts-B",
+        "spades": "spades-B",
+        "wild": "wild-B"
+      },
+      "defaultVariant": "wild",
+      "targeting": {
+        "fractional": [
+          { "var": "user.name" },
+          "shared-seed",
+          [ "clubs", 25 ],
+          [ "diamonds", 25 ],
+          [ "hearts", 25 ],
+          [ "spades", 25 ]
+        ]
+      }
+    },
     "starts-ends-flag": {
       "state": "ENABLED",
       "variants": {
