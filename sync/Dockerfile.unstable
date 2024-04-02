@@ -13,10 +13,5 @@ COPY flags/* .
 COPY scripts/* .
 LABEL org.opencontainers.image.source = "https://github.com/open-feature/flagd-testbed"
 
-ENTRYPOINT ["sh", "change-flag-wrapper.sh", "./sync", "start", \
-    "-f", "testing-flags.json", \
-    "-f", "changing-flag.json", \
-    "-f", "custom-ops.json", \
-    "-f", "evaluator-refs.json", \
-    "-f", "edge-case-flags.json", \
-    "-f", "zero-flags.json"]
+ENTRYPOINT ["sh", "restart-wrapper.sh", "./sync", "start", \
+    "-f", "testing-flags.json"]

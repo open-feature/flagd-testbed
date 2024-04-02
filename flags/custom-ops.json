@@ -87,7 +87,14 @@
               {
                 "ends_with": [{"var": "id"}, "xyz"]
               },
-              "postfix", "none"
+              "postfix", {
+                "if": [
+                  {
+                    "ends_with": [{"var": "id"}, 3]
+                  },
+                  "fail", "none"
+                ]
+              }
             ]
           }
         ]
@@ -117,7 +124,14 @@
                   {
                     "sem_ver": [{"var": "version"}, "<", "2.0.0"]
                   },
-                  "lesser", "none"
+                  "lesser", {
+                    "if": [
+                      {
+                        "sem_ver": [{"var": "version"}, "=", "2.0.0.0"]
+                      },
+                      "fail", "none"
+                    ]
+                  }
                 ]
               }
             ]

@@ -2,7 +2,7 @@ Feature: flagd providers
 
   # This test suite contains scenarios to test flagd providers.
   # It's associated with the flags configured in flags/changing-flag.json and flags/zero-flags.json.
-  # It should be used in conjunection with the suites supplied by the OpenFeature specification.
+  # It should be used in conjunction with the suites supplied by the OpenFeature specification.
 
   Background:
     Given a flagd provider is set
@@ -20,17 +20,17 @@ Feature: flagd providers
 
   # zero evaluation
   Scenario: Resolves boolean zero value
-    When a boolean flag with key "boolean-zero-flag" is evaluated with default value "true"
-    Then the resolved boolean value should be "false"
+    When a zero-value boolean flag with key "boolean-zero-flag" is evaluated with default value "true"
+    Then the resolved boolean zero-value should be "false"
 
   Scenario: Resolves string zero value
-    When a string flag with key "string-zero-flag" is evaluated with default value "hi"
-    Then the resolved string value should be ""
+    When a zero-value string flag with key "string-zero-flag" is evaluated with default value "hi"
+    Then the resolved string zero-value should be ""
 
   Scenario: Resolves integer zero value
-    When an integer flag with key "integer-zero-flag" is evaluated with default value 1
-    Then the resolved integer value should be 0
+    When a zero-value integer flag with key "integer-zero-flag" is evaluated with default value 1
+    Then the resolved integer zero-value should be 0
 
   Scenario: Resolves float zero value
-    When a float flag with key "float-zero-flag" is evaluated with default value 0.1
-    Then the resolved float value should be 0.0
+    When a zero-value float flag with key "float-zero-flag" is evaluated with default value 0.1
+    Then the resolved float zero-value should be 0.0
