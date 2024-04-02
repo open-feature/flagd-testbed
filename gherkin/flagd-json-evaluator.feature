@@ -28,7 +28,7 @@ Feature: flagd json evaluation
       | "queen" | "clubs"    |
       | "ten"   | "diamonds" |
       | "nine"  | "hearts"   |
-      | 3       | "wild"     |
+      | 3       | "diamonds" |
 
   Scenario Outline: Fractional operator with shared seed
     When a string flag with key "fractional-flag-A-shared-seed" is evaluated with default value "fallback"
