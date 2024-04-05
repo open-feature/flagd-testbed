@@ -49,11 +49,11 @@
     "fractional-flag-B-shared-seed": {
       "state": "ENABLED",
       "variants": {
-        "clubs": "clubs-B",
-        "diamonds": "diamonds-B",
-        "hearts": "hearts-B",
-        "spades": "spades-B",
-        "wild": "wild-B"
+        "clubs": "ace-of-clubs",
+        "diamonds": "ace-of-diamonds",
+        "hearts": "ace-of-hearts",
+        "spades": "ace-of-spades",
+        "wild": "wild"
       },
       "defaultVariant": "wild",
       "targeting": {
