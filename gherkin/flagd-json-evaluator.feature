@@ -37,9 +37,9 @@ Feature: flagd json evaluation
     Examples:
       | name    | value      |
       | "jack"  | "hearts"   |
-      | "queen" | "spades"    |
-      | "ten"   | "hearts" |
-      | "nine"  | "diamonds"   |
+      | "queen" | "spades"   |
+      | "ten"   | "hearts"   |
+      | "nine"  | "diamonds" |
 
   Scenario Outline: Second fractional operator with shared seed
     When a string flag with key "fractional-flag-B-shared-seed" is evaluated with default value "fallback"
