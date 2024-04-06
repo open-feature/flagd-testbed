@@ -12,7 +12,56 @@
       "defaultVariant": "wild",
       "targeting": {
         "fractional": [
-          { "var": "user.name" },
+          {"cat": [
+            { "var": "$flagd.flagKey" },
+            { "var": "user.name" }
+          ]},
+          [ "clubs", 25 ],
+          [ "diamonds", 25 ],
+          [ "hearts", 25 ],
+          [ "spades", 25 ]
+        ]
+      }
+    },
+    "fractional-flag-A-shared-seed": {
+      "state": "ENABLED",
+      "variants": {
+        "clubs": "clubs",
+        "diamonds": "diamonds",
+        "hearts": "hearts",
+        "spades": "spades",
+        "wild": "wild"
+      },
+      "defaultVariant": "wild",
+      "targeting": {
+        "fractional": [
+          { "cat": [
+            "shared-seed",
+            { "var": "user.name" }
+          ]},
+          [ "clubs", 25 ],
+          [ "diamonds", 25 ],
+          [ "hearts", 25 ],
+          [ "spades", 25 ]
+        ]
+      }
+    },
+    "fractional-flag-B-shared-seed": {
+      "state": "ENABLED",
+      "variants": {
+        "clubs": "ace-of-clubs",
+        "diamonds": "ace-of-diamonds",
+        "hearts": "ace-of-hearts",
+        "spades": "ace-of-spades",
+        "wild": "wild"
+      },
+      "defaultVariant": "wild",
+      "targeting": {
+        "fractional": [
+          { "cat": [
+            "shared-seed",
+            { "var": "user.name" }
+          ]},
           [ "clubs", 25 ],
           [ "diamonds", 25 ],
           [ "hearts", 25 ],
