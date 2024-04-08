@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.3](https://github.com/open-feature/flagd-testbed/compare/v0.5.2...v0.5.3) (2024-04-08)
+
+
+### Features
+
+* test multiple fractional flags with shared seed ([#115](https://github.com/open-feature/flagd-testbed/issues/115)) ([25544e4](https://github.com/open-feature/flagd-testbed/commit/25544e43d65500ea085d6f0e242b9a616a51f776))
+
+
+### Bug Fixes
+
+* **deps:** update golang.org/x/exp digest to a685a6e ([#113](https://github.com/open-feature/flagd-testbed/issues/113)) ([620df72](https://github.com/open-feature/flagd-testbed/commit/620df72fe2982004ffe9c3e9798de95e92178084))
+
 ## [0.5.2](https://github.com/open-feature/flagd-testbed/compare/v0.5.1...v0.5.2) (2024-02-22)
 
 
