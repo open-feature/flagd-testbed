@@ -3,7 +3,7 @@ module github.com/open-feature/test-harness/sync
 go 1.21
 
 require (
-	buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20231031123731-ac2ec0f39838.2
+	buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20240215170432-1e611e2999cc.2
 	buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.32.0-20231031123731-ac2ec0f39838.1
 	github.com/fsnotify/fsnotify v1.7.0
 	golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8
