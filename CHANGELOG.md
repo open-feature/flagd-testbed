@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.4](https://github.com/open-feature/flagd-testbed/compare/v0.5.3...v0.5.4) (2024-04-10)
+
+
+### Features
+
+* bump flagd to new release ([#118](https://github.com/open-feature/flagd-testbed/issues/118)) ([def1f0b](https://github.com/open-feature/flagd-testbed/commit/def1f0b2f486c8dbb23aa98ccc3b2672bf42cb0a))
+
 ## [0.5.3](https://github.com/open-feature/flagd-testbed/compare/v0.5.2...v0.5.3) (2024-04-08)
 
 
