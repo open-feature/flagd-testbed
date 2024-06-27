@@ -1,5 +1,6 @@
 buf.build/gen/go/grpc-ecosystem/grpc-gateway/grpc/go v1.3.0-20220906183531-bc28b723cd77.2/go.mod h1:9Ec7rvBnjfZvU/TnWjtcSGgiLQ4B+U3B+6SnZgVTA7A=
 buf.build/gen/go/grpc-ecosystem/grpc-gateway/grpc/go v1.3.0-20220906183531-bc28b723cd77.3/go.mod h1:29GvpVBNnxg/FUQmj+3UobXv2UzXML5kmDPxEethe1U=
+buf.build/gen/go/grpc-ecosystem/grpc-gateway/grpc/go v1.4.0-20220906183531-bc28b723cd77.1/go.mod h1:t7+rlrPVkMe+2/CKHNIeh+G9ZX5EpnSqlyrGaRwaNyE=
 buf.build/gen/go/grpc-ecosystem/grpc-gateway/protocolbuffers/go v1.28.1-20220906183531-bc28b723cd77.4/go.mod h1:92ejKVTiuvnKoAtRlpJpIxKfloI935DDqhs0NCRx+KM=
 buf.build/gen/go/grpc-ecosystem/grpc-gateway/protocolbuffers/go v1.33.0-20220906183531-bc28b723cd77.1/go.mod h1:DBJo17ITWaACJE5Kqb+81Ekkq0BpTsNmgv7cX1tMVpY=
 buf.build/gen/go/grpc-ecosystem/grpc-gateway/protocolbuffers/go v1.34.0-20220906183531-bc28b723cd77.1/go.mod h1:3yewBse5hcwxPZIq4cng0NlCYYXVQmGC64aJdAd2+S8=
@@ -8,6 +9,8 @@ buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20240215170432-1e611e2999cc.2
 buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20240215170432-1e611e2999cc.2/go.mod h1:w6OZGD9znwVaPAz4wWi89GUMseHXzr4Fh+TS1SNz6JI=
 buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20240215170432-1e611e2999cc.3 h1:mUh+66sS7hpfksYmcAu+UOqc1wDw4VK3oPOmRY4QVTU=
 buf.build/gen/go/open-feature/flagd/grpc/go v1.3.0-20240215170432-1e611e2999cc.3/go.mod h1:iyVT2Ux3voZ+n5j3aJylxePlhFiX4vpStA2P9Rcx5WY=
+buf.build/gen/go/open-feature/flagd/grpc/go v1.4.0-20240215170432-1e611e2999cc.1 h1:GALjF2af4dBxL00Lh3wowTON1wdAOiRlCfz9/sH3LzM=
+buf.build/gen/go/open-feature/flagd/grpc/go v1.4.0-20240215170432-1e611e2999cc.1/go.mod h1:cSVugTTKBQ/bSM+VYo9oedCDcZ20A2T8IHv2iJNnlZI=
 buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.28.1-20240215170432-1e611e2999cc.4/go.mod h1:+Bnrjo56uVn/aBcLWchTveR8UeCj+KSJN4fE0xSmBNc=
 buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.33.0-20240215170432-1e611e2999cc.1 h1:0ocGmqr0LXHSdw30wW6OlTM3gqpIv1LrmLz5Tnf48FM=
 buf.build/gen/go/open-feature/flagd/protocolbuffers/go v1.33.0-20240215170432-1e611e2999cc.1/go.mod h1:n4wQ6v098I9ijOe1vwIotn4lVgI0F0/X9OQhF1RuuwI=
