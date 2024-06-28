@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.5.5](https://github.com/open-feature/flagd-testbed/compare/v0.5.4...v0.5.5) (2024-06-28)
+
+
+### Features
+
+* fractional non-percentage and shorthand ([#132](https://github.com/open-feature/flagd-testbed/issues/132)) ([c673bf0](https://github.com/open-feature/flagd-testbed/commit/c673bf0fb6efca9d9675dd751ddd4459f87d86b4))
+
+
+### Bug Fixes
+
+* **deps:** update golang.org/x/exp digest to 4c93da0 ([#125](https://github.com/open-feature/flagd-testbed/issues/125)) ([7d9c634](https://github.com/open-feature/flagd-testbed/commit/7d9c634e009365458bda370b51dc0aa6e9b81e5d))
+* **deps:** update golang.org/x/exp digest to 7f521ea ([#127](https://github.com/open-feature/flagd-testbed/issues/127)) ([5025939](https://github.com/open-feature/flagd-testbed/commit/50259398a86e8547358025d92196c4785d51a543))
+* **deps:** update module buf.build/gen/go/open-feature/flagd/grpc/go to v1.3.0-20240215170432-1e611e2999cc.3 ([#121](https://github.com/open-feature/flagd-testbed/issues/121)) ([c9e0be3](https://github.com/open-feature/flagd-testbed/commit/c9e0be36e89ad33aa99b8e32b40d67e9bf350f88))
+* **deps:** update module buf.build/gen/go/open-feature/flagd/grpc/go to v1.4.0-20240215170432-1e611e2999cc.1 ([#128](https://github.com/open-feature/flagd-testbed/issues/128)) ([b69dea2](https://github.com/open-feature/flagd-testbed/commit/b69dea2277c528ac964e7287e69a43b2cbc8cdc4))
+* **deps:** update module buf.build/gen/go/open-feature/flagd/protocolbuffers/go to v1.34.1-20240215170432-1e611e2999cc.1 ([#122](https://github.com/open-feature/flagd-testbed/issues/122)) ([b16fb9b](https://github.com/open-feature/flagd-testbed/commit/b16fb9ba6c962f56db6e47f0d8387030e4dcfea0))
+* **deps:** update module buf.build/gen/go/open-feature/flagd/protocolbuffers/go to v1.34.2-20240215170432-1e611e2999cc.2 ([#130](https://github.com/open-feature/flagd-testbed/issues/130)) ([690a9dd](https://github.com/open-feature/flagd-testbed/commit/690a9ddc2f57156e0abccf3edf9aca40d9573fe9))
+* **deps:** update module google.golang.org/grpc to v1.64.0 ([#124](https://github.com/open-feature/flagd-testbed/issues/124)) ([91cb477](https://github.com/open-feature/flagd-testbed/commit/91cb47786290ffc611e7970211a7ff63799b85c8))
+
 ## [0.5.4](https://github.com/open-feature/flagd-testbed/compare/v0.5.3...v0.5.4) (2024-04-10)
 
 
