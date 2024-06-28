@@ -30,6 +30,15 @@ Feature: flagd json evaluation
       | "nine"  | "hearts"   |
       | 3       | "diamonds" |
 
+  Scenario Outline: Fractional operator shorthand
+    When a string flag with key "fractional-flag-shorthand" is evaluated with default value "fallback"
+    And a context containing a targeting key with value <targeting key>
+    Then the returned value should be <value>
+    Examples:
+      | targeting key      | value   |
+      | "jane@company.com" | "heads" |
+      | "joe@company.com"  | "tails" |
+
   Scenario Outline: Fractional operator with shared seed
     When a string flag with key "fractional-flag-A-shared-seed" is evaluated with default value "fallback"
     And a context containing a nested property with outer key "user" and inner key "name", with value <name>
@@ -46,7 +55,7 @@ Feature: flagd json evaluation
     And a context containing a nested property with outer key "user" and inner key "name", with value <name>
     Then the returned value should be <value>
     Examples:
-      | name    | value |
+      | name    | value             |
       | "jack"  | "ace-of-hearts"   |
       | "queen" | "ace-of-spades"   |
       | "ten"   | "ace-of-hearts"   |
