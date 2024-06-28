@@ -23,6 +23,21 @@
         ]
       }
     },
+    "fractional-flag-shorthand": {
+      "state": "ENABLED",
+      "variants": {
+        "heads": "heads",
+        "tails": "tails",
+        "draw": "draw"
+      },
+      "defaultVariant": "draw",
+      "targeting": {
+        "fractional": [
+          [ "heads" ],
+          [ "tails", 1 ]
+        ]
+      }
+    },
     "fractional-flag-A-shared-seed": {
       "state": "ENABLED",
       "variants": {
