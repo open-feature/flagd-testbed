@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.6](https://github.com/open-feature/flagd-testbed/compare/v0.5.5...v0.5.6) (2024-07-04)
+
+
+### Bug Fixes
+
+* correct assertions for shorthand targeting ([#135](https://github.com/open-feature/flagd-testbed/issues/135)) ([5b685c2](https://github.com/open-feature/flagd-testbed/commit/5b685c2d1f2dc36e83923fb00e492e64b278ee41))
+
 ## [0.5.5](https://github.com/open-feature/flagd-testbed/compare/v0.5.4...v0.5.5) (2024-06-28)
 
 
