@@ -36,8 +36,8 @@ Feature: flagd json evaluation
     Then the returned value should be <value>
     Examples:
       | targeting key      | value   |
-      | "jane@company.com" | "heads" |
-      | "joe@company.com"  | "tails" |
+      | "jon@company.com"  | "heads" |
+      | "jane@company.com" | "tails" |
 
   Scenario Outline: Fractional operator with shared seed
     When a string flag with key "fractional-flag-A-shared-seed" is evaluated with default value "fallback"
