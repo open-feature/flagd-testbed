@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.8](https://github.com/open-feature/flagd-testbed/compare/v0.5.7...v0.5.8) (2024-10-10)
+
+
+### Bug Fixes
+
+* up for 10s ([066d03b](https://github.com/open-feature/flagd-testbed/commit/066d03b2211e8288c7e920cc695f7d69e8c5db9d))
+
 ## [0.5.7](https://github.com/open-feature/flagd-testbed/compare/v0.5.6...v0.5.7) (2024-10-10)
 
 
