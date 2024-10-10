@@ -27,5 +27,5 @@ do
     while kill -0 "$child" 2> /dev/null; do # wait for child to exit (kill -0 is falsy if pid is gone)
         sleep 1
     done
-    echo 'killed...' && sleep 5
+    echo 'killed process...' && sleep 5
 done
