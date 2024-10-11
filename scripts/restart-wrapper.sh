@@ -17,15 +17,17 @@ handle_int() {
 trap handle_term SIGTERM
 trap handle_int SIGINT
 
-while [ "$killed" -eq 0 ]; # stop looping if we were interrupted
-do
-    # start change script and our server
-    echo 'starting process...' 
-    "$@" &
-    child=$!
-    sleep 10 && echo "killing pid $child..." && kill -9 "$child"
-    while kill -0 "$child" 2> /dev/null; do # wait for child to exit (kill -0 is falsy if pid is gone)
-        sleep 1
-    done
-    echo 'killed process...' && sleep 5
+# start change script and our server
+echo 'starting process...' 
+"$@" &
+child=$!
+sleep 10
+echo "killing pid $child..."
+kill -9 "$child"
+while kill -0 "$child" 2> /dev/null; do # wait for child to exit (kill -0 is falsy if pid is gone)
+    sleep 1
 done
+echo 'killed...'
+sleep 5
+echo 'restarting process...' 
+"$@"
