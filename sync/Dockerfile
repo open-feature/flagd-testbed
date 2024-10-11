@@ -6,7 +6,7 @@ COPY sync .
 RUN go mod download
 RUN go build -o sync
 
-FROM busybox:1.36
+FROM busybox:1.37
 
 COPY --from=builder /src/sync .
 COPY flags/* .
