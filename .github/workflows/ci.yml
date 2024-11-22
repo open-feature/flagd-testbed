@@ -43,17 +43,3 @@ jobs:
           context: .
           file: flagd/Dockerfile.unstable
           push: false
-
-      - name: Build sync-testbed Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: sync/Dockerfile
-          push: false
-        
-      - name: Build sync-testbed-unstable Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: sync/Dockerfile.unstable
-          push: false
