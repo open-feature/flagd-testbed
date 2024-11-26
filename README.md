@@ -10,13 +10,6 @@ The _flagd-testbed_ container is a docker image built on flagd, which essentiall
 
 See the [flagd docs](https://flagd.dev/) for more information on flagd.
 
-## sync-testbed container
-
-The _sync_-testbed_ container is a docker image built on conforming to the sync.proto - a grpc which flagd or flagd in-process providers can use as a sync-source.
-It features an identical set of flags to the [flagd-testbed container](#flagd-testbed-container)
-
-For details on the sync-testbed, see [sync/README.me](sync/README.md)
-
 ## Gherkin test suite
 
 The [gherkin/](gherkin/) dir includes a set of [_gherkin_](https://cucumber.io/docs/gherkin/) tests that define expected behavior associated with the configurations defined in the flagd-testbed (see [flags/](flags/)).
