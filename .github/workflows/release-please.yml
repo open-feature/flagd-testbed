@@ -61,7 +61,6 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:latest
-            # For backwards compatibility remove as soon as nobody is using sync server anymore
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest      
 
@@ -74,7 +73,6 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-unstable:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-unstable:latest
-            # For backwards compatibility remove as soon as nobody is using sync server anymore 
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest
 
