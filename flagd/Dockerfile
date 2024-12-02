@@ -1,7 +1,7 @@
 # we NEED flagd v0.6.4 as a minimum
 FROM ghcr.io/open-feature/flagd:v0.11.4 AS flagd
 
-FROM busybox:1.36
+FROM busybox:1.37
 
 COPY --from=flagd /flagd-build /flagd
 COPY flags/* .
