@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.15](https://github.com/open-feature/flagd-testbed/compare/v0.5.14...v0.5.15) (2024-12-02)
+
+
+### Bug Fixes
+
+* remove comment for release please ([#157](https://github.com/open-feature/flagd-testbed/issues/157)) ([3d4866d](https://github.com/open-feature/flagd-testbed/commit/3d4866dece21a99b833139a82d694f70149dddd9))
+
 ## [0.5.14](https://github.com/open-feature/flagd-testbed/compare/v0.5.13...v0.5.14) (2024-12-02)
 
 
