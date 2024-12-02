@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.14](https://github.com/open-feature/flagd-testbed/compare/v0.5.13...v0.5.14) (2024-12-02)
+
+
+### Features
+
+* add Gherking file for config ([#156](https://github.com/open-feature/flagd-testbed/issues/156)) ([fe9c3c8](https://github.com/open-feature/flagd-testbed/commit/fe9c3c88d1b684c9536df1d652de5a43df185510))
+* Gherkin file for caching evaluation ([#155](https://github.com/open-feature/flagd-testbed/issues/155)) ([a04a65e](https://github.com/open-feature/flagd-testbed/commit/a04a65eb625fa68309fe4f5a049169f5192e5995))
+* remove sync server ([#114](https://github.com/open-feature/flagd-testbed/issues/114)) ([#153](https://github.com/open-feature/flagd-testbed/issues/153)) ([496f116](https://github.com/open-feature/flagd-testbed/commit/496f11687313ed7cd77351b47003a3811293f771))
+
 ## [0.5.13](https://github.com/open-feature/flagd-testbed/compare/v0.5.12...v0.5.13) (2024-10-11)
 
 
