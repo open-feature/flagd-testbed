@@ -14,7 +14,7 @@ Feature: Configuration Test
   | streamDeadlineMs      | FLAGD_STREAM_DEADLINE_MS       | deadline for streaming calls, useful as an application-layer keepalive          | int                          | 600000                        | rpc & in-process    |
   | retryBackoffMs        | FLAGD_RETRY_BACKOFF_MS         | initial backoff for stream retry                                                | int                          | 1000                          | rpc & in-process    |
   | retryBackoffMaxMs     | FLAGD_RETRY_BACKOFF_MAX_MS     | maximum backoff for stream retry                                                | int                          | 120000                        | rpc & in-process    |
-  | retryGraceAttempts    | FLAGD_RETRY_GRACE_ATTEMPTS     | amount of stream retry attempts before provider moves from STALE to ERROR state | int                          | 5                             | rpc & in-process    |
+  | retryGracePeriod    | FLAGD_RETRY_GRACE_PERIOD     | amount of stream retry attempts before provider moves from STALE to ERROR state | int                          | 5                             | rpc & in-process    |
   | keepAliveTime         | FLAGD_KEEP_ALIVE_TIME_MS       | http 2 keepalive                                                                | long                         | 0                             | rpc & in-process    |
   | cache                 | FLAGD_CACHE                    | enable cache of static flags                                                    | String - `lru`, `disabled`   | lru                           | rpc                 |
   | maxCacheSize          | FLAGD_MAX_CACHE_SIZE           | max size of static flag cache                                                   | int                          | 1000                          | rpc                 |
@@ -49,21 +49,21 @@ Feature: Configuration Test
       | socketPath | String | null    |
     @events
     Examples: Events
-      | option             | type    | default |
-      | streamDeadlineMs   | Integer | 600000  |
-      | keepAliveTime      | Long    | 0       |
-      | retryBackoffMs     | Integer | 1000    |
-      | retryBackoffMaxMs  | Integer | 120000  |
-      | retryGraceAttempts | Integer | 5       |
+      | option            | type    | default |
+      | streamDeadlineMs  | Integer | 600000  |
+      | keepAliveTime     | Long    | 0       |
+      | retryBackoffMs    | Integer | 1000    |
+      | retryBackoffMaxMs | Integer | 120000  |
+      | retryGracePeriod  | Integer | 5       |
     @sync
     Examples: Sync
-      | option             | type    | default |
-      | streamDeadlineMs   | Integer | 600000  |
-      | keepAliveTime      | Long    | 0       |
-      | retryBackoffMs     | Integer | 1000    |
-      | retryBackoffMaxMs  | Integer | 120000  |
-      | retryGraceAttempts | Integer | 5       |
-      | selector           | String  | null    |
+      | option            | type    | default |
+      | streamDeadlineMs  | Integer | 600000  |
+      | keepAliveTime     | Long    | 0       |
+      | retryBackoffMs    | Integer | 1000    |
+      | retryBackoffMaxMs | Integer | 120000  |
+      | retryGracePeriod  | Integer | 5       |
+      | selector          | String  | null    |
     @caching
     Examples: caching
       | option       | type      | default |
@@ -119,21 +119,21 @@ Feature: Configuration Test
       | socketPath | String | path  |
     @events
     Examples:
-      | option             | type    | value  |
-      | streamDeadlineMs   | Integer | 500000 |
-      | keepAliveTime      | Long    | 5      |
-      | retryBackoffMs     | Integer | 5000   |
-      | retryBackoffMaxMs  | Integer | 12000  |
-      | retryGraceAttempts | Integer | 10     |
+      | option            | type    | value  |
+      | streamDeadlineMs  | Integer | 500000 |
+      | keepAliveTime     | Long    | 5      |
+      | retryBackoffMs    | Integer | 5000   |
+      | retryBackoffMaxMs | Integer | 12000  |
+      | retryGracePeriod  | Integer | 10     |
     @sync
     Examples:
-      | option             | type    | value    |
-      | streamDeadlineMs   | Integer | 500000   |
-      | keepAliveTime      | Long    | 5        |
-      | retryBackoffMs     | Integer | 5000     |
-      | retryBackoffMaxMs  | Integer | 12000    |
-      | retryGraceAttempts | Integer | 10       |
-      | selector           | String  | selector |
+      | option            | type    | value    |
+      | streamDeadlineMs  | Integer | 500000   |
+      | keepAliveTime     | Long    | 5        |
+      | retryBackoffMs    | Integer | 5000     |
+      | retryBackoffMaxMs | Integer | 12000    |
+      | retryGracePeriod  | Integer | 10       |
+      | selector          | String  | selector |
     @caching
     Examples:
       | option       | type      | value    |
@@ -174,21 +174,21 @@ Feature: Configuration Test
       | socketPath | FLAGD_SOCKET_PATH | String | path  |
     @events
     Examples:
-      | option             | env                        | type    | value  |
-      | streamDeadlineMs   | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 |
-      | keepAliveTime      | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      |
-      | retryBackoffMs     | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000   |
-      | retryBackoffMaxMs  | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  |
-      | retryGraceAttempts | FLAGD_RETRY_GRACE_ATTEMPTS | Integer | 10     |
+      | option            | env                        | type    | value  |
+      | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 |
+      | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      |
+      | retryBackoffMs    | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000   |
+      | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  |
+      | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10     |
     @sync
     Examples:
-      | option             | env                        | type    | value    |
-      | streamDeadlineMs   | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   |
-      | keepAliveTime      | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        |
-      | retryBackoffMs     | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000     |
-      | retryBackoffMaxMs  | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000    |
-      | retryGraceAttempts | FLAGD_RETRY_GRACE_ATTEMPTS | Integer | 10       |
-      | selector           | FLAGD_SOURCE_SELECTOR      | String  | selector |
+      | option            | env                        | type    | value    |
+      | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   |
+      | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        |
+      | retryBackoffMs    | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000     |
+      | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000    |
+      | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10       |
+      | selector          | FLAGD_SOURCE_SELECTOR      | String  | selector |
     @caching
     Examples:
       | option       | env                  | type      | value    |
@@ -227,21 +227,21 @@ Feature: Configuration Test
       | socketPath | FLAGD_SOCKET_PATH | String | path  | rpc       |
     @events
     Examples:
-      | option             | env                        | type    | value  | env-value |
-      | streamDeadlineMs   | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 | 400       |
-      | keepAliveTime      | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      | 4         |
-      | retryBackoffMs     | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000   | 4         |
-      | retryBackoffMaxMs  | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  | 4         |
-      | retryGraceAttempts | FLAGD_RETRY_GRACE_ATTEMPTS | Integer | 10     | 4         |
+      | option            | env                        | type    | value  | env-value |
+      | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 | 400       |
+      | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      | 4         |
+      | retryBackoffMs    | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000   | 4         |
+      | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  | 4         |
+      | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10     | 4         |
     @sync
     Examples:
-      | option             | env                        | type    | value    | env-value |
-      | streamDeadlineMs   | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   | 400       |
-      | keepAliveTime      | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        | 4         |
-      | retryBackoffMs     | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000     | 4         |
-      | retryBackoffMaxMs  | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000    | 4         |
-      | retryGraceAttempts | FLAGD_RETRY_GRACE_ATTEMPTS | Integer | 10       | 4         |
-      | selector           | FLAGD_SOURCE_SELECTOR      | String  | selector | sele      |
+      | option            | env                        | type    | value    | env-value |
+      | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   | 400       |
+      | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        | 4         |
+      | retryBackoffMs    | FLAGD_RETRY_BACKOFF_MS     | Integer | 5000     | 4         |
+      | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000    | 4         |
+      | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10       | 4         |
+      | selector          | FLAGD_SOURCE_SELECTOR      | String  | selector | sele      |
     @caching
     Examples:
       | option       | env                  | type      | value    | env-value |

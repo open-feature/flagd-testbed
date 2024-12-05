@@ -42,9 +42,7 @@ Feature: Flag evaluation with Caching
     Then the reason should be "CACHED"
 
   Scenario: Stale and Error stage
-    Given an option "cache" of type "CacheType" with value "lru"
-    And a unstable flagd provider
-    And a ready event handler
+    Given a ready event handler
     And a stale event handler
     And a error event handler
     And a String-flag with key "changing-flag" and a default value "false"
@@ -52,10 +50,11 @@ Feature: Flag evaluation with Caching
     Then the reason should be "STATIC"
     When the flag was evaluated with details
     Then the reason should be "CACHED"
-    When a stale event was fired
+    When the connection is lost for 6s
+    And a stale event was fired
     And the flag was evaluated with details
     Then the reason should be "CACHED"
     When a error event was fired
     And a ready event was fired
     And the flag was evaluated with details
-    Then the reason should be "STATIC""
+    Then the reason should be "STATIC"

@@ -1,4 +1,3 @@
-@rpc @in-process @evaluation
 Feature: flagd providers
 
   # This test suite contains scenarios to test flagd providers.
