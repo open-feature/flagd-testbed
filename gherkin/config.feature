@@ -77,7 +77,8 @@ Feature: Configuration Test
 
   @rpc
   Scenario Outline: Default Config RPC
-    When a config was initialized for "rpc"
+    Given an option "resolver" of type "ResolverType" with value "rpc"
+    When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<default>"
     Examples:
       | option | type    | default |
@@ -85,12 +86,14 @@ Feature: Configuration Test
 
   @in-process
   Scenario Outline: Default Config In-Process
-    When a config was initialized for "in-process"
+    Given an option "resolver" of type "ResolverType" with value "in-process"
+    When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<default>"
     Examples:
       | option | type    | default |
       | port   | Integer | 8015    |
 
+  @rpc @in-process
   Scenario Outline: Dedicated Config
     Given an option "<option>" of type "<type>" with value "<value>"
     When a config was initialized
@@ -142,6 +145,7 @@ Feature: Configuration Test
       | offlineFlagSourcePath | String  | path  |
       | offlinePollIntervalMs | Integer | 1000  |
 
+  @rpc @in-process
   Scenario Outline: Dedicated Config via Env_var
     Given an environment variable "<env>" with value "<value>"
     When a config was initialized
@@ -196,6 +200,7 @@ Feature: Configuration Test
       | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | String  | path  |
       | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | Integer | 1000  |
 
+  @rpc @in-process
   Scenario Outline: Dedicated Config via Env_var and set
     Given an environment variable "<env>" with value "<env-value>"
     And an option "<option>" of type "<type>" with value "<value>"
