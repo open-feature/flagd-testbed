@@ -1,5 +1,5 @@
 Feature: Configuration Test
-  """markdown
+"""markdown
   This is the official option configuration table
   | Option name           | Environment variable name      | Explanation                                                                     | Type & Values                | Default                       | Compatible resolver |
   | --------------------- | ------------------------------ | ------------------------------------------------------------------------------- | ---------------------------- | ----------------------------- | ------------------- |
@@ -96,12 +96,12 @@ Feature: Configuration Test
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<value>"
     Examples:
-      | option   | type         | value      |
-      | resolver | ResolverType | in-process |
-      | host     | String       | local      |
-      | tls      | Boolean      | True       |
-      | port     | Integer      | 1234       |
-      | deadline | Integer      | 123        |
+      | option     | type         | value      |
+      | resolver   | ResolverType | in-process |
+      | host       | String       | local      |
+      | tls        | Boolean      | True       |
+      | port       | Integer      | 1234       |
+      | deadlineMs | Integer      | 123        |
     @targetURI
     Examples: Target URI
       | option    | type   | value |
@@ -147,15 +147,15 @@ Feature: Configuration Test
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<value>"
     Examples:
-      | option   | env               | type         | value      |
-      | resolver | FLAGD_RESOLVER    | ResolverType | in-process |
-      | resolver | FLAGD_RESOLVER    | ResolverType | IN-PROCESS |
-      | resolver | FLAGD_RESOLVER    | ResolverType | rpc        |
-      | resolver | FLAGD_RESOLVER    | ResolverType | RPC        |
-      | host     | FLAGD_HOST        | String       | local      |
-      | tls      | FLAGD_TLS         | Boolean      | True       |
-      | port     | FLAGD_PORT        | Integer      | 1234       |
-      | deadline | FLAGD_DEADLINE_MS | Integer      | 123        |
+      | option     | env               | type         | value      |
+      | resolver   | FLAGD_RESOLVER    | ResolverType | in-process |
+      | resolver   | FLAGD_RESOLVER    | ResolverType | IN-PROCESS |
+      | resolver   | FLAGD_RESOLVER    | ResolverType | rpc        |
+      | resolver   | FLAGD_RESOLVER    | ResolverType | RPC        |
+      | host       | FLAGD_HOST        | String       | local      |
+      | tls        | FLAGD_TLS         | Boolean      | True       |
+      | port       | FLAGD_PORT        | Integer      | 1234       |
+      | deadlineMs | FLAGD_DEADLINE_MS | Integer      | 123        |
     @targetURI
     Examples: Target URI
       | option    | env              | type   | value |
@@ -202,12 +202,12 @@ Feature: Configuration Test
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<value>"
     Examples:
-      | option   | env               | type         | value      | env-value |
-      | resolver | FLAGD_RESOLVER    | ResolverType | in-process | rpc       |
-      | host     | FLAGD_HOST        | String       | local      | l         |
-      | tls      | FLAGD_TLS         | Boolean      | True       | False     |
-      | port     | FLAGD_PORT        | Integer      | 1234       | 3456      |
-      | deadline | FLAGD_DEADLINE_MS | Integer      | 123        | 345       |
+      | option     | env               | type         | value      | env-value |
+      | resolver   | FLAGD_RESOLVER    | ResolverType | in-process | rpc       |
+      | host       | FLAGD_HOST        | String       | local      | l         |
+      | tls        | FLAGD_TLS         | Boolean      | True       | False     |
+      | port       | FLAGD_PORT        | Integer      | 1234       | 3456      |
+      | deadlineMs | FLAGD_DEADLINE_MS | Integer      | 123        | 345       |
     @targetURI
     Examples: Target URI
       | option    | env              | type   | value | env-value |
