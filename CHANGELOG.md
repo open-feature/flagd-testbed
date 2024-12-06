@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.17](https://github.com/open-feature/flagd-testbed/compare/v0.5.16...v0.5.17) (2024-12-06)
+
+
+### Features
+
+* add dedicated gherkin file for events (and grace attempts) ([#164](https://github.com/open-feature/flagd-testbed/issues/164)) ([22ab80c](https://github.com/open-feature/flagd-testbed/commit/22ab80cf429f3685765ed445110e8a530d973bb1))
+
 ## [0.5.16](https://github.com/open-feature/flagd-testbed/compare/v0.5.15...v0.5.16) (2024-12-06)
 
 
