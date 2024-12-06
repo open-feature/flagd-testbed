@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.16](https://github.com/open-feature/flagd-testbed/compare/v0.5.15...v0.5.16) (2024-12-06)
+
+
+### Features
+
+* rework config gherkin file ([#162](https://github.com/open-feature/flagd-testbed/issues/162)) ([b987798](https://github.com/open-feature/flagd-testbed/commit/b98779834a2c13ff2d573d2ee7166adfe1020395))
+
 ## [0.5.15](https://github.com/open-feature/flagd-testbed/compare/v0.5.14...v0.5.15) (2024-12-02)
 
 
