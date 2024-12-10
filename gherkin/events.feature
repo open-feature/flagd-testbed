@@ -1,24 +1,27 @@
-@grace
+@rpc @in-process @grace
 Feature: Flagd Provider State Changes
 
   Background:
-    Given a flagd provider is set
+    Given a unstable flagd provider
 
   Scenario Outline: Provider events
-    When a <event> handler is added
-    Then the <event> handler must run
+    Given a <event> event handler
+    Then the <event> event handler should have been executed
     Examples:
-      | event                          |
-      | PROVIDER_ERROR                 |
-      | PROVIDER_STALE                 |
-      | PROVIDER_READY                 |
+      | event |
+      | stale |
+      | error |
+      | ready |
 
   Scenario: Provider events chain ready -> stale -> error -> ready
-    When a PROVIDER_READY handler is added
-    Then the PROVIDER_READY handler must run
-    When a PROVIDER_STALE handler is added
-    Then the PROVIDER_STALE handler must run
-    When a PROVIDER_ERROR handler is added
-    Then the PROVIDER_ERROR handler must run
-    When a PROVIDER_READY handler is added
-    Then the PROVIDER_READY handler must run
+    Given a ready event handler
+    And a error event handler
+    And a stale event handler
+    When a ready event was fired
+    Then the ready event handler should have been executed
+    When a stale event was fired
+    Then the stale event handler should have been executed
+    When a error event was fired
+    Then the error event handler should have been executed
+    When a ready event was fired
+    Then the ready event handler should have been executed

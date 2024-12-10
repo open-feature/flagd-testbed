@@ -1,44 +1,61 @@
+@rpc @caching
 Feature: Flag evaluation with Caching
 
 # This test suite contains scenarios to test the flag evaluation API with caching (RPC only)
-
   Background:
-    Given a provider is registered
+    Given an option "cache" of type "CacheType" with value "lru"
+    And a stable flagd provider
 
-  Scenario: Resolves boolean details with caching
-    When a boolean flag with key "boolean-flag" is evaluated with details and default value "false"
-    Then the resolved boolean details value should be "true", the variant should be "on", and the reason should be "STATIC"
-    Then the resolved boolean details value should be "true", the variant should be "on", and the reason should be "CACHED"
+  Scenario Outline: Resolves <type> details with caching
+    Given a <type>-flag with key "<key>" and a default value "<default>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<resolved_value>"
+    And the variant should be "<resolved_variant>"
+    And the reason should be "STATIC"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<resolved_value>"
+    And the variant should be "<resolved_variant>"
+    And the reason should be "CACHED"
 
-  Scenario: Resolves string details with caching
-    When a string flag with key "string-flag" is evaluated with details and default value "bye"
-    Then the resolved string details value should be "hi", the variant should be "greeting", and the reason should be "STATIC"
-    Then the resolved string details value should be "hi", the variant should be "greeting", and the reason should be "CACHED"
-
-  Scenario: Resolves integer details with caching
-    When an integer flag with key "integer-flag" is evaluated with details and default value 1
-    Then the resolved integer details value should be 10, the variant should be "ten", and the reason should be "STATIC"
-    Then the resolved integer details value should be 10, the variant should be "ten", and the reason should be "CACHED"
-
-  Scenario: Resolves float details with caching
-    When a float flag with key "float-flag" is evaluated with details and default value 0.1
-    Then the resolved float details value should be 0.5, the variant should be "half", and the reason should be "STATIC"
-    Then the resolved float details value should be 0.5, the variant should be "half", and the reason should be "CACHED"
-
-  Scenario: Resolves object details with caching
-    When an object flag with key "object-flag" is evaluated with details and a null default value
-    Then the resolved object details value should be contain fields "showImages", "title", and "imagesPerPage", with values "true", "Check out these pics!" and 100, respectively
-    And the variant should be "template", and the reason should be "STATIC"
-    Then the resolved object details value should be contain fields "showImages", "title", and "imagesPerPage", with values "true", "Check out these pics!" and 100, respectively
-    And the variant should be "template", and the reason should be "CACHED"
+    Examples:
+      | key          | type    | default | resolved_variant | resolved_value                                                                |
+      | boolean-flag | Boolean | false   | on               | true                                                                          |
+      | string-flag  | String  | bye     | greeting         | hi                                                                            |
+      | integer-flag | Integer | 1       | ten              | 10                                                                            |
+      | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
+      | object-flag  | Object  | null    | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
 
   Scenario: Flag change event with caching
-    When a string flag with key "changing-flag" is evaluated with details
-    When a PROVIDER_CONFIGURATION_CHANGED handler is added
-    And a flag with key "changing-flag" is modified
-    Then the returned reason should be "STATIC"
-    Then the returned reason should be "CACHED"
-    Then the PROVIDER_CONFIGURATION_CHANGED handler must run
-    And the event details must indicate "changing-flag" was altered
-    Then the returned reason should be "STATIC"
-    Then the returned reason should be "CACHED"
+    Given a String-flag with key "changing-flag" and a default value "false"
+    And a change event handler
+    When a change event was fired
+    And the flag was modified
+    And the flag was evaluated with details
+    Then the reason should be "STATIC"
+    When the flag was evaluated with details
+    Then the reason should be "CACHED"
+    When a change event was fired
+    And the flag was modified
+    And the flag was evaluated with details
+    Then the reason should be "STATIC"
+    When the flag was evaluated with details
+    Then the reason should be "CACHED"
+
+  Scenario: Stale and Error stage
+    Given an option "cache" of type "CacheType" with value "lru"
+    And a unstable flagd provider
+    And a ready event handler
+    And a stale event handler
+    And a error event handler
+    And a String-flag with key "changing-flag" and a default value "false"
+    When the flag was evaluated with details
+    Then the reason should be "STATIC"
+    When the flag was evaluated with details
+    Then the reason should be "CACHED"
+    When a stale event was fired
+    And the flag was evaluated with details
+    Then the reason should be "CACHED"
+    When a error event was fired
+    And a ready event was fired
+    And the flag was evaluated with details
+    Then the reason should be "STATIC""

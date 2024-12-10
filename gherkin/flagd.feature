@@ -1,3 +1,4 @@
+@rpc @in-process @evaluation
 Feature: flagd providers
 
   # This test suite contains scenarios to test flagd providers.
@@ -5,32 +6,29 @@ Feature: flagd providers
   # It should be used in conjunction with the suites supplied by the OpenFeature specification.
 
   Background:
-    Given a flagd provider is set
+    Given an option "cache" of type "CacheType" with value "disabled"
+    And a stable flagd provider
 
   # events
   Scenario: Provider ready event
-    When a PROVIDER_READY handler is added
-    Then the PROVIDER_READY handler must run
+    Given a ready event handler
+    Then the ready event handler should have been executed
 
   Scenario: Flag change event
-    When a PROVIDER_CONFIGURATION_CHANGED handler is added
-    And a flag with key "changing-flag" is modified
-    Then the PROVIDER_CONFIGURATION_CHANGED handler must run
-    And the event details must indicate "changing-flag" was altered
+    Given a String-flag with key "changing-flag" and a default value "false"
+    And a change event handler
+    When a change event was fired
+    Then the change event handler should have been executed
+    And the flag was modified
 
-  # zero evaluation
-  Scenario: Resolves boolean zero value
-    When a zero-value boolean flag with key "boolean-zero-flag" is evaluated with default value "true"
-    Then the resolved boolean zero-value should be "false"
+  Scenario Outline: Resolves zero value
+    Given a <type>-flag with key "<key>" and a default value "<default>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<resolved_value>"
 
-  Scenario: Resolves string zero value
-    When a zero-value string flag with key "string-zero-flag" is evaluated with default value "hi"
-    Then the resolved string zero-value should be ""
-
-  Scenario: Resolves integer zero value
-    When a zero-value integer flag with key "integer-zero-flag" is evaluated with default value 1
-    Then the resolved integer zero-value should be 0
-
-  Scenario: Resolves float zero value
-    When a zero-value float flag with key "float-zero-flag" is evaluated with default value 0.1
-    Then the resolved float zero-value should be 0.0
+    Examples:
+      | key               | type    | default | resolved_value |
+      | boolean-zero-flag | Boolean | true    | false          |
+      | string-zero-flag  | String  | hi      |                |
+      | integer-zero-flag | Integer | 1       | 0              |
+      | float-zero-flag   | Float   | 0.1     | 0.0            |
