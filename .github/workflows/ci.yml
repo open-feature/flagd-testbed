@@ -35,11 +35,21 @@ jobs:
         with:
           context: .
           file: flagd/Dockerfile
+          target: testbed
           push: false
 
       - name: Build flagd-testbed-unstable Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: flagd/Dockerfile.unstable
+          file: flagd/Dockerfile
+          target: unstable
+          push: false
+
+      - name: Build flagd-testbed-ssl Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: flagd/Dockerfile
+          target: ssl
           push: false
