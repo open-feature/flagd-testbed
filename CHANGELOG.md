@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.18](https://github.com/open-feature/flagd-testbed/compare/v0.5.17...v0.5.18) (2024-12-16)
+
+
+### Features
+
+* add yaml file with current version, to easier fetch images corr… ([#169](https://github.com/open-feature/flagd-testbed/issues/169)) ([ac1263a](https://github.com/open-feature/flagd-testbed/commit/ac1263af53f3d9380bfe4732034f4282f9a93228))
+
 ## [0.5.17](https://github.com/open-feature/flagd-testbed/compare/v0.5.16...v0.5.17) (2024-12-06)
 
 
