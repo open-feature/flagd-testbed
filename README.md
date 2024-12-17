@@ -10,6 +10,12 @@ The _flagd-testbed_ container is a docker image built on flagd, which essentiall
 
 See the [flagd docs](https://flagd.dev/) for more information on flagd.
 
+### SSL
+
+The _flagd-testbed-ssl_ container is based on _flagd-testbed_ but replaces all the certificates for SSL testing with a custom root CA.
+Within the SSL folder you will find all the necessary OpenSSL files, and the commands used for generation.
+Please do not use this CA in any kind of production environment.
+
 ## Gherkin test suite
 
 The [gherkin/](gherkin/) dir includes a set of [_gherkin_](https://cucumber.io/docs/gherkin/) tests that define expected behavior associated with the configurations defined in the flagd-testbed (see [flags/](flags/)).
