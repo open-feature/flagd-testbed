@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.19](https://github.com/open-feature/flagd-testbed/compare/v0.5.18...v0.5.19) (2024-12-17)
+
+
+### Features
+
+* add certificates for ssl test and an ssl test image ([#168](https://github.com/open-feature/flagd-testbed/issues/168)) ([8177dc0](https://github.com/open-feature/flagd-testbed/commit/8177dc0c4bde7ddadb5a939f55ee70663ca485b9))
+
 ## [0.5.18](https://github.com/open-feature/flagd-testbed/compare/v0.5.17...v0.5.18) (2024-12-16)
 
 
