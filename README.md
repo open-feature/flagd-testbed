@@ -38,3 +38,4 @@ The Gherkin files structure can be linted using [gherkin-lint](https://github.co
 
 1. npm install
 1. npm run gherkin-lint
+
