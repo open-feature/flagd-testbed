@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.20](https://github.com/open-feature/flagd-testbed/compare/v0.5.19...v0.5.20) (2024-12-25)
+
+
+### Features
+
+* move to grace period from grace attempts ([#172](https://github.com/open-feature/flagd-testbed/issues/172)) ([56a600f](https://github.com/open-feature/flagd-testbed/commit/56a600fd0f9bcdcc435ac41ed02edcf832a01b3c))
+
 ## [0.5.19](https://github.com/open-feature/flagd-testbed/compare/v0.5.18...v0.5.19) (2024-12-17)
 
 
