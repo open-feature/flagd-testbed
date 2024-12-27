@@ -57,6 +57,7 @@ jobs:
         with:
           context: .
           file: flagd/Dockerfile
+          target: testbed
           push: true
           tags: |
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
@@ -68,7 +69,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: flagd/Dockerfile.unstable
+          file: flagd/Dockerfile
+          target: unstable
           push: true
           tags: |
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-unstable:${{ needs.release-please.outputs.release_tag_name }}
@@ -76,4 +78,14 @@ jobs:
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest
 
-      
+      - name: Build and push flagd-testbed-ssl Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: flagd/Dockerfile
+          target: ssl
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-ssl:${{ needs.release-please.outputs.release_tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-ssl:latest
+

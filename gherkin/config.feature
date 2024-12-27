@@ -14,7 +14,7 @@ Feature: Configuration Test
   | streamDeadlineMs      | FLAGD_STREAM_DEADLINE_MS       | deadline for streaming calls, useful as an application-layer keepalive          | int                          | 600000                        | rpc & in-process    |
   | retryBackoffMs        | FLAGD_RETRY_BACKOFF_MS         | initial backoff for stream retry                                                | int                          | 1000                          | rpc & in-process    |
   | retryBackoffMaxMs     | FLAGD_RETRY_BACKOFF_MAX_MS     | maximum backoff for stream retry                                                | int                          | 120000                        | rpc & in-process    |
-  | retryGracePeriod    | FLAGD_RETRY_GRACE_PERIOD     | amount of stream retry attempts before provider moves from STALE to ERROR state | int                          | 5                             | rpc & in-process    |
+  | retryGracePeriod      | FLAGD_RETRY_GRACE_PERIOD       | time before provider moves from STALE to ERROR state                            | int                          | 5                             | rpc & in-process    |
   | keepAliveTime         | FLAGD_KEEP_ALIVE_TIME_MS       | http 2 keepalive                                                                | long                         | 0                             | rpc & in-process    |
   | cache                 | FLAGD_CACHE                    | enable cache of static flags                                                    | String - `lru`, `disabled`   | lru                           | rpc                 |
   | maxCacheSize          | FLAGD_MAX_CACHE_SIZE           | max size of static flag cache                                                   | int                          | 1000                          | rpc                 |
@@ -110,15 +110,15 @@ Feature: Configuration Test
       | option    | type   | value |
       | targetUri | String | path  |
     @customCert
-    Examples:
+    Examples: Custom Certificate
       | option   | type   | value |
       | certPath | String | path  |
     @unixsocket
-    Examples:
+    Examples: Unixsocket
       | option     | type   | value |
       | socketPath | String | path  |
     @events
-    Examples:
+    Examples: events
       | option            | type    | value  |
       | streamDeadlineMs  | Integer | 500000 |
       | keepAliveTime     | Long    | 5      |
@@ -126,7 +126,7 @@ Feature: Configuration Test
       | retryBackoffMaxMs | Integer | 12000  |
       | retryGracePeriod  | Integer | 10     |
     @sync
-    Examples:
+    Examples: sync
       | option            | type    | value    |
       | streamDeadlineMs  | Integer | 500000   |
       | keepAliveTime     | Long    | 5        |
@@ -135,12 +135,12 @@ Feature: Configuration Test
       | retryGracePeriod  | Integer | 10       |
       | selector          | String  | selector |
     @caching
-    Examples:
+    Examples: caching
       | option       | type      | value    |
       | cache        | CacheType | disabled |
       | maxCacheSize | Integer   | 1236     |
     @offline
-    Examples:
+    Examples: offline
       | option                | type    | value |
       | offlineFlagSourcePath | String  | path  |
       | offlinePollIntervalMs | Integer | 1000  |
@@ -165,15 +165,15 @@ Feature: Configuration Test
       | option    | env              | type   | value |
       | targetUri | FLAGD_TARGET_URI | String | path  |
     @customCert
-    Examples:
+    Examples: Custom Certificates
       | option   | env                    | type   | value |
       | certPath | FLAGD_SERVER_CERT_PATH | String | path  |
     @unixsocket
-    Examples:
+    Examples: Unixsocket
       | option     | env               | type   | value |
       | socketPath | FLAGD_SOCKET_PATH | String | path  |
     @events
-    Examples:
+    Examples: Events
       | option            | env                        | type    | value  |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      |
@@ -181,7 +181,7 @@ Feature: Configuration Test
       | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  |
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10     |
     @sync
-    Examples:
+    Examples: Sync
       | option            | env                        | type    | value    |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        |
@@ -190,12 +190,12 @@ Feature: Configuration Test
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10       |
       | selector          | FLAGD_SOURCE_SELECTOR      | String  | selector |
     @caching
-    Examples:
+    Examples: Caching
       | option       | env                  | type      | value    |
       | cache        | FLAGD_CACHE          | CacheType | disabled |
       | maxCacheSize | FLAGD_MAX_CACHE_SIZE | Integer   | 1236     |
     @offline
-    Examples:
+    Examples: Offline
       | option                | env                            | type    | value |
       | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | String  | path  |
       | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | Integer | 1000  |
@@ -218,15 +218,15 @@ Feature: Configuration Test
       | option    | env              | type   | value | env-value |
       | targetUri | FLAGD_TARGET_URI | String | path  | fun       |
     @customCert
-    Examples:
+    Examples: Custom Certificates
       | option   | env                    | type   | value | env-value |
       | certPath | FLAGD_SERVER_CERT_PATH | String | path  | rpc       |
     @unixsocket
-    Examples:
+    Examples: Unixsocket
       | option     | env               | type   | value | env-value |
       | socketPath | FLAGD_SOCKET_PATH | String | path  | rpc       |
     @events
-    Examples:
+    Examples: Events
       | option            | env                        | type    | value  | env-value |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 | 400       |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      | 4         |
@@ -234,7 +234,7 @@ Feature: Configuration Test
       | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  | 4         |
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10     | 4         |
     @sync
-    Examples:
+    Examples: Sync
       | option            | env                        | type    | value    | env-value |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   | 400       |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        | 4         |
@@ -243,12 +243,12 @@ Feature: Configuration Test
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10       | 4         |
       | selector          | FLAGD_SOURCE_SELECTOR      | String  | selector | sele      |
     @caching
-    Examples:
+    Examples: Caching
       | option       | env                  | type      | value    | env-value |
       | cache        | FLAGD_CACHE          | CacheType | disabled | lru       |
       | maxCacheSize | FLAGD_MAX_CACHE_SIZE | Integer   | 1236     | 2345      |
     @offline
-    Examples:
+    Examples: Offline
       | option                | env                            | type    | value | env-value |
       | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | String  | path  | lll       |
       | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | Integer | 1000  | 4         |

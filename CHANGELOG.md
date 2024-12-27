@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.5.20](https://github.com/open-feature/flagd-testbed/compare/v0.5.19...v0.5.20) (2024-12-25)
+
+
+### Features
+
+* move to grace period from grace attempts ([#172](https://github.com/open-feature/flagd-testbed/issues/172)) ([56a600f](https://github.com/open-feature/flagd-testbed/commit/56a600fd0f9bcdcc435ac41ed02edcf832a01b3c))
+
+## [0.5.19](https://github.com/open-feature/flagd-testbed/compare/v0.5.18...v0.5.19) (2024-12-17)
+
+
+### Features
+
+* add certificates for ssl test and an ssl test image ([#168](https://github.com/open-feature/flagd-testbed/issues/168)) ([8177dc0](https://github.com/open-feature/flagd-testbed/commit/8177dc0c4bde7ddadb5a939f55ee70663ca485b9))
+
+## [0.5.18](https://github.com/open-feature/flagd-testbed/compare/v0.5.17...v0.5.18) (2024-12-16)
+
+
+### Features
+
+* add yaml file with current version, to easier fetch images corr… ([#169](https://github.com/open-feature/flagd-testbed/issues/169)) ([ac1263a](https://github.com/open-feature/flagd-testbed/commit/ac1263af53f3d9380bfe4732034f4282f9a93228))
+
 ## [0.5.17](https://github.com/open-feature/flagd-testbed/compare/v0.5.16...v0.5.17) (2024-12-06)
 
 

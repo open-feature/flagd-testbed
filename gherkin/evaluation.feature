@@ -1,3 +1,4 @@
+@rpc @in-process
 Feature: flagd providers
 
   # This test suite contains scenarios to test flagd providers.
@@ -8,17 +9,17 @@ Feature: flagd providers
     Given an option "cache" of type "CacheType" with value "disabled"
     And a stable flagd provider
 
-  # events
-  Scenario: Provider ready event
-    Given a ready event handler
-    Then the ready event handler should have been executed
+  Scenario Outline: Resolve values
+    Given a <type>-flag with key "<key>" and a default value "<default>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<resolved_value>"
 
-  Scenario: Flag change event
-    Given a String-flag with key "changing-flag" and a default value "false"
-    And a change event handler
-    When a change event was fired
-    Then the change event handler should have been executed
-    And the flag was modified
+    Examples:
+      | key          | type    | default | resolved_value |
+      | boolean-flag | Boolean | false   | true           |
+      | string-flag  | String  | bye     | hi             |
+      | integer-flag | Integer | 1       | 10             |
+      | float-flag   | Float   | 0.1     | 0.5            |
 
   Scenario Outline: Resolves zero value
     Given a <type>-flag with key "<key>" and a default value "<default>"
