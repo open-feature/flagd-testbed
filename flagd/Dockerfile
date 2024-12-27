@@ -43,3 +43,10 @@ ENTRYPOINT ["./flagd", "start",\
     "-f", "file:testing-flags.json", \
     "-c", "/etc/ssl/certs/server-cert.pem", \
     "-k", "/etc/ssl/private/server-key.pem"]
+
+FROM testbed AS socket
+
+USER 1000:1000
+ENTRYPOINT ["./flagd", "start", "-x",\
+    "-f", "file:testing-flags.json", \
+    "-d", "/tmp/socket.sock"]

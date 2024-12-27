@@ -53,3 +53,12 @@ jobs:
           file: flagd/Dockerfile
           target: ssl
           push: false
+
+      - name: Build flagd-testbed-socket Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: flagd/Dockerfile
+          target: socket
+          push: false
+
