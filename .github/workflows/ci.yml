@@ -21,17 +21,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4
       - run: npm ci
 
       - name: Lint Gherkin
         run: npm run gherkin-lint
 
       - name: Build flagd-testbed Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -39,7 +39,7 @@ jobs:
           push: false
 
       - name: Build flagd-testbed-unstable Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -47,7 +47,7 @@ jobs:
           push: false
 
       - name: Build flagd-testbed-ssl Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
         with:
           context: .
           file: flagd/Dockerfile
