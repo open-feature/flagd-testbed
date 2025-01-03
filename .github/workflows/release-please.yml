@@ -89,3 +89,14 @@ jobs:
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-ssl:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-ssl:latest
 
+      - name: Build and push flagd-testbed-ssl Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: flagd/Dockerfile
+          target: socket
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-socket:${{ needs.release-please.outputs.release_tag_name }}
+            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-socket:latest
+
