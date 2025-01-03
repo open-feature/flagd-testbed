@@ -55,7 +55,7 @@ jobs:
           push: false
 
       - name: Build flagd-testbed-socket Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
         with:
           context: .
           file: flagd/Dockerfile
