@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.21](https://github.com/open-feature/flagd-testbed/compare/v0.5.20...v0.5.21) (2025-01-03)
+
+
+### Features
+
+* unix socket image ([#176](https://github.com/open-feature/flagd-testbed/issues/176)) ([a31c7d9](https://github.com/open-feature/flagd-testbed/commit/a31c7d900fa22d3a5abd863d9758565946775d95))
+
 ## [0.5.20](https://github.com/open-feature/flagd-testbed/compare/v0.5.19...v0.5.20) (2024-12-25)
 
 
