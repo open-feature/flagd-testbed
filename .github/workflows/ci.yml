@@ -31,7 +31,7 @@ jobs:
         run: npm run gherkin-lint
 
       - name: Build flagd-testbed Docker image
-        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
+        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -39,7 +39,7 @@ jobs:
           push: false
 
       - name: Build flagd-testbed-unstable Docker image
-        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
+        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -47,7 +47,7 @@ jobs:
           push: false
 
       - name: Build flagd-testbed-ssl Docker image
-        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
+        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -55,7 +55,7 @@ jobs:
           push: false
 
       - name: Build flagd-testbed-socket Docker image
-        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6
+        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
         with:
           context: .
           file: flagd/Dockerfile
