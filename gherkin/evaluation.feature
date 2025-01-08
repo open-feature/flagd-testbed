@@ -1,8 +1,8 @@
 @rpc @in-process
-Feature: flagd providers
+Feature: flagd evaluations
 
   # This test suite contains scenarios to test flagd providers.
-  # It's associated with the flags configured in flags/changing-flag.json and flags/zero-flags.json.
+  # It's associated with the flags configured in flags.
   # It should be used in conjunction with the suites supplied by the OpenFeature specification.
 
   Background:

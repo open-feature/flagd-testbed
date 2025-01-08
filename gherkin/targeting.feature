@@ -1,5 +1,5 @@
 @rpc @in-process @targeting
-Feature: flagd json evaluation
+Feature: Targeting rules
 
   # This test suite contains scenarios to test the json-evaluation of flagd and flag-in-process providers.
   # It's associated with the flags configured in flags/changing-flag.json, flags/zero-flags.json, flags/custom-ops.json and evaluator-refs.json.

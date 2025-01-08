@@ -7,19 +7,19 @@ Feature: flagd provider disconnect and reconnect functionality
     When the flag was evaluated with details
     Then the resolved details value should be "true"
 
-    Examples: Stable
+    Scenarios: Stable
       | name   |
       | stable |
     @targetURI
-    Examples: Target URI
+    Scenarios: Target URI
       | name   |
       | target |
     @customCert
-    Examples: Certificates
+    Scenarios: Certificates
       | name |
       | ssl  |
     @unixsocket @os.linux
-    Examples: Unixsocket
+    Scenarios: Unixsocket
       | name   |
       | socket |
 
@@ -34,19 +34,19 @@ Feature: flagd provider disconnect and reconnect functionality
     Then the error event handler should have been executed
     Then the ready event handler should have been executed
 
-    Examples: Stable
+    Scenarios: Stable
       | name   |
       | stable |
     @targetURI
-    Examples: Target URI
+    Scenarios: Target URI
       | name   |
       | socket |
     @customCert
-    Examples: Certificates
+    Scenarios: Certificates
       | name |
       | ssl  |
     @unixsocket @os.linux
-    Examples: Unixsocket
+    Scenarios: Unixsocket
       | name   |
       | socket |
 
