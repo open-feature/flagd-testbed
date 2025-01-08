@@ -28,7 +28,7 @@ Feature: Configuration Test
   Scenario Outline: Default Config
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<default>"
-    Examples: Basic
+    Scenarios: Basic
       | option     | type         | default   |
       | resolver   | ResolverType | rpc       |
       | host       | String       | localhost |
@@ -36,19 +36,19 @@ Feature: Configuration Test
       | tls        | Boolean      | false     |
       | deadlineMs | Integer      | 500       |
     @targetURI
-    Examples: Target URI
+    Scenarios: Target URI
       | option    | type   | default |
       | targetUri | String | null    |
     @customCert
-    Examples: Certificates
+    Scenarios: Certificates
       | option   | type   | default |
       | certPath | String | null    |
     @unixsocket
-    Examples: Unixsocket
+    Scenarios: Unixsocket
       | option     | type   | default |
       | socketPath | String | null    |
     @events
-    Examples: Events
+    Scenarios: Events
       | option            | type    | default |
       | streamDeadlineMs  | Integer | 600000  |
       | keepAliveTime     | Long    | 0       |
@@ -56,7 +56,7 @@ Feature: Configuration Test
       | retryBackoffMaxMs | Integer | 120000  |
       | retryGracePeriod  | Integer | 5       |
     @sync
-    Examples: Sync
+    Scenarios: Sync
       | option            | type    | default |
       | streamDeadlineMs  | Integer | 600000  |
       | keepAliveTime     | Long    | 0       |
@@ -65,12 +65,12 @@ Feature: Configuration Test
       | retryGracePeriod  | Integer | 5       |
       | selector          | String  | null    |
     @caching
-    Examples: caching
+    Scenarios: caching
       | option       | type      | default |
       | cache        | CacheType | lru     |
       | maxCacheSize | Integer   | 1000    |
     @offline
-    Examples: offline
+    Scenarios: offline
       | option                | type    | default |
       | offlineFlagSourcePath | String  | null    |
       | offlinePollIntervalMs | Integer | 5000    |
@@ -80,7 +80,7 @@ Feature: Configuration Test
     Given an option "resolver" of type "ResolverType" with value "rpc"
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<default>"
-    Examples:
+    Scenarios:
       | option | type    | default |
       | port   | Integer | 8013    |
 
@@ -89,7 +89,7 @@ Feature: Configuration Test
     Given an option "resolver" of type "ResolverType" with value "in-process"
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<default>"
-    Examples:
+    Scenarios:
       | option | type    | default |
       | port   | Integer | 8015    |
 
@@ -98,7 +98,7 @@ Feature: Configuration Test
     Given an option "<option>" of type "<type>" with value "<value>"
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<value>"
-    Examples:
+    Scenarios:
       | option     | type         | value      |
       | resolver   | ResolverType | in-process |
       | host       | String       | local      |
@@ -106,19 +106,19 @@ Feature: Configuration Test
       | port       | Integer      | 1234       |
       | deadlineMs | Integer      | 123        |
     @targetURI
-    Examples: Target URI
+    Scenarios: Target URI
       | option    | type   | value |
       | targetUri | String | path  |
     @customCert
-    Examples:
+    Scenarios: Custom Certificate
       | option   | type   | value |
       | certPath | String | path  |
     @unixsocket
-    Examples:
+    Scenarios: Unixsocket
       | option     | type   | value |
       | socketPath | String | path  |
     @events
-    Examples:
+    Scenarios: events
       | option            | type    | value  |
       | streamDeadlineMs  | Integer | 500000 |
       | keepAliveTime     | Long    | 5      |
@@ -126,7 +126,7 @@ Feature: Configuration Test
       | retryBackoffMaxMs | Integer | 12000  |
       | retryGracePeriod  | Integer | 10     |
     @sync
-    Examples:
+    Scenarios: sync
       | option            | type    | value    |
       | streamDeadlineMs  | Integer | 500000   |
       | keepAliveTime     | Long    | 5        |
@@ -135,12 +135,12 @@ Feature: Configuration Test
       | retryGracePeriod  | Integer | 10       |
       | selector          | String  | selector |
     @caching
-    Examples:
+    Scenarios: caching
       | option       | type      | value    |
       | cache        | CacheType | disabled |
       | maxCacheSize | Integer   | 1236     |
     @offline
-    Examples:
+    Scenarios: offline
       | option                | type    | value |
       | offlineFlagSourcePath | String  | path  |
       | offlinePollIntervalMs | Integer | 1000  |
@@ -150,7 +150,7 @@ Feature: Configuration Test
     Given an environment variable "<env>" with value "<value>"
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<value>"
-    Examples:
+    Scenarios:
       | option     | env               | type         | value      |
       | resolver   | FLAGD_RESOLVER    | ResolverType | in-process |
       | resolver   | FLAGD_RESOLVER    | ResolverType | IN-PROCESS |
@@ -161,19 +161,19 @@ Feature: Configuration Test
       | port       | FLAGD_PORT        | Integer      | 1234       |
       | deadlineMs | FLAGD_DEADLINE_MS | Integer      | 123        |
     @targetURI
-    Examples: Target URI
+    Scenarios: Target URI
       | option    | env              | type   | value |
       | targetUri | FLAGD_TARGET_URI | String | path  |
     @customCert
-    Examples:
+    Scenarios: Custom Certificates
       | option   | env                    | type   | value |
       | certPath | FLAGD_SERVER_CERT_PATH | String | path  |
     @unixsocket
-    Examples:
+    Scenarios: Unixsocket
       | option     | env               | type   | value |
       | socketPath | FLAGD_SOCKET_PATH | String | path  |
     @events
-    Examples:
+    Scenarios: Events
       | option            | env                        | type    | value  |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      |
@@ -181,7 +181,7 @@ Feature: Configuration Test
       | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  |
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10     |
     @sync
-    Examples:
+    Scenarios: Sync
       | option            | env                        | type    | value    |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        |
@@ -190,12 +190,12 @@ Feature: Configuration Test
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10       |
       | selector          | FLAGD_SOURCE_SELECTOR      | String  | selector |
     @caching
-    Examples:
+    Scenarios: Caching
       | option       | env                  | type      | value    |
       | cache        | FLAGD_CACHE          | CacheType | disabled |
       | maxCacheSize | FLAGD_MAX_CACHE_SIZE | Integer   | 1236     |
     @offline
-    Examples:
+    Scenarios: Offline
       | option                | env                            | type    | value |
       | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | String  | path  |
       | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | Integer | 1000  |
@@ -206,7 +206,7 @@ Feature: Configuration Test
     And an option "<option>" of type "<type>" with value "<value>"
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<value>"
-    Examples:
+    Scenarios:
       | option     | env               | type         | value      | env-value |
       | resolver   | FLAGD_RESOLVER    | ResolverType | in-process | rpc       |
       | host       | FLAGD_HOST        | String       | local      | l         |
@@ -214,19 +214,19 @@ Feature: Configuration Test
       | port       | FLAGD_PORT        | Integer      | 1234       | 3456      |
       | deadlineMs | FLAGD_DEADLINE_MS | Integer      | 123        | 345       |
     @targetURI
-    Examples: Target URI
+    Scenarios: Target URI
       | option    | env              | type   | value | env-value |
       | targetUri | FLAGD_TARGET_URI | String | path  | fun       |
     @customCert
-    Examples:
+    Scenarios: Custom Certificates
       | option   | env                    | type   | value | env-value |
       | certPath | FLAGD_SERVER_CERT_PATH | String | path  | rpc       |
     @unixsocket
-    Examples:
+    Scenarios: Unixsocket
       | option     | env               | type   | value | env-value |
       | socketPath | FLAGD_SOCKET_PATH | String | path  | rpc       |
     @events
-    Examples:
+    Scenarios: Events
       | option            | env                        | type    | value  | env-value |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000 | 400       |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5      | 4         |
@@ -234,7 +234,7 @@ Feature: Configuration Test
       | retryBackoffMaxMs | FLAGD_RETRY_BACKOFF_MAX_MS | Integer | 12000  | 4         |
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10     | 4         |
     @sync
-    Examples:
+    Scenarios: Sync
       | option            | env                        | type    | value    | env-value |
       | streamDeadlineMs  | FLAGD_STREAM_DEADLINE_MS   | Integer | 500000   | 400       |
       | keepAliveTime     | FLAGD_KEEP_ALIVE_TIME_MS   | Long    | 5        | 4         |
@@ -243,12 +243,12 @@ Feature: Configuration Test
       | retryGracePeriod  | FLAGD_RETRY_GRACE_PERIOD   | Integer | 10       | 4         |
       | selector          | FLAGD_SOURCE_SELECTOR      | String  | selector | sele      |
     @caching
-    Examples:
+    Scenarios: Caching
       | option       | env                  | type      | value    | env-value |
       | cache        | FLAGD_CACHE          | CacheType | disabled | lru       |
       | maxCacheSize | FLAGD_MAX_CACHE_SIZE | Integer   | 1236     | 2345      |
     @offline
-    Examples:
+    Scenarios: Offline
       | option                | env                            | type    | value | env-value |
       | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | String  | path  | lll       |
       | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | Integer | 1000  | 4         |

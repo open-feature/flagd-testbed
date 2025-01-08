@@ -23,11 +23,11 @@ Combined with the _flagd-provider_ for the associated SDK and the flagd-testbed,
 
 Included suites:
 
-[flagd.feature](gherkin/flagd.feature) includes tests relevant to flagd and all flagd providers:
+[evaluation.feature](gherkin/evaluation.feature) includes tests relevant to flagd and all flagd providers:
 * default value (zero-value) handling (some proto3 implementations handle these inconsistently).
 * basic event handling
 
-[flagd-json-evaluator.feature](gherkin/flagd-json-evaluator.feature) includes tests relevant to flagd and in-process providers:
+[targeting.feature](gherkin/targeting.feature) includes tests relevant to flagd and in-process providers:
 * custom JSONLogic operators (`starts_with`, `ends_with`, `fractional`, `sem_ver`)
 * evaluator reuse via `$ref`
 
