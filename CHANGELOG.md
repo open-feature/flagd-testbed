@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.0](https://github.com/open-feature/flagd-testbed/compare/v0.5.21...v1.0.0) (2025-01-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* rework gherkin files and structure ([#161](https://github.com/open-feature/flagd-testbed/issues/161))
+
+### Features
+
+* rework gherkin files and structure ([#161](https://github.com/open-feature/flagd-testbed/issues/161)) ([f20cda1](https://github.com/open-feature/flagd-testbed/commit/f20cda130a5c5f498021157ae4e727f7404c604b))
+
+
+### Bug Fixes
+
+* release please config ([#180](https://github.com/open-feature/flagd-testbed/issues/180)) ([012d613](https://github.com/open-feature/flagd-testbed/commit/012d613052121de040dafa7871b46e5b60a170fe))
+* release please config ([#181](https://github.com/open-feature/flagd-testbed/issues/181)) ([e6787e8](https://github.com/open-feature/flagd-testbed/commit/e6787e8f73ab1594b026918d4c2c72dd803eff27))
+
 ## [0.5.21](https://github.com/open-feature/flagd-testbed/compare/v0.5.20...v0.5.21) (2025-01-03)
 
 
