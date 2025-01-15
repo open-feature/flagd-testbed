@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/open-feature/flagd-testbed/compare/v1.0.0...v1.1.0) (2025-01-15)
+
+
+### Features
+
+* **gherkin:** improve gherkin files ([#184](https://github.com/open-feature/flagd-testbed/issues/184)) ([10bee10](https://github.com/open-feature/flagd-testbed/commit/10bee10e44e4ee34dfd54d44535783e5a5f20000))
+
 ## [1.0.0](https://github.com/open-feature/flagd-testbed/compare/v0.5.21...v1.0.0) (2025-01-08)
 
 
