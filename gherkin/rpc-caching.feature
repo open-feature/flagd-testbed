@@ -1,7 +1,7 @@
 @rpc @caching
 Feature: Flag evaluation with Caching
 
-# This test suite contains scenarios to test the flag evaluation API with caching (RPC only)
+  # This test suite contains scenarios to test the flag evaluation API with caching (RPC only)
   Background:
     Given an option "cache" of type "CacheType" with value "lru"
     And a stable flagd provider
@@ -18,14 +18,14 @@ Feature: Flag evaluation with Caching
     And the reason should be "CACHED"
 
     Examples:
-        | key          | type    | default | resolved_variant | resolved_value                                                                |
-        | boolean-flag | Boolean | false   | on               | true                                                                          |
-        | string-flag  | String  | bye     | greeting         | hi                                                                            |
-        | integer-flag | Integer | 1       | ten              | 10                                                                            |
-        | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
-        | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
+      | key          | type    | default | resolved_variant | resolved_value                                                                |
+      | boolean-flag | Boolean | false   | on               | true                                                                          |
+      | string-flag  | String  | bye     | greeting         | hi                                                                            |
+      | integer-flag | Integer | 1       | ten              | 10                                                                            |
+      | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
+      | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
 
-    Scenario: Flag change event with caching
+  Scenario: Flag change event with caching
     Given a String-flag with key "changing-flag" and a default value "false"
     And a change event handler
     When a change event was fired
