@@ -1,7 +1,7 @@
 @rpc @caching
 Feature: Flag evaluation with Caching
 
-# This test suite contains scenarios to test the flag evaluation API with caching (RPC only)
+  # This test suite contains scenarios to test the flag evaluation API with caching (RPC only)
   Background:
     Given an option "cache" of type "CacheType" with value "lru"
     And a stable flagd provider
@@ -23,7 +23,7 @@ Feature: Flag evaluation with Caching
       | string-flag  | String  | bye     | greeting         | hi                                                                            |
       | integer-flag | Integer | 1       | ten              | 10                                                                            |
       | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
-      | object-flag  | Object  | null    | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
+      | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
 
   Scenario: Flag change event with caching
     Given a String-flag with key "changing-flag" and a default value "false"
@@ -45,7 +45,7 @@ Feature: Flag evaluation with Caching
     Given a ready event handler
     And a stale event handler
     And a error event handler
-    And a String-flag with key "changing-flag" and a default value "false"
+    And a Boolean-flag with key "boolean-flag" and a default value "false"
     When the flag was evaluated with details
     Then the reason should be "STATIC"
     When the flag was evaluated with details
