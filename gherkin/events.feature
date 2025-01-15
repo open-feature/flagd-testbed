@@ -13,7 +13,7 @@ Feature: Flagd Provider State Changes
       | error |
       | ready |
     @grace
-    Examples:
+    Examples: Grace Period
       | event |
       | stale |
 

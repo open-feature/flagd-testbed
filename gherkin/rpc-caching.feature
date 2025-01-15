@@ -18,14 +18,14 @@ Feature: Flag evaluation with Caching
     And the reason should be "CACHED"
 
     Examples:
-      | key          | type    | default | resolved_variant | resolved_value                                                                |
-      | boolean-flag | Boolean | false   | on               | true                                                                          |
-      | string-flag  | String  | bye     | greeting         | hi                                                                            |
-      | integer-flag | Integer | 1       | ten              | 10                                                                            |
-      | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
-      | object-flag  | Object  | null    | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
+        | key          | type    | default | resolved_variant | resolved_value                                                                |
+        | boolean-flag | Boolean | false   | on               | true                                                                          |
+        | string-flag  | String  | bye     | greeting         | hi                                                                            |
+        | integer-flag | Integer | 1       | ten              | 10                                                                            |
+        | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
+        | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
 
-  Scenario: Flag change event with caching
+    Scenario: Flag change event with caching
     Given a String-flag with key "changing-flag" and a default value "false"
     And a change event handler
     When a change event was fired
@@ -45,7 +45,7 @@ Feature: Flag evaluation with Caching
     Given a ready event handler
     And a stale event handler
     And a error event handler
-    And a String-flag with key "changing-flag" and a default value "false"
+    And a Boolean-flag with key "boolean-flag" and a default value "false"
     When the flag was evaluated with details
     Then the reason should be "STATIC"
     When the flag was evaluated with details
