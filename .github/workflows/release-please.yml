@@ -53,7 +53,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push flagd-testbed Docker image
-        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
+        uses: docker/build-push-action@67a2d409c0a876cbe6b11854e3e25193efe4e62d # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -66,7 +66,7 @@ jobs:
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest      
 
       - name: Build and push flagd-testbed-unstable Docker image
-        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
+        uses: docker/build-push-action@67a2d409c0a876cbe6b11854e3e25193efe4e62d # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -79,7 +79,7 @@ jobs:
             ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest
 
       - name: Build and push flagd-testbed-ssl Docker image
-        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
+        uses: docker/build-push-action@67a2d409c0a876cbe6b11854e3e25193efe4e62d # v6
         with:
           context: .
           file: flagd/Dockerfile
@@ -90,7 +90,7 @@ jobs:
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-ssl:latest
 
       - name: Build and push flagd-testbed-ssl Docker image
-        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6
+        uses: docker/build-push-action@67a2d409c0a876cbe6b11854e3e25193efe4e62d # v6
         with:
           context: .
           file: flagd/Dockerfile
