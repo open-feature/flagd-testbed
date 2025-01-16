@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.1](https://github.com/open-feature/flagd-testbed/compare/v1.1.0...v1.1.1) (2025-01-16)
+
+
+### 🧹 Chore
+
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.11.7 ([#192](https://github.com/open-feature/flagd-testbed/issues/192)) ([7581f27](https://github.com/open-feature/flagd-testbed/commit/7581f2719938da8e11406e8761b91e59ab3f6674))
+* **deps:** update marocchino/sticky-pull-request-comment digest to 52423e0 ([#193](https://github.com/open-feature/flagd-testbed/issues/193)) ([73d4391](https://github.com/open-feature/flagd-testbed/commit/73d4391ba40d9f1842e1a83f2e5cf074f66d5449))
+* remove comment in flagd-testbed dockerfile ([#191](https://github.com/open-feature/flagd-testbed/issues/191)) ([5aa03a0](https://github.com/open-feature/flagd-testbed/commit/5aa03a0e45ffb76f6376e29cc5bbdf5b6c4cdca6))
+* update release-please-config.json ([9ca8f26](https://github.com/open-feature/flagd-testbed/commit/9ca8f26d7cd1381aa175b9e8c0833d0a4f956c55))
+
 ## [1.1.0](https://github.com/open-feature/flagd-testbed/compare/v1.0.0...v1.1.0) (2025-01-15)
 
 
