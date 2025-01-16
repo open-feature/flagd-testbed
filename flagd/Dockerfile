@@ -1,5 +1,4 @@
-# we NEED flagd v0.6.4 as a minimum
-FROM ghcr.io/open-feature/flagd:v0.11.6 AS flagd
+FROM ghcr.io/open-feature/flagd:v0.11.7 AS flagd
 
 FROM busybox:1.37 AS testbed
 
