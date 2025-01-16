@@ -11,7 +11,6 @@ permissions:
 env:
   REGISTRY: ghcr.io
   FLAGD_IMAGE_NAME: flagd-testbed
-  SYNC_IMAGE_NAME: sync-testbed
   GO_VERSION: "~1.21"
 
 jobs:
@@ -62,41 +61,6 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
-            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest      
 
-      - name: Build and push flagd-testbed-unstable Docker image
-        uses: docker/build-push-action@67a2d409c0a876cbe6b11854e3e25193efe4e62d # v6
-        with:
-          context: .
-          file: flagd/Dockerfile
-          target: unstable
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-unstable:${{ needs.release-please.outputs.release_tag_name }}
-            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-unstable:latest
-            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
-            ${{ env.REGISTRY }}/open-feature/${{ env.SYNC_IMAGE_NAME }}:latest
 
-      - name: Build and push flagd-testbed-ssl Docker image
-        uses: docker/build-push-action@67a2d409c0a876cbe6b11854e3e25193efe4e62d # v6
-        with:
-          context: .
-          file: flagd/Dockerfile
-          target: ssl
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-ssl:${{ needs.release-please.outputs.release_tag_name }}
-            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-ssl:latest
-
-      - name: Build and push flagd-testbed-ssl Docker image
-        uses: docker/build-push-action@67a2d409c0a876cbe6b11854e3e25193efe4e62d # v6
-        with:
-          context: .
-          file: flagd/Dockerfile
-          target: socket
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-socket:${{ needs.release-please.outputs.release_tag_name }}
-            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}-socket:latest
-
+    

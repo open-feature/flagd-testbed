@@ -1,24 +1,17 @@
 FROM ghcr.io/open-feature/flagd:v0.11.7 AS flagd
 
-FROM busybox:1.37 AS testbed
+# Build stage
+FROM golang:1.22 AS builder
 
-COPY --from=flagd /flagd-build /flagd
-COPY flags/* .
-COPY scripts/* .
-LABEL org.opencontainers.image.source="https://github.com/open-feature/flagd-testbed"
+WORKDIR /app
 
-ENTRYPOINT ["sh", "change-flag-wrapper.sh", "./flagd", "start", \
-    "-f", "file:testing-flags.json", \
-    "-f", "file:changing-flag.json", \
-    "-f", "file:custom-ops.json", \
-    "-f", "file:evaluator-refs.json", \
-    "-f", "file:edge-case-flags.json", \
-    "-f", "file:zero-flags.json"]
+# Copy Go modules and dependencies
+COPY launchpad/go.mod launchpad/main.go ./
+RUN go mod download
 
-FROM testbed AS unstable
+# Build the Go binary
+RUN go build -o launchpad main.go
 
-ENTRYPOINT ["sh", "restart-wrapper.sh", "./flagd", "start", \
-    "-f", "file:testing-flags.json"]
 
 FROM alpine/openssl AS certs
 
@@ -29,23 +22,22 @@ RUN openssl genpkey -algorithm RSA -out server-key.pem -pkeyopt rsa_keygen_bits:
 RUN openssl req -new -key server-key.pem -out server.csr -subj "/CN=localhost" \
    && openssl x509 -req -in server.csr -CA custom-root-cert.crt -CAkey custom-ca.key -CAcreateserial -out server-cert.pem -days 365 -sha256
 
-FROM testbed AS ssl
+FROM busybox:1.37 AS testbed
+
+COPY --from=flagd /flagd-build /flagd
+COPY --from=builder /app/launchpad /launchpad
+COPY flags/* .
+COPY scripts/* .
+COPY launchpad/configs /configs
 
 # Copy the custom root CA certificate into the image
 
-COPY --from=certs server-cert.pem /etc/ssl/certs/
-COPY --from=certs server-key.pem /etc/ssl/private/
-COPY --from=certs custom-root-cert.crt /etc/ssl/certs/
+COPY --from=certs server-cert.pem /ssl/
+COPY --from=certs server-key.pem /ssl/
+COPY --from=certs custom-root-cert.crt /ssl/
 
 
-ENTRYPOINT ["./flagd", "start",\
-    "-f", "file:testing-flags.json", \
-    "-c", "/etc/ssl/certs/server-cert.pem", \
-    "-k", "/etc/ssl/private/server-key.pem"]
+LABEL org.opencontainers.image.source="https://github.com/open-feature/flagd-testbed"
 
-FROM testbed AS socket
+ENTRYPOINT ["./launchpad"]
 
-USER 1000:1000
-ENTRYPOINT ["./flagd", "start", "-x",\
-    "-f", "file:testing-flags.json", \
-    "-d", "/tmp/socket.sock"]
