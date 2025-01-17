@@ -78,7 +78,7 @@ func stopFlagdHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("flagd stopped"))
-	fmt.Println("stopped flagd with config ", currentConfig)
+	log.Println("stopped flagd with config ", currentConfig)
 }
 
 type FlagConfig struct {
