@@ -67,7 +67,7 @@ func startFlagd(config string) error {
 	if err := flagdCmd.Start(); err != nil {
 		return err
 	}
-	fmt.Println("started flagd with config ", currentConfig)
+	log.Println("started flagd with config ", currentConfig)
 	return nil
 }
 
