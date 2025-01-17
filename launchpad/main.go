@@ -1,14 +1,17 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
+	"os/signal"
 	"sync"
+	"syscall"
+	"time"
 )
 
 var (
@@ -137,7 +140,7 @@ func changeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Write the updated JSON back to the file
-	if err := ioutil.WriteFile(configFile, updatedData, 0644); err != nil {
+	if err := os.WriteFile(configFile, updatedData, 0644); err != nil {
 		http.Error(w, fmt.Sprintf("Failed to write updated file: %v", err), http.StatusInternalServerError)
 		return
 	}
@@ -148,17 +151,44 @@ func changeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Create a context that listens for interrupt or terminate signals
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
+	defer stop()
+
+	// Define your HTTP handlers
 	http.HandleFunc("/start", startFlagdHandler)
 	http.HandleFunc("/stop", stopFlagdHandler)
 	http.HandleFunc("/change", changeHandler)
 
+	// Create the server
+	server := &http.Server{Addr: ":8010"}
+
+	// We put the signal handler into a goroutine
+	go func() {
+		<-ctx.Done()
+		log.Printf("Received signal. Trying to shut down gracefully")
+		timeout, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+
+		// Make sure all the resources the context holds are released
+		// When we exit the goroutine.
+		defer cancel()
+
+		// Two options here: either srv.Shutdown() manages to shutdown the server
+		// (semi-)gracefully within the timeout or we will be SIGKILLed by the OS.
+		log.Printf("shutdown")
+		server.Shutdown(timeout)
+		log.Printf("done")
+	}()
+
 	err := startFlagd("default")
 	if err != nil {
-		log.Fatal("could not start flagd", err)
-		return
+		fmt.Printf("Failed to start flagd: %v\n", err)
+		os.Exit(1)
 	}
-	log.Println("HTTP server listening on :8080")
+	fmt.Println("Server is running on port 8080...")
+	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		fmt.Printf("Failed to start server: %v\n", err)
+	}
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
-
+	fmt.Println("Server stopped.")
 }
