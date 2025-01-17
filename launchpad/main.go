@@ -99,7 +99,7 @@ func changeHandler(w http.ResponseWriter, r *http.Request) {
 	configFile := "changing-flag.json"
 
 	// Read the existing file
-	data, err := ioutil.ReadFile(configFile)
+	data, err := os.ReadFile(configFile)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Failed to read file: %v", err), http.StatusInternalServerError)
 		return
