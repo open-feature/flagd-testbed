@@ -14,7 +14,7 @@ import (
 var (
 	flagdCmd      *exec.Cmd
 	flagdLock     sync.Mutex
-	currentConfig string = "default" // Default fallback configuration
+	currentConfig = "default" // Default fallback configuration
 )
 
 func stopFlagd() error {
