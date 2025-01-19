@@ -1,4 +1,4 @@
-@rpc @in-process
+@rpc @in-process @file @events
 Feature: Flagd Provider State Changes
 
   Background:

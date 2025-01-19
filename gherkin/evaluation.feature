@@ -1,4 +1,4 @@
-@rpc @in-process
+@rpc @in-process @file
 Feature: flagd evaluations
 
   # This test suite contains scenarios to test flagd providers.

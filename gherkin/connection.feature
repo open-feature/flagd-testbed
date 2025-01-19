@@ -1,4 +1,4 @@
-@rpc @in-process
+@rpc @in-process @file
 Feature: flagd provider disconnect and reconnect functionality
 
   Scenario Outline: Connection
@@ -51,6 +51,7 @@ Feature: flagd provider disconnect and reconnect functionality
     #      | name   |
     #      | socket |
 
+  @unavailable
   Scenario: Provider unavailable
     Given an option "deadlineMs" of type "Integer" with value "1000"
     And a unavailable flagd provider
