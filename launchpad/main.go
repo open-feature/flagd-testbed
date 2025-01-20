@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"strconv"
 	"sync"
 	"syscall"
 	"time"
@@ -92,6 +93,39 @@ type FlagConfig struct {
 	} `json:"flags"`
 }
 
+func restartHandler(w http.ResponseWriter, r *http.Request) {
+	// Parse the "seconds" query parameter
+	secondsStr := r.URL.Query().Get("seconds")
+	if secondsStr == "" {
+		secondsStr = "5"
+	}
+
+	seconds, err := strconv.Atoi(secondsStr)
+	if err != nil || seconds < 0 {
+		http.Error(w, "'seconds' must be a non-negative integer", http.StatusBadRequest)
+		return
+	}
+
+	fmt.Println("flagd will be stopped for restart\n")
+	// Stop flagd
+	if err := stopFlagd(); err != nil {
+		http.Error(w, fmt.Sprintf("Failed to stop flagd: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Fprintf(w, "flagd will restart in %d seconds...\n", seconds)
+
+	// Restart flagd after the specified delay
+	go func(delay int) {
+		time.Sleep(time.Duration(delay) * time.Second)
+		if err := startFlagd(currentConfig); err != nil {
+			fmt.Printf("Failed to restart flagd: %v\n", err)
+		} else {
+			fmt.Println("flagd restarted successfully.")
+		}
+	}(seconds)
+}
+
 var mu sync.Mutex // Mutex to ensure thread-safe file operations
 
 func changeHandler(w http.ResponseWriter, r *http.Request) {
@@ -157,11 +191,12 @@ func main() {
 
 	// Define your HTTP handlers
 	http.HandleFunc("/start", startFlagdHandler)
+	http.HandleFunc("/restart", restartHandler)
 	http.HandleFunc("/stop", stopFlagdHandler)
 	http.HandleFunc("/change", changeHandler)
 
 	// Create the server
-	server := &http.Server{Addr: ":8010"}
+	server := &http.Server{Addr: ":8080"}
 
 	// We put the signal handler into a goroutine
 	go func() {
