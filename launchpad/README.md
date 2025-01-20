@@ -36,7 +36,16 @@ Launchpad is a lightweight HTTP server built in Go that controls a `flagd` binar
 - **Example:**
   ```bash
   curl -X POST http://localhost:8080/change
-  ```
+
+### 3. `/restart`
+- **Method:** `POST`
+- **Description:** restarts the running `flagd` binary. 
+- **Query Parameters:**
+    - `seconds` (optional): Time between stop and start. Defaults to `"5"`.
+
+- **Example:**
+  ```bash
+  curl -X POST http://localhost:8080/restart?seconds=5 ```
 
 ## Configuration Files
 
