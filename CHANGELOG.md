@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/open-feature/flagd-testbed/compare/v1.3.0...v1.3.1) (2025-01-20)
+
+
+### 🐛 Bug Fixes
+
+* **launchpad:** add missing flag file ([8e4e125](https://github.com/open-feature/flagd-testbed/commit/8e4e125e063751f67683c9c8fbddf7e48d4eb368))
+* **launchpad:** add missing flag file ([4ed91a6](https://github.com/open-feature/flagd-testbed/commit/4ed91a6bdc644e3f4dfec3c701f3b7ec12947de6))
+
 ## [1.3.0](https://github.com/open-feature/flagd-testbed/compare/v1.2.0...v1.3.0) (2025-01-20)
 
 
