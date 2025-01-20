@@ -39,6 +39,6 @@ Feature: Flagd Provider State Changes
   Scenario: Flag change event
     Given a String-flag with key "changing-flag" and a default value "false"
     And a change event handler
-    When a change event was fired
-    And the flag was modified
+    When the flag was modified
+    And a change event was fired
     Then the flag should be part of the event payload

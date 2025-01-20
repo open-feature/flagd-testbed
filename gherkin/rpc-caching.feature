@@ -28,14 +28,14 @@ Feature: Flag evaluation with Caching
   Scenario: Flag change event with caching
     Given a String-flag with key "changing-flag" and a default value "false"
     And a change event handler
-    When a change event was fired
-    And the flag was modified
+    When the flag was modified
+    And a change event was fired
     And the flag was evaluated with details
     Then the reason should be "STATIC"
     When the flag was evaluated with details
     Then the reason should be "CACHED"
-    When a change event was fired
-    And the flag was modified
+    When the flag was modified
+    And a change event was fired
     And the flag was evaluated with details
     Then the reason should be "STATIC"
     When the flag was evaluated with details
