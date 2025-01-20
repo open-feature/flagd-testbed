@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/open-feature/flagd-testbed/compare/v1.1.1...v1.2.0) (2025-01-20)
+
+
+### ✨ New Features
+
+* **launchpad:** adding a launchpad to control flagd ([#194](https://github.com/open-feature/flagd-testbed/issues/194)) ([dbad001](https://github.com/open-feature/flagd-testbed/commit/dbad00186b293260ae034322424c60de641c96e6))
+
+
+### 🧹 Chore
+
+* **deps:** update golang docker tag to v1.23 ([#197](https://github.com/open-feature/flagd-testbed/issues/197)) ([70bc13d](https://github.com/open-feature/flagd-testbed/commit/70bc13df8548a79ae8b0ffd0ca3350ca849e3d2f))
+
 ## [1.1.1](https://github.com/open-feature/flagd-testbed/compare/v1.1.0...v1.1.1) (2025-01-16)
 
 
