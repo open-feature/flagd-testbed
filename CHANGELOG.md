@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/open-feature/flagd-testbed/compare/v1.2.0...v1.3.0) (2025-01-20)
+
+
+### ✨ New Features
+
+* **launchpad:** adding restart to launchpad ([#199](https://github.com/open-feature/flagd-testbed/issues/199)) ([87bd6d3](https://github.com/open-feature/flagd-testbed/commit/87bd6d3ef581a5351676f718827b685c640ffdb0))
+
 ## [1.2.0](https://github.com/open-feature/flagd-testbed/compare/v1.1.1...v1.2.0) (2025-01-20)
 
 
