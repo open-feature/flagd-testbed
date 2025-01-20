@@ -1,0 +1,30 @@
+{
+  "server-cert-path": "/ssl/server-cert.pem",
+  "server-key-path": "/ssl/server-key.pem",
+  "sources": [
+    {
+      "uri": "testing-flags.json",
+      "provider": "file"
+    },
+    {
+      "uri": "changing-flag.json",
+      "provider": "file"
+    },
+    {
+      "uri": "custom-ops.json",
+      "provider": "file"
+    },
+    {
+      "uri": "evaluator-refs.json",
+      "provider": "file"
+    },
+    {
+      "uri": "edge-case-flags.json",
+      "provider": "file"
+    },
+    {
+      "uri": "zero-flags.json",
+      "provider": "file"
+    }
+  ]
+}
