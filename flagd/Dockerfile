@@ -27,7 +27,6 @@ FROM busybox:1.37 AS testbed
 COPY --from=flagd /flagd-build /flagd
 COPY --from=builder /app/launchpad /launchpad
 COPY flags/* .
-COPY scripts/* .
 COPY launchpad/configs /configs
 
 # Copy the custom root CA certificate into the image
