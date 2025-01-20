@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.2](https://github.com/open-feature/flagd-testbed/compare/v1.3.1...v1.3.2) (2025-01-20)
+
+
+### 🐛 Bug Fixes
+
+* **launchpad:** improve gherkin file for new launchpad ([#203](https://github.com/open-feature/flagd-testbed/issues/203)) ([3669769](https://github.com/open-feature/flagd-testbed/commit/3669769899ccc7a7e24e1cb897e24da7b3fd75a8))
+
+
+### 🧹 Chore
+
+* use release bot ([#202](https://github.com/open-feature/flagd-testbed/issues/202)) ([dd046cd](https://github.com/open-feature/flagd-testbed/commit/dd046cdba0f131bb77a7f56dc13bfe89e46c90f7))
+
 ## [1.3.1](https://github.com/open-feature/flagd-testbed/compare/v1.3.0...v1.3.1) (2025-01-20)
 
 
