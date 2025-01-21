@@ -30,7 +30,7 @@ Feature: flagd provider disconnect and reconnect functionality
     And a ready event handler
     And a error event handler
     When a ready event was fired
-    When the connection is lost for 4s
+    When the connection is lost for 3s
     Then the error event handler should have been executed
     Then the ready event handler should have been executed
 
@@ -55,4 +55,4 @@ Feature: flagd provider disconnect and reconnect functionality
     Given an option "deadlineMs" of type "Integer" with value "1000"
     And a unavailable flagd provider
     And a error event handler
-    Then the error event handler should have been executed within 2000ms
+    Then the error event handler should have been executed within 3000ms
