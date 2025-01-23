@@ -1,4 +1,4 @@
-FROM ghcr.io/open-feature/flagd:v0.11.7 AS flagd
+FROM ghcr.io/open-feature/flagd:v0.11.8 AS flagd
 
 # Build stage
 FROM golang:1.23 AS builder
