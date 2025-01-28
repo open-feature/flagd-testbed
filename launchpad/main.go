@@ -4,21 +4,28 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"os/exec"
 	"os/signal"
+	"path/filepath"
 	"strconv"
 	"sync"
 	"syscall"
 	"time"
+
+	"github.com/fsnotify/fsnotify"
 )
 
 var (
 	flagdCmd      *exec.Cmd
 	flagdLock     sync.Mutex
 	currentConfig = "default" // Default fallback configuration
+	inputDir      = "./rawflags"
+	outputDir     = "./flags"
+	outputFile    = filepath.Join(outputDir, "allFlags.json")
 )
 
 func stopFlagd() error {
@@ -113,11 +120,22 @@ func restartHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	err = os.Remove(outputFile)
+	if err != nil {
+		fmt.Printf("failed to remove file - %v", err)
+	}
+
 	fmt.Fprintf(w, "flagd will restart in %d seconds...\n", seconds)
 
 	// Restart flagd after the specified delay
 	go func(delay int) {
 		time.Sleep(time.Duration(delay) * time.Second)
+		// Initialize the combined JSON file on startup
+		if err := CombineJSONFiles(); err != nil {
+			fmt.Printf("Error during initial JSON combination: %v\n", err)
+			os.Exit(1)
+		}
+
 		if err := startFlagd(currentConfig); err != nil {
 			fmt.Printf("Failed to restart flagd: %v\n", err)
 		} else {
@@ -133,7 +151,7 @@ func changeHandler(w http.ResponseWriter, r *http.Request) {
 	defer mu.Unlock()
 
 	// Path to the configuration file
-	configFile := "changing-flag.json"
+	configFile := filepath.Join(inputDir, "changing-flag.json")
 
 	// Read the existing file
 	data, err := os.ReadFile(configFile)
@@ -184,10 +202,125 @@ func changeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Default variant successfully changed to '%s'\n", flag.DefaultVariant)
 }
 
+func deepMerge(dst, src map[string]interface{}) map[string]interface{} {
+	for key, srcValue := range src {
+		if dstValue, exists := dst[key]; exists {
+			// If both values are maps, merge recursively
+			if srcMap, ok := srcValue.(map[string]interface{}); ok {
+				if dstMap, ok := dstValue.(map[string]interface{}); ok {
+					dst[key] = deepMerge(dstMap, srcMap)
+					continue
+				}
+			}
+		}
+		// Overwrite or add the value from src to dst
+		dst[key] = srcValue
+	}
+	return dst
+}
+
+func CombineJSONFiles() error {
+	files, err := os.ReadDir(inputDir)
+	if err != nil {
+		return fmt.Errorf("failed to read input directory: %v", err)
+	}
+
+	combinedData := make(map[string]interface{})
+
+	for _, file := range files {
+		fmt.Printf("read JSON %s\n", file.Name())
+		if filepath.Ext(file.Name()) == ".json" {
+			filePath := filepath.Join(inputDir, file.Name())
+			content, err := ioutil.ReadFile(filePath)
+			if err != nil {
+				return fmt.Errorf("failed to read file %s: %v", file.Name(), err)
+			}
+
+			var data map[string]interface{}
+			if err := json.Unmarshal(content, &data); err != nil {
+				return fmt.Errorf("failed to parse JSON file %s: %v", file.Name(), err)
+			}
+
+			// Perform deep merge
+			combinedData = deepMerge(combinedData, data)
+		}
+	}
+
+	// Ensure output directory exists
+	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
+		return fmt.Errorf("failed to create output directory: %v", err)
+	}
+
+	// Write the combined data to the output file
+	combinedContent, err := json.MarshalIndent(combinedData, "", "  ")
+	if err != nil {
+		return fmt.Errorf("failed to serialize combined JSON: %v", err)
+	}
+
+	if err := ioutil.WriteFile(outputFile, combinedContent, 0644); err != nil {
+		return fmt.Errorf("failed to write combined JSON to file: %v", err)
+	}
+
+	fmt.Printf("Combined JSON written to %s\n", outputFile)
+	return nil
+}
+
+// startFileWatcher initializes a file watcher on the input directory to auto-update combined.json.
+func startFileWatcher() error {
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		return fmt.Errorf("failed to create file watcher: %v", err)
+	}
+
+	go func() {
+		defer watcher.Close()
+		for {
+			select {
+			case event, ok := <-watcher.Events:
+				if !ok {
+					return
+				}
+				// Watch for create, write, or remove events
+				if event.Op&(fsnotify.Create|fsnotify.Write|fsnotify.Remove) != 0 {
+					fmt.Println("Change detected in input directory. Regenerating combined.json...")
+					if err := CombineJSONFiles(); err != nil {
+						fmt.Printf("Error combining JSON files: %v\n", err)
+					}
+				}
+			case err, ok := <-watcher.Errors:
+				if !ok {
+					return
+				}
+				fmt.Printf("File watcher error: %v\n", err)
+			}
+		}
+	}()
+
+	// Watch the input directory
+	if err := watcher.Add(inputDir); err != nil {
+		return fmt.Errorf("failed to watch input directory: %v", err)
+	}
+
+	fmt.Printf("File watcher started on %s\n", inputDir)
+	return nil
+}
+
 func main() {
 	// Create a context that listens for interrupt or terminate signals
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	defer stop()
+
+	// Initialize the combined JSON file on startup
+	if err := CombineJSONFiles(); err != nil {
+		fmt.Printf("Error during initial JSON combination: %v\n", err)
+		os.Exit(1)
+	}
+
+	// Start the file watcher
+	if err := startFileWatcher(); err != nil {
+		fmt.Printf("Error starting file watcher: %v\n", err)
+		os.Exit(1)
+	}
 
 	// Define your HTTP handlers
 	http.HandleFunc("/start", startFlagdHandler)
@@ -225,5 +358,6 @@ func main() {
 		fmt.Printf("Failed to start server: %v\n", err)
 	}
 
+	os.Remove(outputFile)
 	fmt.Println("Server stopped.")
 }
