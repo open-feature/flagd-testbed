@@ -6,7 +6,7 @@ FROM golang:1.23 AS builder
 WORKDIR /app
 
 # Copy Go modules and dependencies
-COPY launchpad/go.mod launchpad/main.go ./
+COPY launchpad/go.mod launchpad/go.sum launchpad/main.go ./
 RUN go mod download
 
 # Build the Go binary
@@ -26,7 +26,7 @@ FROM busybox:1.37 AS testbed
 
 COPY --from=flagd /flagd-build /flagd
 COPY --from=builder /app/launchpad /launchpad
-COPY flags/* .
+COPY flags/* ./rawflags/
 COPY launchpad/configs /configs
 
 # Copy the custom root CA certificate into the image
@@ -34,6 +34,8 @@ COPY launchpad/configs /configs
 COPY --from=certs server-cert.pem /ssl/
 COPY --from=certs server-key.pem /ssl/
 COPY --from=certs custom-root-cert.crt /ssl/
+
+RUN mkdir "flags"
 
 
 LABEL org.opencontainers.image.source="https://github.com/open-feature/flagd-testbed"

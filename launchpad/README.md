@@ -2,6 +2,10 @@
 
 Launchpad is a lightweight HTTP server built in Go that controls a `flagd` binary and provides endpoints to manage its lifecycle and configuration. The application also allows toggling a flag's `defaultVariant` dynamically and saves the updated configuration to a file.
 
+Additionally, launchpad will write the whole configuration as one combined JSON file into the "flags" directory with the name "allFlags.json".
+This file can be utilized for File provider tests, instead of implementing a json manipulation in all languages.
+Mount the folder of the docker image to a local directory, and it will generate the file into this folder.
+
 ## Features
 
 - **Start and Stop `flagd`:** 
