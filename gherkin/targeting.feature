@@ -1,4 +1,4 @@
-@rpc @in-process @targeting
+@rpc @in-process @file @targeting
 Feature: Targeting rules
 
   # This test suite contains scenarios to test the json-evaluation of flagd and flag-in-process providers.
@@ -138,7 +138,7 @@ Feature: Targeting rules
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
     Examples:
-      | key                                | value |
+      | key                               | value |
       | targeting-null-variant-flag       | 2     |
       | error-targeting-flag              | 3     |
       | missing-variant-targeting-flag    | 3     |
