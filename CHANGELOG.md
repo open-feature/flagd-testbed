@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.0.0](https://github.com/open-feature/flagd-testbed/compare/v1.4.0...v2.0.0) (2025-02-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* offline file an own resolver ([#195](https://github.com/open-feature/flagd-testbed/issues/195))
+
+### ✨ New Features
+
+* offline file an own resolver ([#195](https://github.com/open-feature/flagd-testbed/issues/195)) ([ef03ed0](https://github.com/open-feature/flagd-testbed/commit/ef03ed05c3f30183e796ae78a617325313b1e8dd))
+
+
+### 🧹 Chore
+
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.12.0 ([#212](https://github.com/open-feature/flagd-testbed/issues/212)) ([6c095cf](https://github.com/open-feature/flagd-testbed/commit/6c095cfdd13206e8a9cafb83ef866ed39cb6dcbf))
+
 ## [1.4.0](https://github.com/open-feature/flagd-testbed/compare/v1.3.3...v1.4.0) (2025-01-28)
 
 
