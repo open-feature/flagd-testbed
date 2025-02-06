@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/open-feature/flagd-testbed/compare/v2.0.1...v2.1.0) (2025-02-06)
+
+
+### ✨ New Features
+
+* remove redundant checks in events ([#217](https://github.com/open-feature/flagd-testbed/issues/217)) ([b8a2ff9](https://github.com/open-feature/flagd-testbed/commit/b8a2ff9ce4710a21c58d08f0cfd0bd9296b25fcc))
+
 ## [2.0.1](https://github.com/open-feature/flagd-testbed/compare/v2.0.0...v2.0.1) (2025-02-06)
 
 
