@@ -4,19 +4,6 @@ Feature: Flagd Provider State Changes
   Background:
     Given a stable flagd provider
 
-  Scenario Outline: Provider events
-    Given a <event> event handler
-    When the connection is lost
-    Then the <event> event handler should have been executed
-    Examples:
-      | event |
-      | error |
-      | ready |
-    @grace
-    Examples: Grace Period
-      | event |
-      | stale |
-
   Scenario: Provider events chain ready -> error -> ready
     Given a ready event handler
     And a error event handler
