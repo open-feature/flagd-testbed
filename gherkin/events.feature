@@ -6,7 +6,7 @@ Feature: Flagd Provider State Changes
 
   Scenario Outline: Provider events
     Given a <event> event handler
-    When the connection is lost for 6s
+    When the connection is lost
     Then the <event> event handler should have been executed
     Examples:
       | event |
