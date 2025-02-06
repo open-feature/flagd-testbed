@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.1](https://github.com/open-feature/flagd-testbed/compare/v2.0.0...v2.0.1) (2025-02-06)
+
+
+### 🐛 Bug Fixes
+
+* race condition in events ([#216](https://github.com/open-feature/flagd-testbed/issues/216)) ([2c820e4](https://github.com/open-feature/flagd-testbed/commit/2c820e4b3424b0538ac474e9ba743e05d1499e38))
+
+
+### 🧹 Chore
+
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.12.1 ([#214](https://github.com/open-feature/flagd-testbed/issues/214)) ([ecd7e9e](https://github.com/open-feature/flagd-testbed/commit/ecd7e9e07f207d42e08a58a96895b634b499ad3d))
+
 ## [2.0.0](https://github.com/open-feature/flagd-testbed/compare/v1.4.0...v2.0.0) (2025-02-04)
 
 
