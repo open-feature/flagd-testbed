@@ -229,7 +229,7 @@ func CombineJSONFiles() error {
 
 	for _, file := range files {
 		fmt.Printf("read JSON %s\n", file.Name())
-		if filepath.Ext(file.Name()) == ".json" {
+		if filepath.Ext(file.Name()) == ".json" && file.Name() != "selector-flags.json" {
 			filePath := filepath.Join(inputDir, file.Name())
 			content, err := ioutil.ReadFile(filePath)
 			if err != nil {
