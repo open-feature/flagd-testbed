@@ -5,6 +5,10 @@
     {
       "uri": "flags/allFlags.json",
       "provider": "file"
+    },
+    {
+      "uri": "rawflags/selector-flags.json",
+      "provider": "file"
     }
   ]
 }
