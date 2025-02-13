@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.2.0](https://github.com/open-feature/flagd-testbed/compare/v2.1.0...v2.2.0) (2025-02-13)
+
+
+### ✨ New Features
+
+* add selector tests ([#221](https://github.com/open-feature/flagd-testbed/issues/221)) ([813011d](https://github.com/open-feature/flagd-testbed/commit/813011dd4f45af5dc1ad32384e6c37cdf38e1fe8))
+
+
+### 🧹 Chore
+
+* **deps:** update golang docker tag to v1.24 ([#219](https://github.com/open-feature/flagd-testbed/issues/219)) ([cbb1563](https://github.com/open-feature/flagd-testbed/commit/cbb1563eddf87b6ec23e3219c34576f3f54b0b6d))
+
 ## [2.1.0](https://github.com/open-feature/flagd-testbed/compare/v2.0.1...v2.1.0) (2025-02-06)
 
 
