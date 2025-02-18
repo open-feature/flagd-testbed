@@ -146,7 +146,19 @@ Feature: Targeting rules
       | empty-targeting-flag              | 1     |
 
   @flagdcontext
-  Scenario: Use Flagd provided context
+  Scenario: Use injected context
     Given a String-flag with key "flagd-context-aware" and a default value "not"
+    When the flag was evaluated with details
+    Then the resolved details value should be "INTERNAL"
+
+    
+  @flagdcontext
+  Scenario: Use injected context after connection error
+    Given a String-flag with key "flagd-context-aware" and a default value "not"
+    And a stale event handler
+    When the flag was evaluated with details
+    Then the resolved details value should be "INTERNAL"
+    When the connection is lost for 6s
+    And a stale event was fired
     When the flag was evaluated with details
     Then the resolved details value should be "INTERNAL"
