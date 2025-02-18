@@ -10,5 +10,8 @@
       "uri": "rawflags/selector-flags.json",
       "provider": "file"
     }
-  ]
+  ],
+  "context-value": {
+    "flagd-testbed": "set"
+  }
 }

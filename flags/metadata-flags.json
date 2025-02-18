@@ -1,0 +1,28 @@
+{
+  "flags": {
+    "flagd-context-aware": {
+      "state": "ENABLED",
+      "variants": {
+        "internal": "INTERNAL",
+        "external": "EXTERNAL"
+      },
+      "defaultVariant": "external",
+      "targeting": {
+        "if": [
+          {
+            "==": [
+              {
+                "var": [
+                  "injectedMetadata"
+                ]
+              },
+              "set"
+            ]
+          },
+          "internal",
+          "external"
+        ]
+      }
+    }
+  }
+}
