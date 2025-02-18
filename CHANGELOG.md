@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.4.0](https://github.com/open-feature/flagd-testbed/compare/v2.3.1...v2.4.0) (2025-02-18)
+
+
+### ✨ New Features
+
+* add context-sensitive test with connection err ([#227](https://github.com/open-feature/flagd-testbed/issues/227)) ([0e27325](https://github.com/open-feature/flagd-testbed/commit/0e2732504877b15b28e5cc50acd90e1ccf289d98))
+
+
+### 🧹 Chore
+
+* add [@grace](https://github.com/grace) to contextEnrichment test ([8901a79](https://github.com/open-feature/flagd-testbed/commit/8901a7916822a0e7f670407fc66cbb15af4bac18))
+
 ## [2.3.1](https://github.com/open-feature/flagd-testbed/compare/v2.3.0...v2.3.1) (2025-02-18)
 
 
