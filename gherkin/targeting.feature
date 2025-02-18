@@ -145,15 +145,15 @@ Feature: Targeting rules
       | non-string-variant-targeting-flag | 2     |
       | empty-targeting-flag              | 1     |
 
-  @flagdcontext
-  Scenario: Use injected context
+  @contextEnrichment
+  Scenario: Use enriched context
     Given a String-flag with key "flagd-context-aware" and a default value "not"
     When the flag was evaluated with details
     Then the resolved details value should be "INTERNAL"
 
-    
-  @flagdcontext
-  Scenario: Use injected context after connection error
+
+  @contextEnrichment
+  Scenario: Use enriched context on connection error
     Given a String-flag with key "flagd-context-aware" and a default value "not"
     And a stale event handler
     When the flag was evaluated with details
