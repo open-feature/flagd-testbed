@@ -151,7 +151,7 @@ Feature: Targeting rules
     When the flag was evaluated with details
     Then the resolved details value should be "INTERNAL"
 
-  @contextEnrichment
+  @contextEnrichment @grace
   Scenario: Use enriched context on connection error
     Given a String-flag with key "flagd-context-aware" and a default value "not"
     And a stale event handler
