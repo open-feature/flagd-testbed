@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/open-feature/flagd-testbed/compare/v2.3.0...v2.3.1) (2025-02-18)
+
+
+### 🐛 Bug Fixes
+
+* Casesensitive messages for context hydration. ([#225](https://github.com/open-feature/flagd-testbed/issues/225)) ([c610b60](https://github.com/open-feature/flagd-testbed/commit/c610b6018533071921a7a5f4e3d5d432b446f481))
+
 ## [2.3.0](https://github.com/open-feature/flagd-testbed/compare/v2.2.0...v2.3.0) (2025-02-18)
 
 
