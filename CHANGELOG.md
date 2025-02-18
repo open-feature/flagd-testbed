@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/open-feature/flagd-testbed/compare/v2.2.0...v2.3.0) (2025-02-18)
+
+
+### ✨ New Features
+
+* Context value hydration via flagd ([#223](https://github.com/open-feature/flagd-testbed/issues/223)) ([b028f20](https://github.com/open-feature/flagd-testbed/commit/b028f20d5fad40fef7902d779c29f0c5e090f208))
+
 ## [2.2.0](https://github.com/open-feature/flagd-testbed/compare/v2.1.0...v2.2.0) (2025-02-13)
 
 
