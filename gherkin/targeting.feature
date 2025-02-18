@@ -145,8 +145,19 @@ Feature: Targeting rules
       | non-string-variant-targeting-flag | 2     |
       | empty-targeting-flag              | 1     |
 
-  @flagdcontext
-  Scenario: Use Flagd provided context
+  @contextEnrichment
+  Scenario: Use enriched context
     Given a String-flag with key "flagd-context-aware" and a default value "not"
+    When the flag was evaluated with details
+    Then the resolved details value should be "INTERNAL"
+
+  @contextEnrichment
+  Scenario: Use enriched context on connection error
+    Given a String-flag with key "flagd-context-aware" and a default value "not"
+    And a stale event handler
+    When the flag was evaluated with details
+    Then the resolved details value should be "INTERNAL"
+    When the connection is lost for 6s
+    And a stale event was fired
     When the flag was evaluated with details
     Then the resolved details value should be "INTERNAL"
