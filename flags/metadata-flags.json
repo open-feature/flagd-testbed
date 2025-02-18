@@ -13,7 +13,7 @@
             "==": [
               {
                 "var": [
-                  "injectedMetadata"
+                  "injectedmetadata"
                 ]
               },
               "set"
