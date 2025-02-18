@@ -8,5 +8,8 @@
       "uri": "rawflags/selector-flags.json",
       "provider": "file"
     }
-  ]
+  ],
+  "context-value": {
+    "injectedMetadata": "set"
+  }
 }

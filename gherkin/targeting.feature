@@ -144,3 +144,9 @@ Feature: Targeting rules
       | missing-variant-targeting-flag    | 3     |
       | non-string-variant-targeting-flag | 2     |
       | empty-targeting-flag              | 1     |
+
+  @flagdcontext
+  Scenario: Use Flagd provided context
+    Given a String-flag with key "flagd-context-aware" and a default value "not"
+    When the flag was evaluated with details
+    Then the resolved details value should be "INTERNAL"
