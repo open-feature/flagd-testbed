@@ -12,6 +12,6 @@
     }
   ],
   "context-value": {
-    "flagd-testbed": "set"
+    "injectedMetadata": "set"
   }
 }
