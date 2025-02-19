@@ -2,7 +2,7 @@
 Feature: Context Enrichment
 
   Background:
-    And a stable flagd provider
+    Given a stable flagd provider
 
   @in-process @rpc
   Scenario: Use enriched context
@@ -45,5 +45,6 @@ Feature: Context Enrichment
     And a change event was fired
     And the flag was evaluated with details
     Then the reason should be "TARGETING_MATCH"
+    # ensure that we do not cache a "TARGETING_MATCH", we should only cache evaluation with a "STATIC" reason
     When the flag was evaluated with details
     Then the reason should be "TARGETING_MATCH"
