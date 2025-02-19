@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -12,6 +13,7 @@ import (
 	"os/signal"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -33,6 +35,7 @@ func stopFlagd() error {
 	defer flagdLock.Unlock()
 
 	if flagdCmd != nil && flagdCmd.Process != nil {
+		time.Sleep(60 * time.Second)
 		if err := flagdCmd.Process.Kill(); err != nil {
 			return fmt.Errorf("failed to stop flagd: %v", err)
 		}
@@ -69,17 +72,62 @@ func startFlagd(config string) error {
 
 	// Start a new instance
 	flagdLock.Lock()
-	defer flagdLock.Unlock()
 	flagdCmd = exec.Command("./flagd", "start", "--config", configPath)
+	flagdLock.Unlock() // 🔥 Unlock before logs start
 	// Set up the output of flagd to be printed to the current terminal (stdout)
-	flagdCmd.Stdout = os.Stdout
-	flagdCmd.Stderr = os.Stderr
 
-	if err := flagdCmd.Start(); err != nil {
-		return err
+	// Capture stdout and stderr separately
+	stdout, err := flagdCmd.StdoutPipe()
+	if err != nil {
+		return fmt.Errorf("failed to capture stdout: %v", err)
 	}
-	log.Println("started flagd with config ", currentConfig)
-	return nil
+	stderr, err := flagdCmd.StderrPipe()
+	if err != nil {
+		return fmt.Errorf("failed to capture stderr: %v", err)
+	}
+	// Start the process
+	if err := flagdCmd.Start(); err != nil {
+		return fmt.Errorf("failed to start flagd: %v", err)
+	}
+	// Create channels to signal readiness
+	ready := make(chan bool)
+
+	// Monitor stdout and stderr for a readiness signal
+	go func() {
+		scannerOut := bufio.NewScanner(stdout)
+		for scannerOut.Scan() {
+			fmt.Println("[flagd stdout]:", scannerOut.Text())
+		}
+	}()
+
+	go func() {
+		scannerErr := bufio.NewScanner(stderr)
+		for scannerErr.Scan() {
+			fmt.Println("[flagd stderr]:", scannerErr.Text())
+			line := scannerErr.Text()
+			fmt.Println("[flagd stderr]:", line)
+			if strings.Contains(line, "listening at") {
+				ready <- true
+				return
+			}
+		}
+	}()
+
+	// Wait for flagd to print the expected log or timeout
+	select {
+	case success := <-ready:
+		if success {
+			fmt.Println("flagd started successfully.")
+			return nil
+		}
+		return fmt.Errorf("flagd did not start correctly")
+	case <-time.After(10 * time.Second): // Timeout
+		err := stopFlagd()
+		if err != nil {
+			fmt.Println(err)
+		}
+		return fmt.Errorf("flagd start timeout exceeded")
+	}
 }
 
 func stopFlagdHandler(w http.ResponseWriter, r *http.Request) {
