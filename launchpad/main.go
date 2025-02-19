@@ -31,11 +31,8 @@ var (
 )
 
 func stopFlagd() error {
-	// this is not ideal, as start flagd might already lock we need to try here, and only unlock if it works
-	// definitely room for improvement
-	if flagdLock.TryLock() {
-		defer flagdLock.Unlock()
-	}
+	flagdLock.Lock()
+	defer flagdLock.Unlock()
 
 	if flagdCmd != nil && flagdCmd.Process != nil {
 		if err := flagdCmd.Process.Kill(); err != nil {
