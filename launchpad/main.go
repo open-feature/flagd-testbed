@@ -31,11 +31,13 @@ var (
 )
 
 func stopFlagd() error {
-	flagdLock.Lock()
-	defer flagdLock.Unlock()
+	// this is not ideal, as start flagd might already lock we need to try here, and only unlock if it works
+	// definitely room for improvement
+	if flagdLock.TryLock() {
+		defer flagdLock.Unlock()
+	}
 
 	if flagdCmd != nil && flagdCmd.Process != nil {
-		time.Sleep(60 * time.Second)
 		if err := flagdCmd.Process.Kill(); err != nil {
 			return fmt.Errorf("failed to stop flagd: %v", err)
 		}
@@ -63,6 +65,7 @@ func startFlagd(config string) error {
 		currentConfig = config // Update the current configuration
 	}
 
+	flagdLock.Lock()
 	// Stop any currently running flagd instance
 	if err := stopFlagd(); err != nil {
 		return err
@@ -71,7 +74,6 @@ func startFlagd(config string) error {
 	configPath := "./configs/" + config + ".json"
 
 	// Start a new instance
-	flagdLock.Lock()
 	flagdCmd = exec.Command("./flagd", "start", "--config", configPath)
 	flagdLock.Unlock() // 🔥 Unlock before logs start
 	// Set up the output of flagd to be printed to the current terminal (stdout)
