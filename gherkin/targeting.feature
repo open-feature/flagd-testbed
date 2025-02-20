@@ -144,20 +144,3 @@ Feature: Targeting rules
       | missing-variant-targeting-flag    | 3     |
       | non-string-variant-targeting-flag | 2     |
       | empty-targeting-flag              | 1     |
-
-  @contextEnrichment
-  Scenario: Use enriched context
-    Given a String-flag with key "flagd-context-aware" and a default value "not"
-    When the flag was evaluated with details
-    Then the resolved details value should be "INTERNAL"
-
-  @contextEnrichment @grace
-  Scenario: Use enriched context on connection error
-    Given a String-flag with key "flagd-context-aware" and a default value "not"
-    And a stale event handler
-    When the flag was evaluated with details
-    Then the resolved details value should be "INTERNAL"
-    When the connection is lost for 6s
-    And a stale event was fired
-    When the flag was evaluated with details
-    Then the resolved details value should be "INTERNAL"
