@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.5.0](https://github.com/open-feature/flagd-testbed/compare/v2.4.0...v2.5.0) (2025-02-20)
+
+
+### ✨ New Features
+
+* improve contextEnrichment to handle special cases. ([#229](https://github.com/open-feature/flagd-testbed/issues/229)) ([fe7aecb](https://github.com/open-feature/flagd-testbed/commit/fe7aecb6779e9df10f51c3c6e5f3fbc55e93264e))
+
+
+### 🧹 Chore
+
+* **deps:** update docker/build-push-action digest to 0adf995 ([#232](https://github.com/open-feature/flagd-testbed/issues/232)) ([1ddd993](https://github.com/open-feature/flagd-testbed/commit/1ddd99309573e852dc3069fb6d2cf69ba02306fa))
+
 ## [2.4.0](https://github.com/open-feature/flagd-testbed/compare/v2.3.1...v2.4.0) (2025-02-18)
 
 
