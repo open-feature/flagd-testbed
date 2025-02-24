@@ -6,8 +6,10 @@ FROM golang:1.24 AS builder
 WORKDIR /app
 
 # Copy Go modules and dependencies
-COPY launchpad/go.mod launchpad/go.sum launchpad/main.go ./
+COPY launchpad/go.mod launchpad/go.sum ./
 RUN go mod download
+
+COPY launchpad/ ./
 
 # Build the Go binary
 RUN go build -o launchpad main.go
