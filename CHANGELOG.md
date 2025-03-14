@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.6.0](https://github.com/open-feature/flagd-testbed/compare/v2.5.0...v2.6.0) (2025-03-14)
+
+
+### ✨ New Features
+
+* listening for logs before returning a http status code ([#230](https://github.com/open-feature/flagd-testbed/issues/230)) ([fe1843d](https://github.com/open-feature/flagd-testbed/commit/fe1843d1b23431eaf481b84ac18e6076904bc4c0))
+
+
+### 🧹 Chore
+
+* **deps:** update docker/build-push-action digest to 471d1dc ([#236](https://github.com/open-feature/flagd-testbed/issues/236)) ([09287e8](https://github.com/open-feature/flagd-testbed/commit/09287e8bbc8e61adbf0d3470d6e3bcc73e2c8be5))
+* **deps:** update docker/login-action digest to 74a5d14 ([#238](https://github.com/open-feature/flagd-testbed/issues/238)) ([0bada4f](https://github.com/open-feature/flagd-testbed/commit/0bada4f3139ae9d5ad347b3642f893d65e6c0a04))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.12.2 ([#234](https://github.com/open-feature/flagd-testbed/issues/234)) ([22fb939](https://github.com/open-feature/flagd-testbed/commit/22fb939025828a76cb89d8c945247794a43208bf))
+
 ## [2.5.0](https://github.com/open-feature/flagd-testbed/compare/v2.4.0...v2.5.0) (2025-02-20)
 
 
