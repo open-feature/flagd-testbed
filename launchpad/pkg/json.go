@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 )
 
@@ -28,7 +29,7 @@ func CombineJSONFiles(inputDir string) error {
 	combinedData := make(map[string]interface{})
 
 	for _, file := range files {
-		if filepath.Ext(file.Name()) == ".json" {
+		if filepath.Ext(file.Name()) == ".json" && !strings.HasPrefix(file.Name(), "selector-") {
 			filePath := filepath.Join(inputDir, file.Name())
 			content, err := ioutil.ReadFile(filePath)
 			if err != nil {
