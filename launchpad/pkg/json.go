@@ -6,12 +6,13 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 )
 
 var (
 	mu         sync.Mutex
-	InputDir   = "./rawflags"
+	InputDir   = "./rawflags" //"Z:\\Workspaces\\chrfwow\\python-sdk-contrib\\providers\\openfeature-provider-flagd\\openfeature\\test-harness\\flags" //
 	outputDir  = "./flags"
 	OutputFile = filepath.Join(outputDir, "allFlags.json")
 )
@@ -28,7 +29,7 @@ func CombineJSONFiles(inputDir string) error {
 	combinedData := make(map[string]interface{})
 
 	for _, file := range files {
-		if filepath.Ext(file.Name()) == ".json" {
+		if filepath.Ext(file.Name()) == ".json" && !strings.HasPrefix(file.Name(), "selector-") {
 			filePath := filepath.Join(inputDir, file.Name())
 			content, err := ioutil.ReadFile(filePath)
 			if err != nil {
@@ -58,6 +59,9 @@ func CombineJSONFiles(inputDir string) error {
 
 func deepMerge(dst, src map[string]interface{}) map[string]interface{} {
 	for key, srcValue := range src {
+		if key == "basic-flag" {
+			print("aaaa")
+		}
 		if dstValue, exists := dst[key]; exists {
 			if srcMap, ok := srcValue.(map[string]interface{}); ok {
 				if dstMap, ok := dstValue.(map[string]interface{}); ok {

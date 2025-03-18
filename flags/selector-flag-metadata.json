@@ -1,0 +1,19 @@
+{
+  "flags": {
+    "metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "true": true,
+        "false": false
+      },
+      "defaultVariant": "false",
+      "targeting": {},
+      "metadata": {
+        "string": "a",
+        "integer": 1,
+        "float": 1.2,
+        "boolean": true
+      }
+    }
+  }
+}
