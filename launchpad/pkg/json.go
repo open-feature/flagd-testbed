@@ -12,7 +12,7 @@ import (
 
 var (
 	mu         sync.Mutex
-	InputDir   = "./rawflags" //"Z:\\Workspaces\\chrfwow\\python-sdk-contrib\\providers\\openfeature-provider-flagd\\openfeature\\test-harness\\flags" //
+	InputDir   = "./rawflags"
 	outputDir  = "./flags"
 	OutputFile = filepath.Join(outputDir, "allFlags.json")
 )
@@ -59,9 +59,6 @@ func CombineJSONFiles(inputDir string) error {
 
 func deepMerge(dst, src map[string]interface{}) map[string]interface{} {
 	for key, srcValue := range src {
-		if key == "basic-flag" {
-			print("aaaa")
-		}
 		if dstValue, exists := dst[key]; exists {
 			if srcMap, ok := srcValue.(map[string]interface{}); ok {
 				if dstMap, ok := dstValue.(map[string]interface{}); ok {
