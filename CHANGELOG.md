@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.1](https://github.com/open-feature/flagd-testbed/compare/v2.6.0...v2.6.1) (2025-03-18)
+
+
+### 🐛 Bug Fixes
+
+* make flag keys unique as a workaround for selector issue ([#242](https://github.com/open-feature/flagd-testbed/issues/242)) ([099895a](https://github.com/open-feature/flagd-testbed/commit/099895a7b95fef427fa21fde4192d9082980cd40))
+
 ## [2.6.0](https://github.com/open-feature/flagd-testbed/compare/v2.5.0...v2.6.0) (2025-03-18)
 
 
