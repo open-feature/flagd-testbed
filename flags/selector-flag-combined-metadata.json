@@ -1,6 +1,6 @@
 {
   "flags": {
-    "metadata-flag": {
+    "combined-metadata-flag": {
       "state": "ENABLED",
       "variants": {
         "true": true,
