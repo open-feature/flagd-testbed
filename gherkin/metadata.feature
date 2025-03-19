@@ -18,7 +18,7 @@ Feature: flag and flag set metadata
 
   Scenario: Returns flag set metadata
     Given an option "selector" of type "String" with value "rawflags/selector-flag-combined-metadata.json"
-    And a stable flagd provider
+    And a metadata flagd provider
     And a Boolean-flag with key "only-set-metadata-flag" and a default value "true"
     When the flag was evaluated with details
     Then the resolved metadata should contain
@@ -34,7 +34,7 @@ Feature: flag and flag set metadata
 
   Scenario: Flag metadata overwrites flag set metadata
     Given an option "selector" of type "String" with value "rawflags/selector-flag-combined-metadata.json"
-    And a stable flagd provider
+    And a metadata flagd provider
     And a Boolean-flag with key "combined-metadata-flag" and a default value "true"
     When the flag was evaluated with details
     Then the resolved metadata should contain
