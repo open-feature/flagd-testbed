@@ -11,14 +11,6 @@
       "provider": "file"
     },
     {
-      "uri": "rawflags/selector-flag-metadata.json",
-      "provider": "file"
-    },
-    {
-      "uri": "rawflags/selector-flag-set-metadata.json",
-      "provider": "file"
-    },
-    {
       "uri": "rawflags/selector-flag-combined-metadata.json",
       "provider": "file"
     }
