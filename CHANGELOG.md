@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/open-feature/flagd-testbed/compare/v2.6.1...v2.7.0) (2025-03-19)
+
+
+### ✨ New Features
+
+* add a config for flag set metadata to circumvent flagd bug with metadata merging ([#244](https://github.com/open-feature/flagd-testbed/issues/244)) ([9d00dc0](https://github.com/open-feature/flagd-testbed/commit/9d00dc029c0e1375a87ff1000e22d7923f4aab70))
+
 ## [2.6.1](https://github.com/open-feature/flagd-testbed/compare/v2.6.0...v2.6.1) (2025-03-18)
 
 
