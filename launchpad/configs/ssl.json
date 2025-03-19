@@ -9,10 +9,6 @@
     {
       "uri": "rawflags/selector-flags.json",
       "provider": "file"
-    },
-    {
-      "uri": "rawflags/selector-flag-combined-metadata.json",
-      "provider": "file"
     }
   ],
   "context-value": {
