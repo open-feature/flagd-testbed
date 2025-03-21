@@ -24,8 +24,7 @@ func StartFileWatcher() error {
 					return
 				}
 				if event.Op&(fsnotify.Create|fsnotify.Write|fsnotify.Remove) != 0 {
-					fmt.Println("File watcher event:", event.Name)
-					fmt.Println("Config changed, regenerating JSON...")
+					fmt.Printf("%v config changed, regenerating JSON...\n", event.Name)
 					if err := CombineJSONFiles(InputDir); err != nil {
 						fmt.Printf("Error combining JSON files: %v\n", err)
 					}

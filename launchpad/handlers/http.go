@@ -71,8 +71,6 @@ func ChangeHandler(w http.ResponseWriter, r *http.Request) {
 	mu.Lock()
 	defer mu.Unlock()
 
-	println("receiveing request")
-
 	// Path to the configuration file
 	configFile := "rawflags/changing-flag.json"
 
@@ -91,7 +89,6 @@ func ChangeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Find the "changing-flag" and toggle the default variant
-
 	flag, exists := config.Flags["changing-flag"]
 	if !exists {
 		http.Error(w, "Flag 'changing-flag' not found in the configuration", http.StatusNotFound)
@@ -99,7 +96,6 @@ func ChangeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Toggle the defaultVariant between "foo" and "bar"
-
 	if flag.DefaultVariant == "foo" {
 		flag.DefaultVariant = "bar"
 	} else {
@@ -115,6 +111,7 @@ func ChangeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// the file watcher should be triggered instantly. If not, we add a timeout to prevent a hanging test
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 
@@ -135,8 +132,6 @@ func ChangeHandler(w http.ResponseWriter, r *http.Request) {
 
 	select {
 	case <-ctx.Done():
-		fmt.Printf("ctx done %v \n", ctx)
-		fmt.Printf("ctx done err %v \n", ctx.Err())
 		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
 			http.Error(w, fmt.Sprintf("Flags were not updated in time: %v", ctx.Err()), http.StatusInternalServerError)
 		} else {
