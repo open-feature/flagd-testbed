@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.1](https://github.com/open-feature/flagd-testbed/compare/v2.7.0...v2.7.1) (2025-03-21)
+
+
+### 🐛 Bug Fixes
+
+* reintroduce change flag request and increase test stability ([#246](https://github.com/open-feature/flagd-testbed/issues/246)) ([c51ffe5](https://github.com/open-feature/flagd-testbed/commit/c51ffe5b45466e46620e7623ef6cbd85edbbc393))
+
 ## [2.7.0](https://github.com/open-feature/flagd-testbed/compare/v2.6.1...v2.7.0) (2025-03-19)
 
 
