@@ -7,7 +7,23 @@ import (
 	"sync"
 )
 
-var changeFlagLock sync.Mutex
+var (
+	changeFlagLock sync.Mutex
+	workLock       sync.Mutex
+	isPaused       = false
+)
+
+func PauseFileWatcher() {
+	workLock.Lock()
+	defer workLock.Unlock()
+	isPaused = true
+}
+
+func ContinueFileWatcher() {
+	workLock.Lock()
+	defer workLock.Unlock()
+	isPaused = false
+}
 
 func StartFileWatcher() error {
 	watcher, err := fsnotify.NewWatcher()
@@ -24,9 +40,17 @@ func StartFileWatcher() error {
 					return
 				}
 				if event.Op&(fsnotify.Create|fsnotify.Write|fsnotify.Remove) != 0 {
+					workLock.Lock()
+					if isPaused {
+						workLock.Unlock()
+						fmt.Printf("%v config changed, but file watcher is paused \n", event.Name)
+						return
+					}
 					fmt.Printf("%v config changed, regenerating JSON...\n", event.Name)
 					if err := CombineJSONFiles(InputDir); err != nil {
 						fmt.Printf("Error combining JSON files: %v\n", err)
+						workLock.Unlock()
+						return
 					}
 					if strings.HasSuffix(event.Name, "changing-flag.json") {
 						changeFlagLock.Lock()
@@ -36,6 +60,8 @@ func StartFileWatcher() error {
 						changeFlagUpdateListeners = nil
 						changeFlagLock.Unlock()
 					}
+
+					workLock.Unlock()
 				}
 			case err, ok := <-watcher.Errors:
 				if !ok {
