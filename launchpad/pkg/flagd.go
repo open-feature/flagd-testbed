@@ -3,8 +3,10 @@ package flagd
 import (
 	"bufio"
 	"context"
+	"errors"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"strings"
 	"sync"
@@ -18,6 +20,21 @@ var (
 	restartCancelFunc context.CancelFunc // Stores the cancel function for delayed restarts
 )
 
+func ensureStartConditions() {
+	if _, err := os.Stat(OutputFile); errors.Is(err, os.ErrNotExist) {
+		err := CombineJSONFiles(InputDir)
+		if err != nil {
+			fmt.Printf("Error combining JSON files on flagd start: %v\n", err)
+		}
+	}
+	ContinueFileWatcher()
+}
+
+func deleteCombinedFlagsFile() {
+	// if we cannot delete it, we can assume it did not exist in the first place, so we can ignore this error
+	_ = os.Remove(OutputFile)
+}
+
 func RestartFlagd(seconds int) {
 	flagdLock.Lock()
 	if restartCancelFunc != nil {
@@ -28,6 +45,8 @@ func RestartFlagd(seconds int) {
 	ctx, cancel := context.WithCancel(context.Background())
 	restartCancelFunc = cancel
 
+	PauseFileWatcher()
+	deleteCombinedFlagsFile()
 	err := stopFlagDWithoutLock()
 	if err != nil {
 		fmt.Printf("Failed to restart flagd: %v\n", err)
@@ -68,6 +87,8 @@ func StartFlagd(config string) error {
 	if err := stopFlagDWithoutLock(); err != nil {
 		return err
 	}
+
+	ensureStartConditions()
 
 	configPath := fmt.Sprintf("./configs/%s.json", config)
 
