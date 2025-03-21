@@ -1,11 +1,16 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"openfeature.com/flagd-testbed/launchpad/pkg"
+	"os"
 	"strconv"
+	"sync"
+	"time"
 )
 
 // Response struct to standardize API responses
@@ -51,14 +56,93 @@ func StopFlagdHandler(w http.ResponseWriter, r *http.Request) {
 	respondWithJSON(w, http.StatusOK, "success", "flagd stopped successfully")
 }
 
+type FlagConfig struct {
+	Flags map[string]struct {
+		State          string            `json:"state"`
+		Variants       map[string]string `json:"variants"`
+		DefaultVariant string            `json:"defaultVariant"`
+	} `json:"flags"`
+}
+
+var mu sync.Mutex // Mutex to ensure thread-safe file operations
+
 // ChangeHandler triggers JSON file merging and notifies `flagd`
 func ChangeHandler(w http.ResponseWriter, r *http.Request) {
-	if err := flagd.CombineJSONFiles(flagd.InputDir); err != nil {
-		respondWithJSON(w, http.StatusInternalServerError, "error", fmt.Sprintf("Failed to update JSON files: %v", err))
+	mu.Lock()
+	defer mu.Unlock()
+
+	println("receiveing request")
+
+	// Path to the configuration file
+	configFile := "rawflags/changing-flag.json"
+
+	// Read the existing file
+	data, err := os.ReadFile(configFile)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to read file: %v", err), http.StatusInternalServerError)
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, "success", "JSON files updated successfully")
+	// Parse the JSON into the FlagConfig struct
+	var config FlagConfig
+	if err := json.Unmarshal(data, &config); err != nil {
+		http.Error(w, fmt.Sprintf("Failed to parse JSON: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	// Find the "changing-flag" and toggle the default variant
+
+	flag, exists := config.Flags["changing-flag"]
+	if !exists {
+		http.Error(w, "Flag 'changing-flag' not found in the configuration", http.StatusNotFound)
+		return
+	}
+
+	// Toggle the defaultVariant between "foo" and "bar"
+
+	if flag.DefaultVariant == "foo" {
+		flag.DefaultVariant = "bar"
+	} else {
+		flag.DefaultVariant = "foo"
+	}
+
+	// Save the updated flag back to the configuration
+	config.Flags["changing-flag"] = flag
+	// Serialize the updated configuration back to JSON
+	updatedData, err := json.MarshalIndent(config, "", "  ")
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Failed to serialize updated JSON: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	// wait for the filewatcher to register an update and write the new json file
+	flagUpdateWait := sync.WaitGroup{}
+	flagUpdateWait.Add(1)
+	flagd.RegisterWaitForNextChangingFlagUpdate(&flagUpdateWait)
+	go func() {
+		flagUpdateWait.Wait()
+		cancel()
+	}()
+
+	// Write the updated JSON back to the file
+	if err := os.WriteFile(configFile, updatedData, 0644); err != nil {
+		http.Error(w, fmt.Sprintf("Failed to write updated file: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	select {
+	case <-ctx.Done():
+		fmt.Printf("ctx done %v \n", ctx)
+		fmt.Printf("ctx done err %v \n", ctx.Err())
+		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
+			http.Error(w, fmt.Sprintf("Flags were not updated in time: %v", ctx.Err()), http.StatusInternalServerError)
+		} else {
+			respondWithJSON(w, http.StatusOK, "success", fmt.Sprintf("Default variant successfully changed to '%s'\n", flag.DefaultVariant))
+		}
+	}
 }
 
 // Utility function to send JSON responses
