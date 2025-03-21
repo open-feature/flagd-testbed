@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.2](https://github.com/open-feature/flagd-testbed/compare/v2.7.1...v2.7.2) (2025-03-21)
+
+
+### 🐛 Bug Fixes
+
+* Remove combined flags file on restart ([#248](https://github.com/open-feature/flagd-testbed/issues/248)) ([47c2e37](https://github.com/open-feature/flagd-testbed/commit/47c2e37e41c9c742cf4062a259a88d26d368aebb))
+
 ## [2.7.1](https://github.com/open-feature/flagd-testbed/compare/v2.7.0...v2.7.1) (2025-03-21)
 
 
