@@ -58,14 +58,17 @@ func StartFlagd(config string) error {
 	}
 
 	flagdLock.Lock()
-	if err := stopFlagDWithoutLock(); err != nil {
-		return err
-	}
 	// Cancel any pending restart attempts
 	if restartCancelFunc != nil {
 		restartCancelFunc()
 		fmt.Println("Pending restart canceled due to manual start.")
+		restartCancelFunc = nil
 	}
+
+	if err := stopFlagDWithoutLock(); err != nil {
+		return err
+	}
+
 	configPath := fmt.Sprintf("./configs/%s.json", config)
 
 	flagdCmd = exec.Command("./flagd", "start", "--config", configPath)
@@ -109,10 +112,18 @@ func StopFlagd() error {
 	flagdLock.Lock()
 	defer flagdLock.Unlock()
 
+	// Cancel any pending restart attempts
+	if restartCancelFunc != nil {
+		restartCancelFunc()
+		fmt.Println("Pending restart canceled due to manual start.")
+		restartCancelFunc = nil
+	}
+
 	err := stopFlagDWithoutLock()
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 

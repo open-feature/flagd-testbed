@@ -30,7 +30,7 @@ Feature: flagd provider disconnect and reconnect functionality
     And a ready event handler
     And a error event handler
     When a ready event was fired
-    When the connection is lost for 3s
+    When the connection is lost for 5s
     Then the error event handler should have been executed
     Then the ready event handler should have been executed
 
