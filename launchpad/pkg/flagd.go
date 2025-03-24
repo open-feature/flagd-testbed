@@ -110,8 +110,8 @@ func StartFlagd(config string) error {
 	flagdLock.Unlock()
 	ready := make(chan bool)
 
-	go monitorOutput(stdout, ready)
-	go monitorOutput(stderr, ready)
+	go monitorOutput(stdout, ready, "stdout")
+	go monitorOutput(stderr, ready, "stderr")
 
 	select {
 	case success := <-ready:
@@ -154,19 +154,27 @@ func stopFlagDWithoutLock() error {
 			return fmt.Errorf("failed to stop flagd: %v", err)
 		}
 		flagdCmd = nil
+		fmt.Println("flagd stopped")
 	}
 	return nil
 }
 
-func monitorOutput(pipe io.ReadCloser, ready chan bool) {
+func monitorOutput(pipe io.ReadCloser, ready chan bool, info string) {
 	scanner := bufio.NewScanner(pipe)
+	//adjust the capacity to your need (max characters in line)
+	const maxCapacity = 512 * 1024
+	buf := make([]byte, maxCapacity)
+	scanner.Buffer(buf, maxCapacity)
+	started := false
+
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Println("[flagd]:", line)
-		if ready != nil && strings.Contains(line, "listening at") {
+		fmt.Println("[flagd ", info, "]:", line)
+		if ready != nil && !started && strings.Contains(line, "listening at") {
 			ready <- true
 			close(ready)
-			return
+			fmt.Println("flagd started properly found logline with 'listening at'")
+			started = true
 		}
 	}
 }
