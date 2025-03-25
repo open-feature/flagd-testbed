@@ -159,7 +159,7 @@ func stopFlagDWithoutLock() error {
 	return nil
 }
 
-func monitorOutput(pipe io.ReadCloser, ready chan bool, info string) {
+func monitorOutput(pipe io.ReadCloser, ready chan bool, stream string) {
 	scanner := bufio.NewScanner(pipe)
 	//adjust the capacity to your need (max characters in line)
 	const maxCapacity = 512 * 1024
@@ -169,7 +169,7 @@ func monitorOutput(pipe io.ReadCloser, ready chan bool, info string) {
 
 	for scanner.Scan() {
 		line := scanner.Text()
-		fmt.Println("[flagd ", info, "]:", line)
+		fmt.Println("[flagd ", stream, "]:", line)
 		if ready != nil && !started && strings.Contains(line, "listening at") {
 			ready <- true
 			close(ready)
