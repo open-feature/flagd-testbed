@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.4](https://github.com/open-feature/flagd-testbed/compare/v2.7.3...v2.7.4) (2025-03-25)
+
+
+### 🧹 Chore
+
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.12.3 ([#252](https://github.com/open-feature/flagd-testbed/issues/252)) ([344df39](https://github.com/open-feature/flagd-testbed/commit/344df397034d9a9e0169685870ec6be993f48e6c))
+
 ## [2.7.3](https://github.com/open-feature/flagd-testbed/compare/v2.7.2...v2.7.3) (2025-03-25)
 
 
