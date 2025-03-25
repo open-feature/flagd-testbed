@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.3](https://github.com/open-feature/flagd-testbed/compare/v2.7.2...v2.7.3) (2025-03-25)
+
+
+### 🐛 Bug Fixes
+
+* handle buffer scan more graciously and print to terminal ([#250](https://github.com/open-feature/flagd-testbed/issues/250)) ([6936601](https://github.com/open-feature/flagd-testbed/commit/69366010d377bedfdedcaf2b6eacf9b7740f4e31))
+
 ## [2.7.2](https://github.com/open-feature/flagd-testbed/compare/v2.7.1...v2.7.2) (2025-03-21)
 
 
