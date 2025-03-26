@@ -33,24 +33,29 @@ Feature: Configuration Test
       | option     | type         | default |
       | resolver   | ResolverType | rpc     |
       | deadlineMs | Integer      | 500     |
+
     @rpc @in-process
     Scenarios: Basic Connection
       | option | type    | default   |
       | host   | String  | localhost |
       | port   | Integer | 8013      |
       | tls    | Boolean | false     |
+
     @rpc @in-process @targetURI
     Scenarios: Target URI
       | option    | type   | default |
       | targetUri | String | null    |
+
     @rpc @in-process @customCert
     Scenarios: Certificates
       | option   | type   | default |
       | certPath | String | null    |
+
     @rpc @in-process @unixsocket
     Scenarios: Unixsocket
       | option     | type   | default |
       | socketPath | String | null    |
+
     @rpc @in-process @stream
     Scenarios: Events
       | option            | type    | default |
@@ -59,20 +64,28 @@ Feature: Configuration Test
       | retryBackoffMs    | Integer | 1000    |
       | retryBackoffMaxMs | Integer | 120000  |
       | retryGracePeriod  | Integer | 5       |
+
     @in-process @sync
     Scenarios: Sync
       | option   | type   | default |
       | selector | String | null    |
+
     @rpc @caching
     Scenarios: caching
       | option       | type      | default |
       | cache        | CacheType | lru     |
       | maxCacheSize | Integer   | 1000    |
+
     @file
     Scenarios: offline
       | option                | type    | default |
       | offlineFlagSourcePath | String  | null    |
       | offlinePollIntervalMs | Integer | 5000    |
+
+    @in-process @providerId
+    Scenarios: providerId
+      | option     | type   | default |
+      | providerId | String | null    |
 
   @rpc
   Scenario Outline: Default Config RPC
@@ -120,6 +133,7 @@ Feature: Configuration Test
       | option     | type         | value      |
       | resolver   | ResolverType | in-process |
       | deadlineMs | Integer      | 123        |
+
     @rpc @in-process
     Scenarios: Basic Connection
       | option | type    | value |
@@ -155,16 +169,23 @@ Feature: Configuration Test
     Scenarios: Selector
       | option   | type   | value    |
       | selector | String | selector |
+
     @rpc @caching
     Scenarios: caching
       | option       | type      | value    |
       | cache        | CacheType | disabled |
       | maxCacheSize | Integer   | 1236     |
+
     @file
     Scenarios: offline
       | option                | type    | value |
       | offlineFlagSourcePath | String  | path  |
       | offlinePollIntervalMs | Integer | 1000  |
+
+    @in-process @providerId
+    Scenarios: providerId
+      | option     | type   | value      |
+      | providerId | String | providerId |
 
   Scenario Outline: Dedicated Config via Env_var
     Given an environment variable "<env>" with value "<value>"
@@ -226,6 +247,11 @@ Feature: Configuration Test
       | option                | env                            | type    | value |
       | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | String  | path  |
       | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | Integer | 1000  |
+
+    @in-process @providerId
+    Scenarios: providerId
+      | option     | env               | type   | value          |
+      | providerId | FLAGD_PROVIDER_ID | String | env-providerId |
 
   @file
   Scenario Outline: Dedicated Config via Env_var special file case
@@ -298,3 +324,8 @@ Feature: Configuration Test
       | option                | env                            | type    | value | env-value |
       | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | String  | path  | lll       |
       | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | Integer | 1000  | 4         |
+
+    @in-process @providerId
+    Scenarios: providerId
+      | option     | env               | type   | value      | env-value  |
+      | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov |
