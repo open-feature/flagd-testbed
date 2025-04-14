@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.4](https://github.com/open-feature/flagd-testbed/compare/v2.7.3...v2.7.4) (2025-04-14)
+
+
+### 🧹 Chore
+
+* **deps:** update actions/setup-node digest to 49933ea ([#256](https://github.com/open-feature/flagd-testbed/issues/256)) ([d9cfcb6](https://github.com/open-feature/flagd-testbed/commit/d9cfcb62bf6ed001405ff8b081bebf0c5a6f348a))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.12.3 ([#252](https://github.com/open-feature/flagd-testbed/issues/252)) ([344df39](https://github.com/open-feature/flagd-testbed/commit/344df397034d9a9e0169685870ec6be993f48e6c))
+
 ## [2.7.3](https://github.com/open-feature/flagd-testbed/compare/v2.7.2...v2.7.3) (2025-03-25)
 
 
