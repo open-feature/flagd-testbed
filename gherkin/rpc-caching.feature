@@ -23,7 +23,7 @@ Feature: Flag evaluation with Caching
       | string-flag  | String  | bye     | greeting         | hi                                                                            |
       | integer-flag | Integer | 1       | ten              | 10                                                                            |
       | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
-      | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100 } |
+      | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100.0 } |
 
   Scenario: Flag change event with caching
     Given a String-flag with key "changing-flag" and a default value "false"
