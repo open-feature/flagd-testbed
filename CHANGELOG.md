@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.8.0](https://github.com/open-feature/flagd-testbed/compare/v2.7.4...v2.8.0) (2025-04-22)
+
+
+### 🐛 Bug Fixes
+
+* **deps:** update module github.com/fsnotify/fsnotify to v1.9.0 ([#255](https://github.com/open-feature/flagd-testbed/issues/255)) ([6c4f2a2](https://github.com/open-feature/flagd-testbed/commit/6c4f2a2a3d411fc8bc8ccfb430e13c5fdb928f63))
+
+
+### ✨ New Features
+
+* add verification for provider id ([#254](https://github.com/open-feature/flagd-testbed/issues/254)) ([f7aef36](https://github.com/open-feature/flagd-testbed/commit/f7aef36f9a0d2ae1927a932efcfa32f321db802c))
+
 ## [2.7.4](https://github.com/open-feature/flagd-testbed/compare/v2.7.3...v2.7.4) (2025-04-22)
 
 
