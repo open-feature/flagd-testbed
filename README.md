@@ -1,41 +1,85 @@
-# OpenFeature Test Harness
+# Flagd Test Harness
 
-This repository contains a docker image to support the [gherkin suites](https://github.com/open-feature/spec/blob/main/specification/appendix-b-gherkin-suites.md) in the OpenFeature specification.
+This repository contains a Docker image to support the [Gherkin test suites](https://github.com/open-feature/spec/blob/main/specification/appendix-b-gherkin-suites.md) defined in the OpenFeature specification.
 
-## flagd-testbed container
+## `flagd-testbed` Container
 
-The _flagd-testbed_ container is a docker image built on flagd, which essentially just adds a simple set of flags for the purposes of testing OpenFeature SDKs.
-`testing-flags.json` contains a set of flags consistent with the [evaluation feature](https://github.com/open-feature/spec/blob/main/specification/assets/gherkin/evaluation.feature).
-`change-flag.sh` runs in the test container generates a file `changing-flag.json`, which contains a flag that changes once every seconds, allowing to easily test change events.
+The **`flagd-testbed`** container is a Docker image that includes [**flagd**](https://flagd.dev/) and a testing utility called **launchpad**.
+It provides a simple way to run end-to-end (E2E) tests across multiple SDKs.
 
-See the [flagd docs](https://flagd.dev/) for more information on flagd.
+### Launchpad
 
-### SSL
+**Launchpad** is a control center for managing flagd during tests.
+It exposes a REST interface that allows you to:
 
-The _flagd-testbed-ssl_ container is based on _flagd-testbed_ but replaces all the certificates for SSL testing with a custom root CA.
-Within the SSL folder you will find all the necessary OpenSSL files, and the commands used for generation.
-Please do not use this CA in any kind of production environment.
+* Start, stop, or restart flagd
+* Dynamically update a single flag, simulating real-time flag changes
 
-## Gherkin test suite
+This approach centralizes the test orchestration logic, reducing the need to replicate it across SDKs in multiple languages. This simplifies test implementation and allows contributors to focus on testing behavior rather than setup.
 
-The [gherkin/](gherkin/) dir includes a set of [_gherkin_](https://cucumber.io/docs/gherkin/) tests that define expected behavior associated with the configurations defined in the flagd-testbed (see [flags/](flags/)).
-Combined with the _flagd-provider_ for the associated SDK and the flagd-testbed, these comprise a complete integration test suite.
+#### REST API & Development Docs
 
-Included suites:
+Detailed usage and API documentation can be found in the [Launchpad README](./launchpad/README.md).
 
-[evaluation.feature](gherkin/evaluation.feature) includes tests relevant to flagd and all flagd providers:
-* default value (zero-value) handling (some proto3 implementations handle these inconsistently).
-* basic event handling
+#### Storing Configurations
 
-[targeting.feature](gherkin/targeting.feature) includes tests relevant to flagd and in-process providers:
-* custom JSONLogic operators (`starts_with`, `ends_with`, `fractional`, `sem_ver`)
-* evaluator reuse via `$ref`
+Flagd configurations are stored in the [`launchpad/configs`](./launchpad/configs) directory.
+Each file corresponds to a named configuration and can be passed as a parameter to the `start` endpoint.
 
+Configurations may include different types of flagd setups and flag files.
 
-### Lint Gherkin files
+### Flag Files
 
-The Gherkin files structure can be linted using [gherkin-lint](https://github.com/vsiakka/gherkin-lint). The following commands require Node.js 10 or later.
+Configured flag definitions reside in the [`flags`](./flags) directory.
+Within the Docker image:
 
-1. npm install
-1. npm run gherkin-lint
+* The contents of this directory are mounted under `/rawflags`
+* A generated file, `/flags/allFlags.json`, aggregates all flag files **excluding** those prefixed with `selector`
+
+This file is generated when flagd is started and can be used to test all flags in file mode simultaneously.
+
+---
+
+## Gherkin Test Suite
+
+The [`gherkin`](./gherkin) directory contains [*Gherkin*](https://cucumber.io/docs/gherkin/) tests that validate behavior for the configurations defined in the flagd-testbed (see [Flag Files](#flag-files)).
+Combined with the appropriate SDK and provider, these tests form a complete integration suite.
+
+### Tagging
+
+Tests are tagged to support selective execution, as not all providers or SDKs support all features. Tags can be applied at both the suite and individual test case level.
+
+Currently supported "provider-tags":
+
+* `@file`
+* `@rpc`
+* `@in-process`
+
+For example, to run a test in RPC mode, tag the suite or test case with `@rpc`.
+
+Tag-based filtering enables incremental migration and test execution, allowing individual features to be validated progressively rather than all at once.
+
+---
+
+## How to utilize?
+
+This repository should be included as a submodule within your sdk which should be tested.
+
+We recommend:
+- to setup renovate to automatically update your submodule, always pointing to version tags and not branches
+- to load all gherkin files, and eliminate tests via tag exclusions
+- to utilize testcontainers for easier test setup
+- to use the version.txt within this repository to load the appropriate docker image
+
+---
+
+### Linting Gherkin Files
+
+You can lint the Gherkin file structure using [gherkin-lint](https://github.com/vsiakka/gherkin-lint).
+Requires Node.js v10+.
+
+```bash
+npm install
+npm run gherkin-lint
+```
 
