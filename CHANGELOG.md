@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.8.1](https://github.com/open-feature/flagd-testbed/compare/v2.8.0...v2.8.1) (2025-05-05)
+
+
+### 🧹 Chore
+
+* **deps:** update docker/build-push-action digest to 14487ce ([#260](https://github.com/open-feature/flagd-testbed/issues/260)) ([488342b](https://github.com/open-feature/flagd-testbed/commit/488342b7ee3fec57d686407b47acad21d09681e8))
+* Update readme to represent the most recent status ([#262](https://github.com/open-feature/flagd-testbed/issues/262)) ([6567462](https://github.com/open-feature/flagd-testbed/commit/65674628b55bdd4bf96330b01b4c82ab3ce221de))
+
 ## [2.8.0](https://github.com/open-feature/flagd-testbed/compare/v2.7.4...v2.8.0) (2025-04-22)
 
 
