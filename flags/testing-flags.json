@@ -151,6 +151,42 @@
           null
         ]
       }
+    },
+    "null-default-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": true,
+        "off": false
+      },
+      "defaultVariant": null
+    },
+    "undefined-default-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "small": 10,
+        "off": 1000
+      }
+    },
+    "no-default-flag-with-targeting": {
+      "state": "ENABLED",
+      "variants": {
+        "normal": "CFO",
+        "special": "CEO"
+      },
+      "targeting": {
+        "if": [
+          {
+            "==": [
+              "jobs@orange.com",
+              {
+                "var": ["email"]
+              }
+            ]
+          },
+          "special",
+          null
+        ]
+      }
     }
   }
 }
