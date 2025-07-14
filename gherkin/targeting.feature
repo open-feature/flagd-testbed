@@ -139,7 +139,7 @@ Feature: Targeting rules
     Then the resolved details value should be "<value>"
     And the error-code should be "<error_code>"
     Examples:
-      | key                               | value | error-code  |
+      | key                               | value | error_code  |
       | targeting-null-variant-flag       | 2     |             |
       | error-targeting-flag              | 3     | PARSE_ERROR |
       | missing-variant-targeting-flag    | 3     | GENERAL     |
