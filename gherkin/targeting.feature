@@ -137,10 +137,11 @@ Feature: Targeting rules
     Given a Integer-flag with key "<key>" and a default value "3"
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
+    And the error-code should be "<error_code>"
     Examples:
-      | key                               | value |
-      | targeting-null-variant-flag       | 2     |
-      | error-targeting-flag              | 3     |
-      | missing-variant-targeting-flag    | 3     |
-      | non-string-variant-targeting-flag | 2     |
-      | empty-targeting-flag              | 1     |
+      | key                               | value | error_code  |
+      | targeting-null-variant-flag       | 2     |             |
+      | error-targeting-flag              | 3     | PARSE_ERROR |
+      | missing-variant-targeting-flag    | 3     | GENERAL     |
+      | non-string-variant-targeting-flag | 2     |             |
+      | empty-targeting-flag              | 1     |             |
