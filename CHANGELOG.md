@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.9.0](https://github.com/open-feature/flagd-testbed/compare/v2.8.0...v2.9.0) (2025-07-14)
+
+
+### ✨ New Features
+
+* extend edge case tests with error codes ([758fbd5](https://github.com/open-feature/flagd-testbed/commit/758fbd5b84731c1a96dbd186484c46d3b8f746ed))
+
+
+### 🧹 Chore
+
+* **deps:** update docker/build-push-action digest to 14487ce ([#260](https://github.com/open-feature/flagd-testbed/issues/260)) ([488342b](https://github.com/open-feature/flagd-testbed/commit/488342b7ee3fec57d686407b47acad21d09681e8))
+* **deps:** update docker/build-push-action digest to 1dc7386 ([#263](https://github.com/open-feature/flagd-testbed/issues/263)) ([cb8e66a](https://github.com/open-feature/flagd-testbed/commit/cb8e66ae33a75a271e54fd73664701913f5dffd8))
+* **deps:** update docker/build-push-action digest to 2634353 ([#264](https://github.com/open-feature/flagd-testbed/issues/264)) ([0a2759b](https://github.com/open-feature/flagd-testbed/commit/0a2759b32723214ba834ec4d52b4f58af5fb99a0))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.12.4 ([#265](https://github.com/open-feature/flagd-testbed/issues/265)) ([aa74d0e](https://github.com/open-feature/flagd-testbed/commit/aa74d0e5b329075377582c6fa22ccf43a94eb573))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.12.5 ([#267](https://github.com/open-feature/flagd-testbed/issues/267)) ([cc576c1](https://github.com/open-feature/flagd-testbed/commit/cc576c1764eea0828cc8667fb7bde803df94aef7))
+* Update readme to represent the most recent status ([#262](https://github.com/open-feature/flagd-testbed/issues/262)) ([6567462](https://github.com/open-feature/flagd-testbed/commit/65674628b55bdd4bf96330b01b4c82ab3ce221de))
+
 ## [2.8.0](https://github.com/open-feature/flagd-testbed/compare/v2.7.4...v2.8.0) (2025-04-22)
 
 
