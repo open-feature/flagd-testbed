@@ -1,11 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>open-feature/community-tooling"],
+  "extends": [
+    "github>open-feature/community-tooling"
+  ],
   "semanticCommitType": "feat",
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["^Dockerfile$"],
-      "matchStrings": ["ghcr\\.io\\/open-feature\\/flagd:(?<currentValue>.*?)\\n"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^Dockerfile$/"
+      ],
+      "matchStrings": [
+        "ghcr\\.io\\/open-feature\\/flagd:(?<currentValue>.*?)\\n"
+      ],
       "depNameTemplate": "open-feature/flagd",
       "datasourceTemplate": "github-releases"
     }
