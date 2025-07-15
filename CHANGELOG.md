@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.10.0](https://github.com/open-feature/flagd-testbed/compare/v2.9.0...v2.10.0) (2025-07-14)
+
+
+### ✨ New Features
+
+* add tests for no defaultVariant ([#269](https://github.com/open-feature/flagd-testbed/issues/269)) ([d31f2f9](https://github.com/open-feature/flagd-testbed/commit/d31f2f9179d8224ca606f233b6d3d918cf94c909))
+
 ## [2.9.0](https://github.com/open-feature/flagd-testbed/compare/v2.8.0...v2.9.0) (2025-07-14)
 
 
