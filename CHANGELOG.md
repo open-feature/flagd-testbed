@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.11.0](https://github.com/open-feature/flagd-testbed/compare/v2.10.2...v2.11.0) (2025-07-28)
+
+
+### ✨ New Features
+
+* Add tests for temporary metadata toggle ([#277](https://github.com/open-feature/flagd-testbed/issues/277)) ([72fd80b](https://github.com/open-feature/flagd-testbed/commit/72fd80b00e904302da0bb23bb6baeb754c968abf))
+* **config:** migrate renovate config ([#275](https://github.com/open-feature/flagd-testbed/issues/275)) ([98e7568](https://github.com/open-feature/flagd-testbed/commit/98e75685aedd09239817872d1e16e37241fdb0de))
+
 ## [2.10.2](https://github.com/open-feature/flagd-testbed/compare/v2.10.1...v2.10.2) (2025-07-15)
 
 
