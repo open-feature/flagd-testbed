@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   flagd:
-    image: ${IMAGE:-ghcr.io/open-feature/flagd-testbed}:${VERSION:-v2.10.2}
+    image: ${IMAGE:-ghcr.io/open-feature/flagd-testbed}:${VERSION:-v2.11.1}
     ports:
       - 8013
       - 8014
