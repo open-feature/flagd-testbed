@@ -6,8 +6,13 @@
       "prerelease": false,
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
+      "include-v-in-tag": true,
       "extra-files": [
-        "docker-compose.yaml"
+        {
+          "type": "generic",
+          "path": "docker-compose.yaml",
+          "glob": false
+        }
       ],
       "changelog-sections": [
         {
