@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.12.0](https://github.com/open-feature/flagd-testbed/compare/flagd-testbed-v2.11.1...flagd-testbed-v2.12.0) (2025-09-06)
+
+
+### 🐛 Bug Fixes
+
+* replace githubaction with newer version ([#290](https://github.com/open-feature/flagd-testbed/issues/290)) ([95d0fa1](https://github.com/open-feature/flagd-testbed/commit/95d0fa1295fabe14295e586e7a2a5cf0de414031))
+
+
+### ✨ New Features
+
+* add envoy via docker compose ([#283](https://github.com/open-feature/flagd-testbed/issues/283)) ([27b764b](https://github.com/open-feature/flagd-testbed/commit/27b764ba998d672572f04723405e6c6f6edadfdf))
+
+
+### 🧹 Chore
+
+* add CODEOWNERS ([89c9af6](https://github.com/open-feature/flagd-testbed/commit/89c9af69a7f5feecddbb6d5bcbabbc295604bb1b))
+* add docker compose to release please config ([#284](https://github.com/open-feature/flagd-testbed/issues/284)) ([8580989](https://github.com/open-feature/flagd-testbed/commit/858098946e046400db8861c534de58e3993a85f6))
+* **deps:** update google-github-actions/release-please-action action to v4 ([#86](https://github.com/open-feature/flagd-testbed/issues/86)) ([690a2b4](https://github.com/open-feature/flagd-testbed/commit/690a2b4c691153f176badb91127b94236f88099a))
+* fix version in docker compose for update ([#285](https://github.com/open-feature/flagd-testbed/issues/285)) ([de20bec](https://github.com/open-feature/flagd-testbed/commit/de20bec8fa4277f2b41cae6e74c2b091a9f57dcf))
+* fix version in docker compose for update ([#286](https://github.com/open-feature/flagd-testbed/issues/286)) ([34bfe79](https://github.com/open-feature/flagd-testbed/commit/34bfe792e0a813a8e5abd9e23831c3fe73d75f94))
+* fix version in docker compose for update ([#287](https://github.com/open-feature/flagd-testbed/issues/287)) ([4233c92](https://github.com/open-feature/flagd-testbed/commit/4233c92e9758adae13b1f4604f1416404e424a15))
+
 ## [2.11.1](https://github.com/open-feature/flagd-testbed/compare/v2.11.0...v2.11.1) (2025-07-29)
 
 

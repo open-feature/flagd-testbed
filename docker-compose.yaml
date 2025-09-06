@@ -1,5 +1,4 @@
-version: '3.8'
-
+version: 2.12.0
 services:
   flagd:
     image: ${IMAGE:-ghcr.io/open-feature/flagd-testbed}:${VERSION:-v2.11.1}
@@ -14,12 +13,17 @@ services:
     networks:
       - flagd-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8014/healthz"]
+      test:
+        - CMD
+        - wget
+        - '--quiet'
+        - '--tries=1'
+        - '--spider'
+        - http://localhost:8014/healthz
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 30s
-
   envoy:
     image: envoyproxy/envoy:v1.35-latest
     ports:
@@ -27,7 +31,7 @@ services:
       - 9901
     command:
       - /bin/sh
-      - -c
+      - '-c'
       - |
         echo "Creating envoy config..."
 
@@ -136,7 +140,6 @@ services:
         condition: service_healthy
     networks:
       - flagd-network
-
 networks:
   flagd-network:
     driver: bridge
