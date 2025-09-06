@@ -5,9 +5,25 @@
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
   "include-v-in-tag": true,
+  "signoff": "OpenFeature Bot <109696520+openfeaturebot@users.noreply.github.com>",
   "extra-files": [
-    "docker-compose.yaml"
+    {
+      "type": "generic",
+      "path": "docker-compose.yaml",
+      "replacements": [
+        {
+          "type": "string",
+          "search": "\\$\\{VERSION:-v([0-9]+\\.[0-9]+\\.[0-9]+)\\}",
+          "replace": "${VERSION:-v${version}}"
+        }
+      ]
+    }
   ],
+  "packages": {
+    ".": {
+      "release-type": "simple"
+    }
+  },
   "changelog-sections": [
     {
       "type": "fix",
