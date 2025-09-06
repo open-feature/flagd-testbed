@@ -21,7 +21,20 @@
   ],
   "packages": {
     ".": {
-      "release-type": "simple"
+      "release-type": "simple",
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "docker-compose.yaml",
+          "replacements": [
+            {
+              "type": "string",
+              "search": "\\$\\{VERSION:-v([0-9]+\\.[0-9]+\\.[0-9]+)\\}",
+              "replace": "${VERSION:-v${version}}"
+            }
+          ]
+        }
+      ]
     }
   },
   "changelog-sections": [
