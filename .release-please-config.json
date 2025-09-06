@@ -8,6 +8,12 @@
   "extra-files": [
     "docker-compose.yaml"
   ],
+  "packages": {
+    ".": {
+      "package-name": "flagd-testbed",
+      "release-type": "simple"
+    }
+  },
   "changelog-sections": [
     {
       "type": "fix",
