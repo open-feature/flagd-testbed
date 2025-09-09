@@ -65,3 +65,27 @@ Feature: flagd provider disconnect and reconnect functionality
     And a Boolean-flag with key "boolean-flag" and a default value "false"
     When the flag was evaluated with details
     Then the resolved details value should be "true"
+
+  @targetURI @in-process @reconnect
+  Scenario: Re-Connection via TargetUri in-process
+    Given an option "targetUri" of type "String" with value "envoy://localhost:<port>/sync.service"
+    And a stable flagd provider
+    And a ready event handler
+    And a error event handler
+    When a ready event was fired
+    When the connection is lost for 3s
+    Then the error event handler should have been executed
+    Then the ready event handler should have been executed
+
+  @targetURI @in-process @reconnect @grace
+  Scenario: Re-Connection via TargetUri in-process with grace period
+    Given an option "targetUri" of type "String" with value "envoy://localhost:<port>/sync.service"
+    And a stable flagd provider
+    And a ready event handler
+    And a stale event handler
+    And a error event handler
+    When a ready event was fired
+    When the connection is lost for 3s
+    Then the stale event handler should have been executed
+    Then the error event handler should have been executed
+    Then the ready event handler should have been executed
