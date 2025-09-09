@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.0](https://github.com/open-feature/flagd-testbed/compare/v2.12.0...v2.13.0) (2025-09-09)
+
+
+### ✨ New Features
+
+* Envoy connection lost test added (needs working targetURI) ([#300](https://github.com/open-feature/flagd-testbed/issues/300)) ([7565c27](https://github.com/open-feature/flagd-testbed/commit/7565c2723a0e79a0d89ac8800d8272621f8e74c7))
+
 ## [2.12.0](https://github.com/open-feature/flagd-testbed/compare/v2.11.1...v2.12.0) (2025-09-06)
 
 
