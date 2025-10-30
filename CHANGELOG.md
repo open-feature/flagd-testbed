@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.14.0](https://github.com/open-feature/flagd-testbed/compare/v2.13.1...v2.14.0) (2025-10-30)
+
+
+### ✨ New Features
+
+* improve forbidden with options ([#304](https://github.com/open-feature/flagd-testbed/issues/304)) ([00b7cfb](https://github.com/open-feature/flagd-testbed/commit/00b7cfbe902379a025ffb4d1bc45c1854dbbe0b0))
+
 ## [2.13.1](https://github.com/open-feature/flagd-testbed/compare/v2.13.0...v2.13.1) (2025-10-30)
 
 
