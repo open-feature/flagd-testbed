@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.13.1](https://github.com/open-feature/flagd-testbed/compare/v2.13.0...v2.13.1) (2025-10-30)
+
+
+### 🧹 Chore
+
+* add test to ensure fatal state on forbidden error ([#756](https://github.com/open-feature/flagd-testbed/issues/756)) ([#302](https://github.com/open-feature/flagd-testbed/issues/302)) ([446a9f5](https://github.com/open-feature/flagd-testbed/commit/446a9f53ffe0756a75cd003af1826d16c32c073c))
+
 ## [2.13.0](https://github.com/open-feature/flagd-testbed/compare/v2.12.0...v2.13.0) (2025-09-09)
 
 
