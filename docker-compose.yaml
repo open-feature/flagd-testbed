@@ -24,7 +24,7 @@ services:
     image: envoyproxy/envoy:v1.35-latest
     ports:
       - 9211
-      - 9212:9212
+      - 9212
       - 9901
     command:
       - /bin/sh
