@@ -50,6 +50,14 @@ Feature: flagd provider disconnect and reconnect functionality
     And a error event handler
     Then the error event handler should have been executed within 3000ms
 
+  @rpc @in-process @file @forbidden
+  # This test ensures that a forbidden response from flagd results in a fatal client state
+  Scenario: Provider forbidden
+    Given a forbidden flagd provider
+    And a error event handler
+    Then the error event handler should have been executed within 5000ms
+    And the client is in fatal state
+
   @targetURI @rpc
   Scenario: Connection via TargetUri rpc
     Given an option "targetUri" of type "String" with value "envoy://localhost:<port>/rpc.service"
