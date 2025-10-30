@@ -53,7 +53,8 @@ Feature: flagd provider disconnect and reconnect functionality
   @rpc @in-process @file @forbidden
   # This test ensures that a forbidden response from flagd results in a fatal client state
   Scenario: Provider forbidden
-    Given a forbidden flagd provider
+    Given an option "fatalStatusCodes" of type "StringList" with value "PERMISSION_DENIED"
+    And a forbidden flagd provider
     And a error event handler
     Then the error event handler should have been executed within 5000ms
     And the client is in fatal state
