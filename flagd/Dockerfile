@@ -1,4 +1,5 @@
-FROM ghcr.io/open-feature/flagd:v0.12.9 AS flagd
+ARG FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.12.9
+FROM ${FLAGD_BASE_IMAGE} AS flagd
 
 # Build stage
 FROM golang:1.24 AS builder

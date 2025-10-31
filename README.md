@@ -73,6 +73,46 @@ We recommend:
 
 ---
 
+## Building the Docker Image
+
+The `flagd-testbed` Docker image can be built from the Dockerfile located at `flagd/Dockerfile`.
+
+### Basic Build
+
+To build the image with the default flagd base image:
+
+```bash
+docker build -f flagd/Dockerfile -t flagd-testbed:latest --target testbed .
+```
+
+### Custom Base Image
+
+You can specify a custom flagd base image using the `FLAGD_BASE_IMAGE` build argument. This is useful when testing with pipeline-built or custom flagd images:
+
+```bash
+docker build -f flagd/Dockerfile \
+  --build-arg FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:custom-tag \
+  -t flagd-testbed:custom --target testbed .
+```
+
+**Examples:**
+
+```bash
+# Using a specific flagd version
+docker build -f flagd/Dockerfile \
+  --build-arg FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.13.0 \
+  -t flagd-testbed:v0.13.0 --target testbed .
+
+# Using a locally built flagd image
+docker build -f flagd/Dockerfile \
+  --build-arg FLAGD_BASE_IMAGE=my-custom-flagd:latest \
+  -t flagd-testbed:dev --target testbed .
+```
+
+If the `FLAGD_BASE_IMAGE` argument is not provided, the build defaults to `ghcr.io/open-feature/flagd:v0.12.9` to maintain backwards compatibility.
+
+---
+
 ### Linting Gherkin Files
 
 You can lint the Gherkin file structure using [gherkin-lint](https://github.com/vsiakka/gherkin-lint).
