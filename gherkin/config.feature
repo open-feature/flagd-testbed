@@ -349,3 +349,10 @@ Feature: Configuration Test
     Scenarios: providerId
       | option     | env               | type   | value      | env-value  |
       | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov |
+
+  @in-process
+  Scenario: FLAGD_SYNC_PORT takes priority over FLAGD_PORT
+    Given an environment variable "FLAGD_SYNC_PORT" with value "9999"
+    And an environment variable "FLAGD_PORT" with value "8888"
+    When a config was initialized
+    Then the option "port" of type "Integer" should have the value "9999"
