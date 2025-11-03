@@ -6,6 +6,7 @@ Feature: Configuration Test
   | resolver              | FLAGD_RESOLVER                 | mode of operation                                                               | String - `rpc`, `in-process` | rpc                           | rpc & in-process    |
   | host                  | FLAGD_HOST                     | remote host                                                                     | String                       | localhost                     | rpc & in-process    |
   | port                  | FLAGD_PORT                     | remote port                                                                     | int                          | 8013 (rpc), 8015 (in-process) | rpc & in-process    |
+  | syncPort              | FLAGD_SYNC_PORT                | sync service port (in-process only)                                             | int                          | 8015                          | in-process          |
   | targetUri             | FLAGD_TARGET_URI               | alternative to host/port, supporting custom name resolution                     | string                       | null                          | rpc & in-process    |
   | tls                   | FLAGD_TLS                      | connection encryption                                                           | boolean                      | false                         | rpc & in-process    |
   | socketPath            | FLAGD_SOCKET_PATH              | alternative to host port, unix socket                                           | String                       | null                          | rpc & in-process    |
@@ -102,8 +103,9 @@ Feature: Configuration Test
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<default>"
     Scenarios:
-      | option | type    | default |
-      | port   | Integer | 8015    |
+      | option   | type    | default |
+      | port     | Integer | 8015    |
+      | syncPort | Integer | 8015    |
 
   @file
   Scenario Outline: File Backwards compatibility
@@ -140,6 +142,11 @@ Feature: Configuration Test
       | host   | String  | local |
       | tls    | Boolean | True  |
       | port   | Integer | 1234  |
+
+    @in-process
+    Scenarios: In-Process Sync Port
+      | option   | type    | value |
+      | syncPort | Integer | 1234  |
 
     @rpc @in-process @targetURI
     Scenarios: Target URI
@@ -206,6 +213,16 @@ Feature: Configuration Test
       | option | env        | type    | value |
       | host   | FLAGD_HOST | String  | local |
       | tls    | FLAGD_TLS  | Boolean | True  |
+      | port   | FLAGD_PORT | Integer | 1234  |
+
+    @in-process
+    Scenarios: In-Process Sync Port
+      | option   | env             | type    | value |
+      | syncPort | FLAGD_SYNC_PORT | Integer | 1234  |
+
+    @in-process @legacy-sync-port
+    Scenarios: In-Process Legacy Port (backwards compatibility)
+      | option | env        | type    | value |
       | port   | FLAGD_PORT | Integer | 1234  |
 
     @rpc @in-process @targetURI
@@ -282,6 +299,16 @@ Feature: Configuration Test
       | option | env        | type    | value | env-value |
       | host   | FLAGD_HOST | String  | local | l         |
       | tls    | FLAGD_TLS  | Boolean | True  | False     |
+      | port   | FLAGD_PORT | Integer | 1234  | 3456      |
+
+    @in-process
+    Scenarios: In-Process Sync Port
+      | option   | env             | type    | value | env-value |
+      | syncPort | FLAGD_SYNC_PORT | Integer | 1234  | 3456      |
+
+    @in-process @legacy-sync-port
+    Scenarios: In-Process Legacy Port (backwards compatibility)
+      | option | env        | type    | value | env-value |
       | port   | FLAGD_PORT | Integer | 1234  | 3456      |
 
     @rpc @in-process @targetURI
