@@ -57,7 +57,7 @@ Feature: flagd provider disconnect and reconnect functionality
     And a forbidden flagd provider
     And a error event handler
     Then the error event handler should have been executed within 5000ms
-    And the client is in fatal state
+    And the client should be in fatal state
 
   @targetURI @rpc
   Scenario: Connection via TargetUri rpc
