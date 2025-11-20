@@ -1,5 +1,5 @@
 ARG FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.12.9
-ARG TARGETARCH=amd64
+ARG TARGETARCH
 
 FROM ${FLAGD_BASE_IMAGE} AS flagd
 
