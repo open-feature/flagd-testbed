@@ -15,7 +15,7 @@ RUN go mod download
 COPY launchpad/ ./
 
 # Build the Go binary
-RUN GOARCH=${TARGETARCH} go build -o launchpad main.go
+RUN GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -o launchpad main.go
 
 
 FROM alpine/openssl AS certs
