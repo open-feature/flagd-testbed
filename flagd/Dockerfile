@@ -1,4 +1,6 @@
 ARG FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.12.9
+ARG TARGETARCH
+
 FROM ${FLAGD_BASE_IMAGE} AS flagd
 
 # Build stage
@@ -13,7 +15,7 @@ RUN go mod download
 COPY launchpad/ ./
 
 # Build the Go binary
-RUN go build -o launchpad main.go
+RUN GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -o launchpad main.go
 
 
 FROM alpine/openssl AS certs
