@@ -1,28 +1,29 @@
 Feature: Configuration Test
 """markdown
   This is the official option configuration table
-  | Option name           | Environment variable name      | Explanation                                                                     | Type & Values                | Default                       | Compatible resolver |
-  | --------------------- | ------------------------------ | ------------------------------------------------------------------------------- | ---------------------------- | ----------------------------- | ------------------- |
-  | resolver              | FLAGD_RESOLVER                 | mode of operation                                                               | String - `rpc`, `in-process` | rpc                           | rpc & in-process    |
-  | host                  | FLAGD_HOST                     | remote host                                                                     | String                       | localhost                     | rpc & in-process    |
-  | port                  | FLAGD_PORT (rpc), FLAGD_SYNC_PORT (in-process, FLAGD_PORT as fallback) | remote port                                                                     | int                          | 8013 (rpc), 8015 (in-process) | rpc & in-process    |
-  | targetUri             | FLAGD_TARGET_URI               | alternative to host/port, supporting custom name resolution                     | string                       | null                          | rpc & in-process    |
-  | tls                   | FLAGD_TLS                      | connection encryption                                                           | boolean                      | false                         | rpc & in-process    |
-  | socketPath            | FLAGD_SOCKET_PATH              | alternative to host port, unix socket                                           | String                       | null                          | rpc & in-process    |
-  | certPath              | FLAGD_SERVER_CERT_PATH         | tls cert path                                                                   | String                       | null                          | rpc & in-process    |
-  | deadlineMs            | FLAGD_DEADLINE_MS              | deadline for unary calls, and timeout for initialization                        | int                          | 500                           | rpc & in-process    |
-  | streamDeadlineMs      | FLAGD_STREAM_DEADLINE_MS       | deadline for streaming calls, useful as an application-layer keepalive          | int                          | 600000                        | rpc & in-process    |
-  | retryBackoffMs        | FLAGD_RETRY_BACKOFF_MS         | initial backoff for stream retry                                                | int                          | 1000                          | rpc & in-process    |
-  | retryBackoffMaxMs     | FLAGD_RETRY_BACKOFF_MAX_MS     | maximum backoff for stream retry                                                | int                          | 120000                        | rpc & in-process    |
-  | retryGracePeriod      | FLAGD_RETRY_GRACE_PERIOD       | time before provider moves from STALE to ERROR state                            | int                          | 5                             | rpc & in-process    |
-  | keepAliveTime         | FLAGD_KEEP_ALIVE_TIME_MS       | http 2 keepalive                                                                | long                         | 0                             | rpc & in-process    |
-  | cache                 | FLAGD_CACHE                    | enable cache of static flags                                                    | String - `lru`, `disabled`   | lru                           | rpc                 |
-  | maxCacheSize          | FLAGD_MAX_CACHE_SIZE           | max size of static flag cache                                                   | int                          | 1000                          | rpc                 |
-  | selector              | FLAGD_SOURCE_SELECTOR          | selects a single sync source to retrieve flags from only that source            | string                       | null                          | in-process          |
-  | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | offline, file-based flag definitions, overrides host/port/targetUri             | string                       | null                          | in-process          |
-  | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | poll interval for reading offlineFlagSourcePath                                 | int                          | 5000                          | in-process          |
-  | contextEnricher       | -                              | sync-metadata to evaluation context mapping function                            | function                     | identity function             | in-process          |
-  """
+  | Option name           | Environment variable name      | Explanation                                                                                                     | Type & Values                | Default                       | Compatible resolver |
+  | --------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------- | ---------------------------- | ----------------------------- | ------------------- |
+  | resolver              | FLAGD_RESOLVER                 | mode of operation                                                                                               | String - `rpc`, `in-process` | rpc                           | rpc & in-process    |
+  | host                  | FLAGD_HOST                     | remote host                                                                                                     | String                       | localhost                     | rpc & in-process    |
+  | port                  | FLAGD_PORT                     | remote port                                                                                                     | int                          | 8013 (rpc), 8015 (in-process) | rpc & in-process    |
+  | targetUri             | FLAGD_TARGET_URI               | alternative to host/port, supporting custom name resolution                                                     | string                       | null                          | rpc & in-process    |
+  | tls                   | FLAGD_TLS                      | connection encryption                                                                                           | boolean                      | false                         | rpc & in-process    |
+  | socketPath            | FLAGD_SOCKET_PATH              | alternative to host port, unix socket                                                                           | String                       | null                          | rpc & in-process    |
+  | certPath              | FLAGD_SERVER_CERT_PATH         | tls cert path                                                                                                   | String                       | null                          | rpc & in-process    |
+  | deadlineMs            | FLAGD_DEADLINE_MS              | deadline for unary calls, and timeout for initialization                                                        | int                          | 500                           | rpc & in-process    |
+  | streamDeadlineMs      | FLAGD_STREAM_DEADLINE_MS       | deadline for streaming calls, useful as an application-layer keepalive                                          | int                          | 600000                        | rpc & in-process    |
+  | retryBackoffMs        | FLAGD_RETRY_BACKOFF_MS         | initial backoff for stream retry                                                                                | int                          | 1000                          | rpc & in-process    |
+  | retryBackoffMaxMs     | FLAGD_RETRY_BACKOFF_MAX_MS     | maximum backoff for stream retry                                                                                | int                          | 120000                        | rpc & in-process    |
+  | retryGracePeriod      | FLAGD_RETRY_GRACE_PERIOD       | time before provider moves from STALE to ERROR state                                                            | int                          | 5                             | rpc & in-process    |
+  | keepAliveTime         | FLAGD_KEEP_ALIVE_TIME_MS       | http 2 keepalive                                                                                                | long                         | 0                             | rpc & in-process    |
+  | cache                 | FLAGD_CACHE                    | enable cache of static flags                                                                                    | String - `lru`, `disabled`   | lru                           | rpc                 |
+  | maxCacheSize          | FLAGD_MAX_CACHE_SIZE           | max size of static flag cache                                                                                   | int                          | 1000                          | rpc                 |
+  | selector              | FLAGD_SOURCE_SELECTOR          | selects a single sync source to retrieve flags from only that source                                            | string                       | null                          | in-process          |
+  | offlineFlagSourcePath | FLAGD_OFFLINE_FLAG_SOURCE_PATH | offline, file-based flag definitions, overrides host/port/targetUri                                             | string                       | null                          | in-process          |
+  | offlinePollIntervalMs | FLAGD_OFFLINE_POLL_MS          | poll interval for reading offlineFlagSourcePath                                                                 | int                          | 5000                          | in-process          |
+  | contextEnricher       | -                              | sync-metadata to evaluation context mapping function                                                            | function                     | identity function             | in-process          |
+  | fatalStatusCodes      | FLAGD_FATAL_STATUS_CODES       | a list of gRPC status codes, which will cause streams to give up and put the provider in a PROVIDER_FATAL state | array                        | []                            | rpc & in-process    |
+"""
 
   Scenario Outline: Default Config
     When a config was initialized
@@ -36,10 +37,11 @@ Feature: Configuration Test
 
     @rpc @in-process
     Scenarios: Basic Connection
-      | option | type    | default   |
-      | host   | String  | localhost |
-      | port   | Integer | 8013      |
-      | tls    | Boolean | false     |
+      | option           | type       | default   |
+      | host             | String     | localhost |
+      | port             | Integer    | 8013      |
+      | tls              | Boolean    | false     |
+      | fatalStatusCodes | StringList |           |
 
     @rpc @in-process @targetURI
     Scenarios: Target URI
@@ -136,10 +138,11 @@ Feature: Configuration Test
 
     @rpc @in-process
     Scenarios: Basic Connection
-      | option | type    | value |
-      | host   | String  | local |
-      | tls    | Boolean | True  |
-      | port   | Integer | 1234  |
+      | option           | type       | value |
+      | host             | String     | local |
+      | tls              | Boolean    | True  |
+      | port             | Integer    | 1234  |
+      | fatalStatusCodes | StringList | A, B  |
 
     @rpc @in-process @targetURI
     Scenarios: Target URI
@@ -203,10 +206,11 @@ Feature: Configuration Test
 
     @rpc @in-process
     Scenarios: Basic Connection
-      | option | env        | type    | value |
-      | host   | FLAGD_HOST | String  | local |
-      | tls    | FLAGD_TLS  | Boolean | True  |
-      | port   | FLAGD_PORT | Integer | 1234  |
+      | option           | env                      | type       | value |
+      | host             | FLAGD_HOST               | String     | local |
+      | tls              | FLAGD_TLS                | Boolean    | True  |
+      | port             | FLAGD_PORT               | Integer    | 1234  |
+      | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | C, D  |
 
     @in-process
     Scenarios: In-Process Sync Port
@@ -289,10 +293,11 @@ Feature: Configuration Test
 
     @rpc @in-process
     Scenarios: Basic Connection
-      | option | env        | type    | value | env-value |
-      | host   | FLAGD_HOST | String  | local | l         |
-      | tls    | FLAGD_TLS  | Boolean | True  | False     |
-      | port   | FLAGD_PORT | Integer | 1234  | 3456      |
+      | option           | env                      | type       | value | env-value |
+      | host             | FLAGD_HOST               | String     | local | l         |
+      | tls              | FLAGD_TLS                | Boolean    | True  | False     |
+      | port             | FLAGD_PORT               | Integer    | 1234  | 3456      |
+      | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | A, B  | C, D      |
 
     @in-process
     Scenarios: In-Process Sync Port
@@ -347,6 +352,7 @@ Feature: Configuration Test
 
     @in-process @providerId
     Scenarios: providerId
+
       | option     | env               | type   | value      | env-value  |
       | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov |
 
