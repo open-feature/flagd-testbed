@@ -212,6 +212,16 @@ Feature: Configuration Test
       | port             | FLAGD_PORT               | Integer    | 1234  |
       | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | C, D  |
 
+    @in-process
+    Scenarios: In-Process Sync Port
+      | option | env             | type    | value |
+      | port   | FLAGD_SYNC_PORT | Integer | 1234  |
+
+    @in-process @legacy-sync-port
+    Scenarios: In-Process Legacy Port (backwards compatibility)
+      | option | env        | type    | value |
+      | port   | FLAGD_PORT | Integer | 1234  |
+
     @rpc @in-process @targetURI
     Scenarios: Target URI
       | option    | env              | type   | value |
@@ -289,6 +299,16 @@ Feature: Configuration Test
       | port             | FLAGD_PORT               | Integer    | 1234  | 3456      |
       | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | A, B  | C, D      |
 
+    @in-process
+    Scenarios: In-Process Sync Port
+      | option | env             | type    | value | env-value |
+      | port   | FLAGD_SYNC_PORT | Integer | 1234  | 3456      |
+
+    @in-process @legacy-sync-port
+    Scenarios: In-Process Legacy Port (backwards compatibility)
+      | option | env        | type    | value | env-value |
+      | port   | FLAGD_PORT | Integer | 1234  | 3456      |
+
     @rpc @in-process @targetURI
     Scenarios: Target URI
       | option    | env              | type   | value | env-value |
@@ -332,5 +352,12 @@ Feature: Configuration Test
 
     @in-process @providerId
     Scenarios: providerId
-      | option     | env               | type   | value      | env-value |
-      | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov  |
+      | option     | env               | type   | value      | env-value  |
+      | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov |
+
+  @in-process
+  Scenario: FLAGD_SYNC_PORT takes priority over FLAGD_PORT
+    Given an environment variable "FLAGD_SYNC_PORT" with value "9999"
+    And an environment variable "FLAGD_PORT" with value "8888"
+    When a config was initialized
+    Then the option "port" of type "Integer" should have the value "9999"
