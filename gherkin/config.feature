@@ -352,7 +352,6 @@ Feature: Configuration Test
 
     @in-process @providerId
     Scenarios: providerId
-
       | option     | env               | type   | value      | env-value  |
       | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov |
 
