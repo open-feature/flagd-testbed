@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.15.0](https://github.com/open-feature/flagd-testbed/compare/v2.14.0...v2.15.0) (2025-11-21)
+
+
+### 🐛 Bug Fixes
+
+* remove file mode from forbidden flagd connection test ([#312](https://github.com/open-feature/flagd-testbed/issues/312)) ([1759a94](https://github.com/open-feature/flagd-testbed/commit/1759a9491388e6c9714d5c048916120f77c8d892))
+
+
+### ✨ New Features
+
+* Add FLAGD_BASE_IMAGE build argument to Dockerfile ([#308](https://github.com/open-feature/flagd-testbed/issues/308)) ([779adad](https://github.com/open-feature/flagd-testbed/commit/779adad49f118e7a83910bc07c1f67ca2b9a1fe1))
+* Add FLAGD_SYNC_PORT support for in-process providers with backwards compatibility ([#310](https://github.com/open-feature/flagd-testbed/issues/310)) ([513f2a9](https://github.com/open-feature/flagd-testbed/commit/513f2a9bfc2f7515b9a366e7d6085336256e864b))
+* add missing steps for config and improve wording ([#311](https://github.com/open-feature/flagd-testbed/issues/311)) ([c1f632b](https://github.com/open-feature/flagd-testbed/commit/c1f632b79baf3814087c6e7a943094dfcaacd8a9))
+* Support multi-platform build ([#313](https://github.com/open-feature/flagd-testbed/issues/313)) ([e1ff79c](https://github.com/open-feature/flagd-testbed/commit/e1ff79c0bc700319d01699bd962d89cd4d670594))
+
 ## [2.14.0](https://github.com/open-feature/flagd-testbed/compare/v2.13.1...v2.14.0) (2025-10-30)
 
 
