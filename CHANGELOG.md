@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.1](https://github.com/open-feature/flagd-testbed/compare/v2.15.0...v2.15.1) (2025-11-27)
+
+
+### 🐛 Bug Fixes
+
+* Add [@sync-port](https://github.com/sync-port) tag to in-process scenarios ([#314](https://github.com/open-feature/flagd-testbed/issues/314)) ([3af557a](https://github.com/open-feature/flagd-testbed/commit/3af557a61c0fac0ce3568eff601bfb24fba9d668))
+
 ## [2.15.0](https://github.com/open-feature/flagd-testbed/compare/v2.14.0...v2.15.0) (2025-11-21)
 
 
