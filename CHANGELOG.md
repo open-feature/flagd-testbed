@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.2](https://github.com/open-feature/flagd-testbed/compare/v2.15.1...v2.15.2) (2025-11-27)
+
+
+### 🐛 Bug Fixes
+
+* Add fatalStatusCodes tags in config gherkin ([#316](https://github.com/open-feature/flagd-testbed/issues/316)) ([49764f6](https://github.com/open-feature/flagd-testbed/commit/49764f6b27198c7447b460034a89dbfe4da50c7d))
+
 ## [2.15.1](https://github.com/open-feature/flagd-testbed/compare/v2.15.0...v2.15.1) (2025-11-27)
 
 
