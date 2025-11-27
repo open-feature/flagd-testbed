@@ -212,7 +212,7 @@ Feature: Configuration Test
       | port             | FLAGD_PORT               | Integer    | 1234  |
       | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | C, D  |
 
-    @in-process
+    @in-process @sync-port
     Scenarios: In-Process Sync Port
       | option | env             | type    | value |
       | port   | FLAGD_SYNC_PORT | Integer | 1234  |
@@ -299,7 +299,7 @@ Feature: Configuration Test
       | port             | FLAGD_PORT               | Integer    | 1234  | 3456      |
       | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | A, B  | C, D      |
 
-    @in-process
+    @in-process @sync-port
     Scenarios: In-Process Sync Port
       | option | env             | type    | value | env-value |
       | port   | FLAGD_SYNC_PORT | Integer | 1234  | 3456      |
@@ -355,7 +355,7 @@ Feature: Configuration Test
       | option     | env               | type   | value      | env-value  |
       | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov |
 
-  @in-process
+  @in-process @sync-port
   Scenario: FLAGD_SYNC_PORT takes priority over FLAGD_PORT
     Given an environment variable "FLAGD_SYNC_PORT" with value "9999"
     And an environment variable "FLAGD_PORT" with value "8888"
