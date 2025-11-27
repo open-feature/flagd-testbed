@@ -149,7 +149,7 @@ Feature: Configuration Test
 
     @rpc @in-process @forbidden
     Scenarios: Fatal Status Codes
-      | option           | type       | value |      
+      | option           | type       | value |
       | fatalStatusCodes | StringList | A, B  |
 
     @rpc @in-process @targetURI
