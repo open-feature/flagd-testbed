@@ -41,6 +41,10 @@ Feature: Configuration Test
       | host             | String     | localhost |
       | port             | Integer    | 8013      |
       | tls              | Boolean    | false     |
+
+    @rpc @in-process @forbidden
+    Scenarios: Fatal Status Codes
+      | option           | type       | default   |
       | fatalStatusCodes | StringList |           |
 
     @rpc @in-process @targetURI
@@ -142,6 +146,10 @@ Feature: Configuration Test
       | host             | String     | local |
       | tls              | Boolean    | True  |
       | port             | Integer    | 1234  |
+
+    @rpc @in-process @forbidden
+    Scenarios: Fatal Status Codes
+      | option           | type       | value |
       | fatalStatusCodes | StringList | A, B  |
 
     @rpc @in-process @targetURI
@@ -210,6 +218,10 @@ Feature: Configuration Test
       | host             | FLAGD_HOST               | String     | local |
       | tls              | FLAGD_TLS                | Boolean    | True  |
       | port             | FLAGD_PORT               | Integer    | 1234  |
+
+    @rpc @in-process @forbidden
+    Scenarios: Fatal Status Codes
+      | option           | env                      | type       | value |
       | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | C, D  |
 
     @in-process @sync-port
@@ -297,6 +309,10 @@ Feature: Configuration Test
       | host             | FLAGD_HOST               | String     | local | l         |
       | tls              | FLAGD_TLS                | Boolean    | True  | False     |
       | port             | FLAGD_PORT               | Integer    | 1234  | 3456      |
+
+    @rpc @in-process @forbidden
+    Scenarios: Fatal Status Codes
+      | option           | env                      | type       | value | env-value |
       | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | A, B  | C, D      |
 
     @in-process @sync-port
