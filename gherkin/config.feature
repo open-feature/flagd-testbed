@@ -224,11 +224,6 @@ Feature: Configuration Test
       | option           | env                      | type       | value |
       | fatalStatusCodes | FLAGD_FATAL_STATUS_CODES | StringList | C, D  |
 
-    @in-process @sync-port
-    Scenarios: In-Process Sync Port
-      | option | env             | type    | value |
-      | port   | FLAGD_SYNC_PORT | Integer | 1234  |
-
     @in-process @legacy-sync-port
     Scenarios: In-Process Legacy Port (backwards compatibility)
       | option | env        | type    | value |
@@ -278,6 +273,17 @@ Feature: Configuration Test
     Scenarios: providerId
       | option     | env               | type   | value          |
       | providerId | FLAGD_PROVIDER_ID | String | env-providerId |
+
+  @in-process
+  Scenario Outline: Dedicated Config via Env_var special In-process case
+    Given an environment variable "<env>" with value "<value>"
+    And an option "resolver" of type "ResolverType" with value "in-process"
+    When a config was initialized
+    Then the option "<option>" of type "<type>" should have the value "<value>"
+    @sync-port
+    Scenarios:
+      | option | env             | type    | value |
+      | port   | FLAGD_SYNC_PORT | Integer | 1234  |
 
   @file
   Scenario Outline: Dedicated Config via Env_var special file case
@@ -375,5 +381,6 @@ Feature: Configuration Test
   Scenario: FLAGD_SYNC_PORT takes priority over FLAGD_PORT
     Given an environment variable "FLAGD_SYNC_PORT" with value "9999"
     And an environment variable "FLAGD_PORT" with value "8888"
+    And an option "resolver" of type "ResolverType" with value "in-process"
     When a config was initialized
     Then the option "port" of type "Integer" should have the value "9999"
