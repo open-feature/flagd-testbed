@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.3](https://github.com/open-feature/flagd-testbed/compare/v2.15.2...v2.15.3) (2025-11-28)
+
+
+### 🐛 Bug Fixes
+
+* Refactor in-process sync port scenarios ([#318](https://github.com/open-feature/flagd-testbed/issues/318)) ([1f6845c](https://github.com/open-feature/flagd-testbed/commit/1f6845c3a9f7c9f7a72abbbf2f0303e5af885f9d))
+
 ## [2.15.2](https://github.com/open-feature/flagd-testbed/compare/v2.15.1...v2.15.2) (2025-11-27)
 
 
