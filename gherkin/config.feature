@@ -274,13 +274,12 @@ Feature: Configuration Test
       | option     | env               | type   | value          |
       | providerId | FLAGD_PROVIDER_ID | String | env-providerId |
 
-  @in-process
+  @in-process @sync-port
   Scenario Outline: Dedicated Config via Env_var special In-process case
     Given an environment variable "<env>" with value "<value>"
     And an option "resolver" of type "ResolverType" with value "in-process"
     When a config was initialized
     Then the option "<option>" of type "<type>" should have the value "<value>"
-    @sync-port
     Scenarios:
       | option | env             | type    | value |
       | port   | FLAGD_SYNC_PORT | Integer | 1234  |
