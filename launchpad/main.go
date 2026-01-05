@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"openfeature.com/flagd-testbed/launchpad/handlers"
-	"openfeature.com/flagd-testbed/launchpad/pkg"
+	flagd "openfeature.com/flagd-testbed/launchpad/pkg"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Error during initial JSON combination: %v", err)
 	}
 
-	if err := flagd.StartFileWatcher(); err != nil {
+	if err := flagd.RestartFileWatcher(); err != nil {
 		log.Fatalf("Error starting file watcher: %v", err)
 	}
 
