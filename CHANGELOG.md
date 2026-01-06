@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.4](https://github.com/open-feature/flagd-testbed/compare/v2.15.3...v2.15.4) (2026-01-06)
+
+
+### 🐛 Bug Fixes
+
+* deadlock if /change is called during /restart ([#321](https://github.com/open-feature/flagd-testbed/issues/321)) ([4583da2](https://github.com/open-feature/flagd-testbed/commit/4583da2d79eb38b40eab1f136a930c70d2beae58))
+
 ## [2.15.3](https://github.com/open-feature/flagd-testbed/compare/v2.15.2...v2.15.3) (2025-11-28)
 
 
