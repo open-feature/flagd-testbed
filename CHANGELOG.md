@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.5](https://github.com/open-feature/flagd-testbed/compare/v2.15.4...v2.15.5) (2026-01-06)
+
+
+### 🐛 Bug Fixes
+
+* revert ends_with non-string change ([14eb032](https://github.com/open-feature/flagd-testbed/commit/14eb0326cbe390a9db9c2ce5be7f68fc5ff27d9e))
+
 ## [2.15.4](https://github.com/open-feature/flagd-testbed/compare/v2.15.3...v2.15.4) (2026-01-06)
 
 
