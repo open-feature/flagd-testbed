@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.6](https://github.com/open-feature/flagd-testbed/compare/v2.15.5...v2.15.6) (2026-01-06)
+
+
+### 🐛 Bug Fixes
+
+* more possible change deadlocks ([#324](https://github.com/open-feature/flagd-testbed/issues/324)) ([e103d93](https://github.com/open-feature/flagd-testbed/commit/e103d932159d7457feb2eaf18e9c51607edf456b))
+
 ## [2.15.5](https://github.com/open-feature/flagd-testbed/compare/v2.15.4...v2.15.5) (2026-01-06)
 
 
