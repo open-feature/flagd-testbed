@@ -18,8 +18,8 @@ var (
 )
 
 func CombineJSONFiles(inputDir string) error {
-	mu.Lock()
-	defer mu.Unlock()
+	fileLock.Lock()
+	defer fileLock.Unlock()
 
 	files, err := os.ReadDir(inputDir)
 	if err != nil {

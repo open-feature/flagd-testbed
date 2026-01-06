@@ -14,10 +14,11 @@ import (
 )
 
 var (
-	flagdCmd          *exec.Cmd
-	flagdLock         sync.Mutex
-	Config            = "default"
-	restartCancelFunc context.CancelFunc // Stores the cancel function for delayed restarts
+	flagdCmd              *exec.Cmd
+	flagdLock             sync.Mutex
+	Config                = "default"
+	DefaultRestartTimeout = 5
+	restartCancelFunc     context.CancelFunc // Stores the cancel function for delayed restarts
 )
 
 func ensureStartConditions() {
