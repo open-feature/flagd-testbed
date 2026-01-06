@@ -27,7 +27,9 @@ func ensureStartConditions() {
 			fmt.Printf("Error combining JSON files on flagd start: %v\n", err)
 		}
 	}
-	ContinueFileWatcher()
+	if err := RestartFileWatcher(); err != nil {
+		fmt.Printf("error restarting file watcher: %v\n", err)
+	}
 }
 
 func deleteCombinedFlagsFile() {
@@ -45,7 +47,6 @@ func RestartFlagd(seconds int) {
 	ctx, cancel := context.WithCancel(context.Background())
 	restartCancelFunc = cancel
 
-	PauseFileWatcher()
 	deleteCombinedFlagsFile()
 	err := stopFlagDWithoutLock()
 	if err != nil {

@@ -2,31 +2,30 @@ package flagd
 
 import (
 	"fmt"
-	"github.com/fsnotify/fsnotify"
 	"strings"
 	"sync"
+
+	"github.com/fsnotify/fsnotify"
 )
 
 var (
-	changeFlagLock sync.Mutex
-	workLock       sync.Mutex
-	isPaused       = false
+	changeFlagLock            sync.Mutex
+	workLock                  sync.Mutex
+	watcher                   *fsnotify.Watcher
+	changeFlagUpdateListeners []*sync.WaitGroup
 )
 
-func PauseFileWatcher() {
+func RestartFileWatcher() error {
+	var err error
 	workLock.Lock()
-	defer workLock.Unlock()
-	isPaused = true
-}
-
-func ContinueFileWatcher() {
-	workLock.Lock()
-	defer workLock.Unlock()
-	isPaused = false
-}
-
-func StartFileWatcher() error {
-	watcher, err := fsnotify.NewWatcher()
+	changeFlagLock.Lock()
+	if watcher != nil {
+		watcher.Close()
+	}
+	changeFlagUpdateListeners = []*sync.WaitGroup{}
+	watcher, err = fsnotify.NewWatcher()
+	workLock.Unlock()
+	changeFlagLock.Unlock()
 	if err != nil {
 		return fmt.Errorf("failed to create file watcher: %v", err)
 	}
@@ -41,11 +40,6 @@ func StartFileWatcher() error {
 				}
 				if event.Op&(fsnotify.Create|fsnotify.Write|fsnotify.Remove) != 0 {
 					workLock.Lock()
-					if isPaused {
-						workLock.Unlock()
-						fmt.Printf("%v config changed, but file watcher is paused \n", event.Name)
-						return
-					}
 					fmt.Printf("%v config changed, regenerating JSON...\n", event.Name)
 					if err := CombineJSONFiles(InputDir); err != nil {
 						fmt.Printf("Error combining JSON files: %v\n", err)
@@ -79,8 +73,6 @@ func StartFileWatcher() error {
 	fmt.Println("File watcher started.")
 	return nil
 }
-
-var changeFlagUpdateListeners []*sync.WaitGroup
 
 // RegisterWaitForNextChangingFlagUpdate
 // The waitGroup passed to this function will be invoked when a file update to the changing-flag.json file is detected.
