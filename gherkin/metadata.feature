@@ -16,6 +16,7 @@ Feature: flag and flag set metadata
       | float   | Float         | 1.2   |
       | boolean | Boolean       | true  |
 
+  @metadata-provider
   Scenario: Returns flag set metadata
     Given an option "selector" of type "String" with value "rawflags/selector-flag-combined-metadata.json"
     And a metadata flagd provider
@@ -32,6 +33,7 @@ Feature: flag and flag set metadata
       | flag-set-float   | Float         | 3.2   |
       | flag-set-boolean | Boolean       | false |
 
+  @metadata-provider
   Scenario: Flag metadata overwrites flag set metadata
     Given an option "selector" of type "String" with value "rawflags/selector-flag-combined-metadata.json"
     And a metadata flagd provider
