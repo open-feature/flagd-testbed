@@ -105,7 +105,7 @@
               "postfix", {
                 "if": [
                   {
-                    "ends_with": [{"var": "id"}, "3"]
+                    "ends_with": [{"var": "id"}, 3]
                   },
                   "fail", "none"
                 ]
