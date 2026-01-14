@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.7](https://github.com/open-feature/flagd-testbed/compare/v2.15.6...v2.15.7) (2026-01-14)
+
+
+### 🐛 Bug Fixes
+
+* correct default retryBackoffMaxMs value ([7408867](https://github.com/open-feature/flagd-testbed/commit/740886703c4e58ca9df8b06eca0d347530f116b7))
+
 ## [2.15.6](https://github.com/open-feature/flagd-testbed/compare/v2.15.5...v2.15.6) (2026-01-06)
 
 
