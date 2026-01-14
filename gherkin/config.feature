@@ -13,7 +13,7 @@ Feature: Configuration Test
   | deadlineMs            | FLAGD_DEADLINE_MS              | deadline for unary calls, and timeout for initialization                                                        | int                          | 500                           | rpc & in-process    |
   | streamDeadlineMs      | FLAGD_STREAM_DEADLINE_MS       | deadline for streaming calls, useful as an application-layer keepalive                                          | int                          | 600000                        | rpc & in-process    |
   | retryBackoffMs        | FLAGD_RETRY_BACKOFF_MS         | initial backoff for stream retry                                                                                | int                          | 1000                          | rpc & in-process    |
-  | retryBackoffMaxMs     | FLAGD_RETRY_BACKOFF_MAX_MS     | maximum backoff for stream retry                                                                                | int                          | 120000                        | rpc & in-process    |
+  | retryBackoffMaxMs     | FLAGD_RETRY_BACKOFF_MAX_MS     | maximum backoff for stream retry                                                                                | int                          | 12000                         | rpc & in-process    |
   | retryGracePeriod      | FLAGD_RETRY_GRACE_PERIOD       | time before provider moves from STALE to ERROR state                                                            | int                          | 5                             | rpc & in-process    |
   | keepAliveTime         | FLAGD_KEEP_ALIVE_TIME_MS       | http 2 keepalive                                                                                                | long                         | 0                             | rpc & in-process    |
   | cache                 | FLAGD_CACHE                    | enable cache of static flags                                                                                    | String - `lru`, `disabled`   | lru                           | rpc                 |
@@ -68,7 +68,7 @@ Feature: Configuration Test
       | streamDeadlineMs  | Integer | 600000  |
       | keepAliveTime     | Long    | 0       |
       | retryBackoffMs    | Integer | 1000    |
-      | retryBackoffMaxMs | Integer | 120000  |
+      | retryBackoffMaxMs | Integer | 12000   |
       | retryGracePeriod  | Integer | 5       |
 
     @in-process @sync
