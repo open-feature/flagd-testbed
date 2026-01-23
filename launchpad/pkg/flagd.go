@@ -155,6 +155,20 @@ func stopFlagDWithoutLock() error {
 		if err := flagdCmd.Process.Kill(); err != nil {
 			return fmt.Errorf("failed to stop flagd: %v", err)
 		}
+
+		// Wait for the process to fully terminate with a timeout
+		done := make(chan error, 1)
+		go func() {
+			done <- flagdCmd.Wait()
+		}()
+
+		select {
+		case <-done:
+			// Process fully terminated
+		case <-time.After(5 * time.Second):
+			fmt.Println("Warning: timeout waiting for flagd process to terminate")
+		}
+
 		flagdCmd = nil
 		fmt.Println("flagd stopped")
 	}
