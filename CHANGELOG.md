@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.8](https://github.com/open-feature/flagd-testbed/compare/v2.15.7...v2.15.8) (2026-01-23)
+
+
+### 🐛 Bug Fixes
+
+* race condition in /stop ([#327](https://github.com/open-feature/flagd-testbed/issues/327)) ([8bafdaf](https://github.com/open-feature/flagd-testbed/commit/8bafdafde36a17e54de3b682efbefeae6a6d33b0))
+
 ## [2.15.7](https://github.com/open-feature/flagd-testbed/compare/v2.15.6...v2.15.7) (2026-01-14)
 
 
