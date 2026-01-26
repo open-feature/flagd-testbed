@@ -1,14 +1,12 @@
 package flagd
 
 import (
-	"bufio"
 	"context"
 	"errors"
 	"fmt"
-	"io"
+	"net/http"
 	"os"
 	"os/exec"
-	"strings"
 	"sync"
 	"time"
 )
@@ -95,40 +93,32 @@ func StartFlagd(config string) error {
 	configPath := fmt.Sprintf("./configs/%s.json", config)
 
 	flagdCmd = exec.Command("./flagd", "start", "--config", configPath)
-
-	stdout, err := flagdCmd.StdoutPipe()
-	if err != nil {
-		return fmt.Errorf("failed to capture stdout: %v", err)
-	}
-	stderr, err := flagdCmd.StderrPipe()
-	if err != nil {
-		return fmt.Errorf("failed to capture stderr: %v", err)
-	}
+	flagdCmd.Stdout = os.Stdout
+	flagdCmd.Stderr = os.Stderr
 
 	if err := flagdCmd.Start(); err != nil {
+		flagdLock.Unlock()
 		return fmt.Errorf("failed to start flagd: %v", err)
 	}
-
 	flagdLock.Unlock()
-	ready := make(chan bool)
 
-	go monitorOutput(stdout, ready, "stdout")
-	go monitorOutput(stderr, ready, "stderr")
-
-	select {
-	case success := <-ready:
-		if success {
-			fmt.Println("flagd started successfully.")
-			return nil
+	// Poll health endpoint until ready
+	client := &http.Client{Timeout: 500 * time.Millisecond}
+	deadline := time.Now().Add(10 * time.Second)
+	for time.Now().Before(deadline) {
+		resp, err := client.Get("http://localhost:8014/readyz")
+		if err == nil {
+			resp.Body.Close()
+			if resp.StatusCode == http.StatusOK {
+				fmt.Println("flagd started successfully.")
+				return nil
+			}
 		}
-		return fmt.Errorf("flagd did not start correctly")
-	case <-time.After(10 * time.Second):
-		err := StopFlagd()
-		if err != nil {
-			fmt.Println("could not stop flagd", err)
-		}
-		return fmt.Errorf("flagd start timeout exceeded")
+		time.Sleep(100 * time.Millisecond)
 	}
+
+	_ = StopFlagd()
+	return fmt.Errorf("flagd health check timed out")
 }
 
 func StopFlagd() error {
@@ -173,24 +163,4 @@ func stopFlagDWithoutLock() error {
 		fmt.Println("flagd stopped")
 	}
 	return nil
-}
-
-func monitorOutput(pipe io.ReadCloser, ready chan bool, stream string) {
-	scanner := bufio.NewScanner(pipe)
-	//adjust the capacity to your need (max characters in line)
-	const maxCapacity = 512 * 1024
-	buf := make([]byte, maxCapacity)
-	scanner.Buffer(buf, maxCapacity)
-	started := false
-
-	for scanner.Scan() {
-		line := scanner.Text()
-		fmt.Println("[flagd ", stream, "]:", line)
-		if ready != nil && !started && strings.Contains(line, "listening at") {
-			ready <- true
-			close(ready)
-			fmt.Println("flagd started properly found logline with 'listening at'")
-			started = true
-		}
-	}
 }

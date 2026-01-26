@@ -10,6 +10,24 @@ import (
 	"sync"
 )
 
+// writes a file atomically using mv
+func atomicWriteFile(filename string, data []byte) error {
+	tmpFile, err := os.CreateTemp(filepath.Dir(filename), ".tmp-*")
+	if err != nil {
+		return err
+	}
+	tmpName := tmpFile.Name()
+
+	if _, err := tmpFile.Write(data); err != nil {
+		tmpFile.Close()
+		os.Remove(tmpName)
+		return err
+	}
+	tmpFile.Close()
+
+	return os.Rename(tmpName, filename)
+}
+
 var (
 	mu         sync.Mutex
 	InputDir   = "./rawflags"
@@ -54,7 +72,7 @@ func CombineJSONFiles(inputDir string) error {
 		return fmt.Errorf("failed to serialize combined JSON: %v", err)
 	}
 
-	return ioutil.WriteFile(OutputFile, combinedContent, 0644)
+	return atomicWriteFile(OutputFile, combinedContent)
 }
 
 func deepMerge(dst, src map[string]interface{}) map[string]interface{} {

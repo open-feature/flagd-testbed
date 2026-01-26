@@ -86,7 +86,8 @@ func ToggleChangingFlag() (string, error) {
 
 	// Write the updated JSON back to the file
 	fileLock.Lock()
-	if err := os.WriteFile(configFile, updatedData, 0644); err != nil {
+	if err := atomicWriteFile(configFile, updatedData); err != nil {
+		fileLock.Unlock()
 		return "", err
 	}
 	fileLock.Unlock()
