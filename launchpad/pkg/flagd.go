@@ -104,21 +104,26 @@ func StartFlagd(config string) error {
 
 	// Poll health endpoint until ready
 	client := &http.Client{Timeout: 500 * time.Millisecond}
-	deadline := time.Now().Add(10 * time.Second)
-	for time.Now().Before(deadline) {
-		resp, err := client.Get("http://localhost:8014/readyz")
-		if err == nil {
-			resp.Body.Close()
-			if resp.StatusCode == http.StatusOK {
-				fmt.Println("flagd started successfully.")
-				return nil
+	ticker := time.NewTicker(100 * time.Millisecond)
+	defer ticker.Stop()
+	timeout := time.After(10 * time.Second)
+
+	for {
+		select {
+		case <-timeout:
+			_ = StopFlagd()
+			return fmt.Errorf("flagd health check timed out")
+		case <-ticker.C:
+			resp, err := client.Get("http://localhost:8014/readyz")
+			if err == nil {
+				resp.Body.Close()
+				if resp.StatusCode == http.StatusOK {
+					fmt.Println("flagd started successfully.")
+					return nil
+				}
 			}
 		}
-		time.Sleep(100 * time.Millisecond)
 	}
-
-	_ = StopFlagd()
-	return fmt.Errorf("flagd health check timed out")
 }
 
 func StopFlagd() error {
