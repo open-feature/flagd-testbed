@@ -23,9 +23,18 @@ func atomicWriteFile(filename string, data []byte) error {
 		os.Remove(tmpName)
 		return err
 	}
-	tmpFile.Close()
 
-	return os.Rename(tmpName, filename)
+	if err := tmpFile.Close(); err != nil {
+		os.Remove(tmpName)
+		return err
+	}
+
+	if err := os.Rename(tmpName, filename); err != nil {
+		os.Remove(tmpName)
+		return err
+	}
+
+	return nil
 }
 
 var (
