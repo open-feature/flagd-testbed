@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.9](https://github.com/open-feature/flagd-testbed/compare/v2.15.8...v2.15.9) (2026-01-27)
+
+
+### 🐛 Bug Fixes
+
+* make file update atomic, wait for /start ([#329](https://github.com/open-feature/flagd-testbed/issues/329)) ([64011fa](https://github.com/open-feature/flagd-testbed/commit/64011fad9c8f8b1ce2e06d1c75f3fb952e2b9e66))
+
 ## [2.15.8](https://github.com/open-feature/flagd-testbed/compare/v2.15.7...v2.15.8) (2026-01-23)
 
 
