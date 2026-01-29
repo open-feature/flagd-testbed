@@ -77,10 +77,10 @@ Feature: flagd evaluations
     # This may be handled more gracefully in the future.
     Examples:
       | key                                         | type    | email              | default  | resolved_value | reason          | error_code     |
-      | null-default-flag                           | Boolean |                    | true     | true           | ERROR           | FLAG_NOT_FOUND |
-      | null-default-flag                           | Boolean |                    | false    | false          | ERROR           | FLAG_NOT_FOUND |
-      | undefined-default-flag                      | Integer |                    |      100 |            100 | ERROR           | FLAG_NOT_FOUND |
-      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Inventor | Inventor       | ERROR           | FLAG_NOT_FOUND |
-      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Founder  | Founder        | ERROR           | FLAG_NOT_FOUND |
+      | null-default-flag                           | Boolean |                    |          |                | DEFAULT         |                |
+      | null-default-flag                           | Boolean |                    |          |                | DEFAULT         |                |
+      | undefined-default-flag                      | Integer |                    |          |                | DEFAULT         |                |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com |          |                | DEFAULT         |                |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com |          |                | DEFAULT         |                |
       | no-default-flag-null-targeting-variant      | String  | jobs@orange.com    | CEO      | CEO            | TARGETING_MATCH |                |
-      | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com | Retired  | Retired        | ERROR           | FLAG_NOT_FOUND |
+      | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com |          |                | DEFAULT         |                |
