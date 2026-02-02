@@ -66,7 +66,7 @@ Feature: flagd evaluations
 
   @no-default
   Scenario Outline: Resolves flag with no defaultValue correctly
-    Given a <type>-flag with key "<key>" and a default value "<default>"
+    Given a <type>-flag with key "<key>" and a default value "<code_default>"
     And a context containing a key "email", with type "String" and with value "<email>"
     When the flag was evaluated with details
     Then the resolved details value should be "<resolved_value>"
