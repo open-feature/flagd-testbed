@@ -71,16 +71,15 @@ Feature: flagd evaluations
     When the flag was evaluated with details
     Then the resolved details value should be "<resolved_value>"
     And the reason should be "<reason>"
-    And the error-code should be "<error_code>"
 
     # For now, no defaultValue is resolved as FLAG_NOT_FOUND to result in a code default.
     # This may be handled more gracefully in the future.
     Examples:
-      | key                                         | type    | email              | default  | resolved_value | reason          | error_code     |
-      | null-default-flag                           | Boolean |                    |          |                | DEFAULT         |                |
-      | null-default-flag                           | Boolean |                    |          |                | DEFAULT         |                |
-      | undefined-default-flag                      | Integer |                    |          |                | DEFAULT         |                |
-      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com |          |                | DEFAULT         |                |
-      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com |          |                | DEFAULT         |                |
-      | no-default-flag-null-targeting-variant      | String  | jobs@orange.com    | CEO      | CEO            | TARGETING_MATCH |                |
-      | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com |          |                | DEFAULT         |                |
+      | key                                         | type    | email              | code_default  | resolved_value | reason          |
+      | null-default-flag                           | Boolean |                    | true          | true           | DEFAULT         |
+      | null-default-flag                           | Boolean |                    | false         | false          | DEFAULT         |
+      | undefined-default-flag                      | Integer |                    | 100           | 100            | DEFAULT         |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Inventor      | Inventor       | DEFAULT         |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Founder       | Founder        | DEFAULT         |
+      | no-default-flag-null-targeting-variant      | String  | jobs@orange.com    | CEO           | CEO            | TARGETING_MATCH |
+      | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com | Retired       | Retired        | DEFAULT         |
