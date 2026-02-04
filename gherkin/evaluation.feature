@@ -86,15 +86,13 @@ Feature: flagd evaluations
       | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com | Retired  | Retired        | ERROR           | FLAG_NOT_FOUND |
 
   @no-default-variant
-  Scenario Outline: Resolves flag with no defaultValue correctly
+  Scenario Outline: Resolves flag with no default variant correctly
     Given a <type>-flag with key "<key>" and a default value "<code_default>"
     And a context containing a key "email", with type "String" and with value "<email>"
     When the flag was evaluated with details
     Then the resolved details value should be "<resolved_value>"
     And the reason should be "<reason>"
 
-    # For now, no defaultValue is resolved as FLAG_NOT_FOUND to result in a code default.
-    # This may be handled more gracefully in the future.
     Examples:
       | key                                         | type    | email              | code_default  | resolved_value | reason          |
       | null-default-flag                           | Boolean |                    | true          | true           | DEFAULT         |
