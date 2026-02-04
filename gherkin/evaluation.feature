@@ -64,7 +64,8 @@ Feature: flagd evaluations
       | integer-targeted-zero-flag | Integer | 1       | 0              |
       | float-targeted-zero-flag   | Float   | 0.1     | 0.0            |
 
-  @no-default
+  # This suite is deprecated and @no-default-variant should be used instead
+  @no-default @deprecated
   Scenario Outline: Resolves flag with no defaultValue correctly
     Given a <type>-flag with key "<key>" and a default value "<default>"
     And a context containing a key "email", with type "String" and with value "<email>"
