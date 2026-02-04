@@ -66,6 +66,27 @@ Feature: flagd evaluations
 
   @no-default
   Scenario Outline: Resolves flag with no defaultValue correctly
+    Given a <type>-flag with key "<key>" and a default value "<default>"
+    And a context containing a key "email", with type "String" and with value "<email>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<resolved_value>"
+    And the reason should be "<reason>"
+    And the error-code should be "<error_code>"
+
+    # For now, no defaultValue is resolved as FLAG_NOT_FOUND to result in a code default.
+    # This may be handled more gracefully in the future.
+    Examples:
+      | key                                         | type    | email              | default  | resolved_value | reason          | error_code     |
+      | null-default-flag                           | Boolean |                    | true     | true           | ERROR           | FLAG_NOT_FOUND |
+      | null-default-flag                           | Boolean |                    | false    | false          | ERROR           | FLAG_NOT_FOUND |
+      | undefined-default-flag                      | Integer |                    |      100 |            100 | ERROR           | FLAG_NOT_FOUND |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Inventor | Inventor       | ERROR           | FLAG_NOT_FOUND |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Founder  | Founder        | ERROR           | FLAG_NOT_FOUND |
+      | no-default-flag-null-targeting-variant      | String  | jobs@orange.com    | CEO      | CEO            | TARGETING_MATCH |                |
+      | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com | Retired  | Retired        | ERROR           | FLAG_NOT_FOUND |
+
+  @no-default-variant
+  Scenario Outline: Resolves flag with no defaultValue correctly
     Given a <type>-flag with key "<key>" and a default value "<code_default>"
     And a context containing a key "email", with type "String" and with value "<email>"
     When the flag was evaluated with details
