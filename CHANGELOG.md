@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/open-feature/flagd-testbed/compare/v3.0.0...v3.0.1) (2026-03-04)
+
+
+### 🐛 Bug Fixes
+
+* update base, fix permissions issue ([#335](https://github.com/open-feature/flagd-testbed/issues/335)) ([fc91669](https://github.com/open-feature/flagd-testbed/commit/fc9166938435eba0401ee2e53a415ced7c5052dd))
+
 ## [3.0.0](https://github.com/open-feature/flagd-testbed/compare/v2.15.9...v3.0.0) (2026-03-04)
 
 
