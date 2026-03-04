@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.16.0](https://github.com/open-feature/flagd-testbed/compare/v2.15.9...v2.16.0) (2026-03-04)
+
+
+### ✨ New Features
+
+* Make defaultVariant and value optional ([#331](https://github.com/open-feature/flagd-testbed/issues/331)) ([3d91052](https://github.com/open-feature/flagd-testbed/commit/3d91052be232995eb0e02587c5cabda720f7a182))
+
 ## [2.15.9](https://github.com/open-feature/flagd-testbed/compare/v2.15.8...v2.15.9) (2026-01-27)
 
 
