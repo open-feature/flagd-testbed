@@ -64,7 +64,8 @@ Feature: flagd evaluations
       | integer-targeted-zero-flag | Integer | 1       | 0              |
       | float-targeted-zero-flag   | Float   | 0.1     | 0.0            |
 
-  @no-default
+  # This suite is deprecated and @no-default-variant should be used instead
+  @no-default @deprecated
   Scenario Outline: Resolves flag with no defaultValue correctly
     Given a <type>-flag with key "<key>" and a default value "<default>"
     And a context containing a key "email", with type "String" and with value "<email>"
@@ -84,3 +85,21 @@ Feature: flagd evaluations
       | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Founder  | Founder        | ERROR           | FLAG_NOT_FOUND |
       | no-default-flag-null-targeting-variant      | String  | jobs@orange.com    | CEO      | CEO            | TARGETING_MATCH |                |
       | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com | Retired  | Retired        | ERROR           | FLAG_NOT_FOUND |
+
+  @no-default-variant
+  Scenario Outline: Resolves flag with no default variant correctly
+    Given a <type>-flag with key "<key>" and a default value "<code_default>"
+    And a context containing a key "email", with type "String" and with value "<email>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<resolved_value>"
+    And the reason should be "<reason>"
+
+    Examples:
+      | key                                         | type    | email              | code_default  | resolved_value | reason          |
+      | null-default-flag                           | Boolean |                    | true          | true           | DEFAULT         |
+      | null-default-flag                           | Boolean |                    | false         | false          | DEFAULT         |
+      | undefined-default-flag                      | Integer |                    | 100           | 100            | DEFAULT         |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Inventor      | Inventor       | DEFAULT         |
+      | no-default-flag-null-targeting-variant      | String  | wozniak@orange.com | Founder       | Founder        | DEFAULT         |
+      | no-default-flag-null-targeting-variant      | String  | jobs@orange.com    | CEO           | CEO            | TARGETING_MATCH |
+      | no-default-flag-undefined-targeting-variant | String  | wozniak@orange.com | Retired       | Retired        | DEFAULT         |
