@@ -1,5 +1,68 @@
 # Changelog
 
+## [4.0.0](https://github.com/open-feature/flagd-testbed/compare/v3.0.1...v4.0.0) (2026-03-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* make default variant optional ([#333](https://github.com/open-feature/flagd-testbed/issues/333))
+
+### 🐛 Bug Fixes
+
+* Add [@sync-port](https://github.com/sync-port) tag to in-process scenarios ([#314](https://github.com/open-feature/flagd-testbed/issues/314)) ([3af557a](https://github.com/open-feature/flagd-testbed/commit/3af557a61c0fac0ce3568eff601bfb24fba9d668))
+* Add fatalStatusCodes tags in config gherkin ([#316](https://github.com/open-feature/flagd-testbed/issues/316)) ([49764f6](https://github.com/open-feature/flagd-testbed/commit/49764f6b27198c7447b460034a89dbfe4da50c7d))
+* correct default retryBackoffMaxMs value ([7408867](https://github.com/open-feature/flagd-testbed/commit/740886703c4e58ca9df8b06eca0d347530f116b7))
+* deadlock if /change is called during /restart ([#321](https://github.com/open-feature/flagd-testbed/issues/321)) ([4583da2](https://github.com/open-feature/flagd-testbed/commit/4583da2d79eb38b40eab1f136a930c70d2beae58))
+* make file update atomic, wait for /start ([#329](https://github.com/open-feature/flagd-testbed/issues/329)) ([64011fa](https://github.com/open-feature/flagd-testbed/commit/64011fad9c8f8b1ce2e06d1c75f3fb952e2b9e66))
+* more possible change deadlocks ([#324](https://github.com/open-feature/flagd-testbed/issues/324)) ([e103d93](https://github.com/open-feature/flagd-testbed/commit/e103d932159d7457feb2eaf18e9c51607edf456b))
+* race condition in /stop ([#327](https://github.com/open-feature/flagd-testbed/issues/327)) ([8bafdaf](https://github.com/open-feature/flagd-testbed/commit/8bafdafde36a17e54de3b682efbefeae6a6d33b0))
+* Refactor in-process sync port scenarios ([#318](https://github.com/open-feature/flagd-testbed/issues/318)) ([1f6845c](https://github.com/open-feature/flagd-testbed/commit/1f6845c3a9f7c9f7a72abbbf2f0303e5af885f9d))
+* release please ([#298](https://github.com/open-feature/flagd-testbed/issues/298)) ([074fe66](https://github.com/open-feature/flagd-testbed/commit/074fe66d22df864af3b8abf308939f5656bf8d02))
+* release please ([#299](https://github.com/open-feature/flagd-testbed/issues/299)) ([3962ad3](https://github.com/open-feature/flagd-testbed/commit/3962ad302f75afced1a196e3d106172394252cb6))
+* remove file mode from forbidden flagd connection test ([#312](https://github.com/open-feature/flagd-testbed/issues/312)) ([1759a94](https://github.com/open-feature/flagd-testbed/commit/1759a9491388e6c9714d5c048916120f77c8d892))
+* replace githubaction with newer version ([#290](https://github.com/open-feature/flagd-testbed/issues/290)) ([95d0fa1](https://github.com/open-feature/flagd-testbed/commit/95d0fa1295fabe14295e586e7a2a5cf0de414031))
+* revert ends_with non-string change ([14eb032](https://github.com/open-feature/flagd-testbed/commit/14eb0326cbe390a9db9c2ce5be7f68fc5ff27d9e))
+* update base, fix permissions issue ([#335](https://github.com/open-feature/flagd-testbed/issues/335)) ([fc91669](https://github.com/open-feature/flagd-testbed/commit/fc9166938435eba0401ee2e53a415ced7c5052dd))
+
+
+### ✨ New Features
+
+* add envoy via docker compose ([#283](https://github.com/open-feature/flagd-testbed/issues/283)) ([27b764b](https://github.com/open-feature/flagd-testbed/commit/27b764ba998d672572f04723405e6c6f6edadfdf))
+* Add FLAGD_BASE_IMAGE build argument to Dockerfile ([#308](https://github.com/open-feature/flagd-testbed/issues/308)) ([779adad](https://github.com/open-feature/flagd-testbed/commit/779adad49f118e7a83910bc07c1f67ca2b9a1fe1))
+* Add FLAGD_SYNC_PORT support for in-process providers with backwards compatibility ([#310](https://github.com/open-feature/flagd-testbed/issues/310)) ([513f2a9](https://github.com/open-feature/flagd-testbed/commit/513f2a9bfc2f7515b9a366e7d6085336256e864b))
+* add missing steps for config and improve wording ([#311](https://github.com/open-feature/flagd-testbed/issues/311)) ([c1f632b](https://github.com/open-feature/flagd-testbed/commit/c1f632b79baf3814087c6e7a943094dfcaacd8a9))
+* Envoy connection lost test added (needs working targetURI) ([#300](https://github.com/open-feature/flagd-testbed/issues/300)) ([7565c27](https://github.com/open-feature/flagd-testbed/commit/7565c2723a0e79a0d89ac8800d8272621f8e74c7))
+* improve forbidden with options ([#304](https://github.com/open-feature/flagd-testbed/issues/304)) ([00b7cfb](https://github.com/open-feature/flagd-testbed/commit/00b7cfbe902379a025ffb4d1bc45c1854dbbe0b0))
+* make default variant optional ([#333](https://github.com/open-feature/flagd-testbed/issues/333)) ([f0a1dde](https://github.com/open-feature/flagd-testbed/commit/f0a1ddeea3f0dbc5335f91e6fcb728bb3942b9c8))
+* Support multi-platform build ([#313](https://github.com/open-feature/flagd-testbed/issues/313)) ([e1ff79c](https://github.com/open-feature/flagd-testbed/commit/e1ff79c0bc700319d01699bd962d89cd4d670594))
+
+
+### 🧹 Chore
+
+* add CODEOWNERS ([89c9af6](https://github.com/open-feature/flagd-testbed/commit/89c9af69a7f5feecddbb6d5bcbabbc295604bb1b))
+* add docker compose to release please config ([#284](https://github.com/open-feature/flagd-testbed/issues/284)) ([8580989](https://github.com/open-feature/flagd-testbed/commit/858098946e046400db8861c534de58e3993a85f6))
+* add test to ensure fatal state on forbidden error ([#756](https://github.com/open-feature/flagd-testbed/issues/756)) ([#302](https://github.com/open-feature/flagd-testbed/issues/302)) ([446a9f5](https://github.com/open-feature/flagd-testbed/commit/446a9f53ffe0756a75cd003af1826d16c32c073c))
+* **deps:** update google-github-actions/release-please-action action to v4 ([#86](https://github.com/open-feature/flagd-testbed/issues/86)) ([690a2b4](https://github.com/open-feature/flagd-testbed/commit/690a2b4c691153f176badb91127b94236f88099a))
+* fix version in docker compose for update ([#285](https://github.com/open-feature/flagd-testbed/issues/285)) ([de20bec](https://github.com/open-feature/flagd-testbed/commit/de20bec8fa4277f2b41cae6e74c2b091a9f57dcf))
+* fix version in docker compose for update ([#286](https://github.com/open-feature/flagd-testbed/issues/286)) ([34bfe79](https://github.com/open-feature/flagd-testbed/commit/34bfe792e0a813a8e5abd9e23831c3fe73d75f94))
+* fix version in docker compose for update ([#287](https://github.com/open-feature/flagd-testbed/issues/287)) ([4233c92](https://github.com/open-feature/flagd-testbed/commit/4233c92e9758adae13b1f4604f1416404e424a15))
+* **main:** release 2.12.0 ([#282](https://github.com/open-feature/flagd-testbed/issues/282)) ([fdce987](https://github.com/open-feature/flagd-testbed/commit/fdce98780f5811bd4672fb7f2b56a6be05fc46d2))
+* **main:** release 2.13.0 ([#301](https://github.com/open-feature/flagd-testbed/issues/301)) ([b62f5db](https://github.com/open-feature/flagd-testbed/commit/b62f5dbe860ecf4f36ec757dfdc0b38f7b3dec6e))
+* **main:** release 2.13.1 ([#303](https://github.com/open-feature/flagd-testbed/issues/303)) ([c7620ba](https://github.com/open-feature/flagd-testbed/commit/c7620ba9b2f923a455abc0e5fbb19d6af703e793))
+* **main:** release 2.14.0 ([#305](https://github.com/open-feature/flagd-testbed/issues/305)) ([bde8977](https://github.com/open-feature/flagd-testbed/commit/bde8977a4fa2b59ba4359bcf902e9adf4555d085))
+* **main:** release 2.15.0 ([#309](https://github.com/open-feature/flagd-testbed/issues/309)) ([6948dcb](https://github.com/open-feature/flagd-testbed/commit/6948dcbabef284fae4a4c1d03ce5e0bd9ea34c17))
+* **main:** release 2.15.1 ([#315](https://github.com/open-feature/flagd-testbed/issues/315)) ([4f3f555](https://github.com/open-feature/flagd-testbed/commit/4f3f5559a26fa12bf95d06d3dea9ac0879c1598f))
+* **main:** release 2.15.2 ([#317](https://github.com/open-feature/flagd-testbed/issues/317)) ([7d7d518](https://github.com/open-feature/flagd-testbed/commit/7d7d51848a31805b4248b1d8e8a9f295554b1aee))
+* **main:** release 2.15.3 ([#319](https://github.com/open-feature/flagd-testbed/issues/319)) ([9b73b3a](https://github.com/open-feature/flagd-testbed/commit/9b73b3a95cd9e0885937d244b118713b26374b1d))
+* **main:** release 2.15.4 ([#322](https://github.com/open-feature/flagd-testbed/issues/322)) ([95963d7](https://github.com/open-feature/flagd-testbed/commit/95963d75d00ed74c546a0adb23dd4deaadfb366c))
+* **main:** release 2.15.5 ([#323](https://github.com/open-feature/flagd-testbed/issues/323)) ([2b67574](https://github.com/open-feature/flagd-testbed/commit/2b675743e63904cbecd5501e5107f7459f7c0fe9))
+* **main:** release 2.15.6 ([#325](https://github.com/open-feature/flagd-testbed/issues/325)) ([b0057ab](https://github.com/open-feature/flagd-testbed/commit/b0057abde5d84272d6dd91f4737655c9d6cead15))
+* **main:** release 2.15.7 ([#326](https://github.com/open-feature/flagd-testbed/issues/326)) ([6515f91](https://github.com/open-feature/flagd-testbed/commit/6515f91a2afcd53563e7adfc40285e9f662e9def))
+* **main:** release 2.15.8 ([#328](https://github.com/open-feature/flagd-testbed/issues/328)) ([e1bfc39](https://github.com/open-feature/flagd-testbed/commit/e1bfc394159b68310d38a8600f53750f8483de83))
+* **main:** release 2.15.9 ([#330](https://github.com/open-feature/flagd-testbed/issues/330)) ([ecb3d09](https://github.com/open-feature/flagd-testbed/commit/ecb3d096c82c52424eeb545cf481f2f1d4794d21))
+* **main:** release 3.0.0 ([#334](https://github.com/open-feature/flagd-testbed/issues/334)) ([9799fcc](https://github.com/open-feature/flagd-testbed/commit/9799fcceb9b1d6107d642f92659d0b23a49305ea))
+* **main:** release 3.0.1 ([#336](https://github.com/open-feature/flagd-testbed/issues/336)) ([ca08485](https://github.com/open-feature/flagd-testbed/commit/ca084853d40eb49705146c064ec1e73765f6f48c))
+
 ## [3.0.1](https://github.com/open-feature/flagd-testbed/compare/v3.0.0...v3.0.1) (2026-03-04)
 
 
