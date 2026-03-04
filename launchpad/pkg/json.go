@@ -18,19 +18,28 @@ func atomicWriteFile(filename string, data []byte) error {
 	}
 	tmpName := tmpFile.Name()
 
+	cleanup := func() {
+		_ = tmpFile.Close()
+		_ = os.Remove(tmpName)
+	}
+
 	if _, err := tmpFile.Write(data); err != nil {
-		tmpFile.Close()
-		os.Remove(tmpName)
+		cleanup()
+		return err
+	}
+
+	if err := tmpFile.Chmod(0644); err != nil {
+		cleanup()
 		return err
 	}
 
 	if err := tmpFile.Close(); err != nil {
-		os.Remove(tmpName)
+		_ = os.Remove(tmpName) // File is closed, just remove.
 		return err
 	}
 
 	if err := os.Rename(tmpName, filename); err != nil {
-		os.Remove(tmpName)
+		_ = os.Remove(tmpName) // File is closed, just remove.
 		return err
 	}
 

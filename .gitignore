@@ -1,5 +1,3 @@
 .idea
 node_modules
 bin/
-# dynamically generated flags
-flags/allFlags.json
