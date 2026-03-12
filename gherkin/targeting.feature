@@ -10,6 +10,7 @@ Feature: Targeting rules
     And a stable flagd provider
 
   # evaluator refs
+  @evaluator-refs
   Scenario Outline: Evaluator reuse
     Given a String-flag with key "<key>" and a default value "fallback"
     And a context containing a key "email", with type "String" and with value "ballmer@macrosoft.com"
@@ -19,6 +20,18 @@ Feature: Targeting rules
       | key                            | value |
       | some-email-targeted-flag       | hi    |
       | some-other-email-targeted-flag | yes   |
+
+  @evaluator-refs @evaluator-ref-edge-cases
+  Scenario Outline: Nested evaluator ref resolution
+    Given a String-flag with key "nested-ref-targeted-flag" and a default value "fallback"
+    And a context containing a key "<context_key>", with type "String" and with value "<context_value>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | context_key | context_value         | value      |
+      | email       | ballmer@macrosoft.com | privileged |
+      | role        | admin                 | privileged |
+      | email       | other@example.com     | standard   |
 
   # custom operators
   # @fractional-v1: legacy float-based bucketing (abs(hash) / i32::MAX * 100)
