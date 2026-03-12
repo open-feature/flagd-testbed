@@ -21,13 +21,17 @@ Feature: Targeting rules
       | some-other-email-targeted-flag | yes   |
 
   # custom operators
+  # @fractional-v1: legacy float-based bucketing (abs(hash) / i32::MAX * 100)
+  # @fractional-v2: high-precision integer bucketing ((hash * totalWeight) >> 32)
   @fractional
   Scenario Outline: Fractional operator
     Given a String-flag with key "fractional-flag" and a default value "fallback"
     And a context containing a nested property with outer key "user" and inner key "name", with value "<name>"
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
-    Examples:
+
+    @fractional-v1
+    Examples: v1
       | name  | value    |
       | jack  | spades   |
       | queen | clubs    |
@@ -35,13 +39,30 @@ Feature: Targeting rules
       | nine  | hearts   |
       | 3     | diamonds |
 
+    @fractional-v2
+    Examples: v2
+      | name  | value    |
+      | jack  | hearts   |
+      | queen | spades   |
+      | ten   | clubs    |
+      | nine  | diamonds |
+      | 3     | clubs    |
+
   @fractional
   Scenario Outline: Fractional operator shorthand
     Given a String-flag with key "fractional-flag-shorthand" and a default value "fallback"
     And a context containing a targeting key with value "<targeting key>"
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
-    Examples:
+
+    @fractional-v1
+    Examples: v1
+      | targeting key    | value |
+      | jon@company.com  | heads |
+      | jane@company.com | tails |
+
+    @fractional-v2
+    Examples: v2
       | targeting key    | value |
       | jon@company.com  | heads |
       | jane@company.com | tails |
@@ -52,12 +73,22 @@ Feature: Targeting rules
     And a context containing a nested property with outer key "user" and inner key "name", with value "<name>"
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
-    Examples:
+
+    @fractional-v1
+    Examples: v1
       | name  | value    |
       | jack  | hearts   |
       | queen | spades   |
       | ten   | hearts   |
       | nine  | diamonds |
+
+    @fractional-v2
+    Examples: v2
+      | name  | value    |
+      | seven | hearts   |
+      | eight | diamonds |
+      | nine  | clubs    |
+      | two   | spades   |
 
   @fractional
   Scenario Outline: Second fractional operator with shared seed
@@ -65,12 +96,22 @@ Feature: Targeting rules
     And a context containing a nested property with outer key "user" and inner key "name", with value "<name>"
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
-    Examples:
+
+    @fractional-v1
+    Examples: v1
       | name  | value           |
       | jack  | ace-of-hearts   |
       | queen | ace-of-spades   |
       | ten   | ace-of-hearts   |
       | nine  | ace-of-diamonds |
+
+    @fractional-v2
+    Examples: v2
+      | name  | value           |
+      | seven | ace-of-hearts   |
+      | eight | ace-of-diamonds |
+      | nine  | ace-of-clubs    |
+      | two   | ace-of-spades   |
 
   @string
   Scenario Outline: Substring operators
