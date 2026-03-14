@@ -5,11 +5,9 @@ Feature: Evaluator no-default-variant handling
   # In such cases the evaluator falls back to the code-default supplied by the caller.
   # Flags are configured in evaluator/flags/testkit-flags.json.
 
-  Background:
-    Given an evaluator
-
   Scenario Outline: Resolve flag with no default variant
-    Given a <type>-flag with key "<key>" and a fallback value "<code_default>"
+    Given an evaluator
+    And a <type>-flag with key "<key>" and a fallback value "<code_default>"
     And a context containing a key "email", with type "String" and with value "<email>"
     When the flag was evaluated with details
     Then the resolved details value should be "<resolved_value>"
