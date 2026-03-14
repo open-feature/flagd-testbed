@@ -1,3 +1,4 @@
+@no-default-variant
 Feature: Evaluator no-default-variant handling
 
   # Validates correct behavior when a flag's defaultVariant is null or undefined.
@@ -7,7 +8,6 @@ Feature: Evaluator no-default-variant handling
   Background:
     Given an evaluator
 
-  @no-default-variant
   Scenario Outline: Resolve flag with no default variant
     Given a <type>-flag with key "<key>" and a fallback value "<code_default>"
     And a context containing a key "email", with type "String" and with value "<email>"

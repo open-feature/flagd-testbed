@@ -3,11 +3,9 @@ Feature: Evaluator basic flag evaluation
   # Validates basic static flag resolution for all supported types.
   # Flags are configured in evaluator/flags/testkit-flags.json.
 
-  Background:
-    Given an evaluator
-
   Scenario Outline: Resolve basic values
-    Given a <type>-flag with key "<key>" and a fallback value "<default>"
+    Given an evaluator
+    And a <type>-flag with key "<key>" and a fallback value "<default>"
     When the flag was evaluated with details
     Then the resolved details value should be "<resolved_value>"
 

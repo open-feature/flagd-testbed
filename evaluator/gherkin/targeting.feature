@@ -3,11 +3,9 @@ Feature: Evaluator targeting
 
   # Tests context-based targeting rules including targeting key evaluation.
 
-  Background:
-    Given an evaluator
-
   Scenario Outline: Targeting by targeting key
-    Given a String-flag with key "targeting-key-flag" and a fallback value "fallback"
+    Given an evaluator
+    And a String-flag with key "targeting-key-flag" and a fallback value "fallback"
     And a context containing a targeting key with value "<targeting_key>"
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
