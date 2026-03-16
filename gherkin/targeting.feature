@@ -128,12 +128,12 @@ Feature: Targeting rules
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
     Examples:
-      | key    | value | note                                               |
-      | ejOoVL | lower | hash=0 EXACT; absolute minimum; always first bucket |
-      | bY9fO- | lower | hash=1 EXACT; one above zero; always first bucket  |
-      | SI7p-  | lower | hash=i32::MAX EXACT; last before sign-bit boundary |
-      | 6LvT0  | upper | hash=i32::MIN EXACT; first with sign-bit set       |
-      | ceQdGm | upper | hash=u32::MAX EXACT; absolute maximum; always last |
+      | key    | value |
+      | ejOoVL | lower |
+      | bY9fO- | lower |
+      | SI7p-  | lower |
+      | 6LvT0  | upper |
+      | ceQdGm | upper |
 
   @string
   Scenario Outline: Substring operators
