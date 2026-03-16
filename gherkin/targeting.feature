@@ -164,10 +164,12 @@ Feature: Targeting rules
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
     Examples:
-      | targetingKey    | color | value |
-      | jon@company.com | red   | red   |
-      | jon@company.com | green | green |
-      | user1           | red   | blue  |
+      | targetingKey    | color  | value    |
+      | jon@company.com | red    | red      |
+      | jon@company.com | green  | green    |
+      | user1           | red    | blue     |
+      | jon@company.com | yellow | fallback |
+      | jon@company.com |        | fallback |
 
   @string
   Scenario Outline: Substring operators
