@@ -113,6 +113,29 @@ Feature: Targeting rules
       | nine  | ace-of-clubs    |
       | two   | ace-of-spades   |
 
+  # Hash edge-case vectors — keys chosen by brute-force search so their
+  # MurmurHash3-x86-32 (seed=0) falls at the six critical boundary values.
+  # SI7p-  → hash=2147483647 (i32::MAX, EXACT) → bv(100)=49 → lower
+  # 6LvT0  → hash=2147483648 (i32::MIN u32, EXACT) → bv(100)=50 → upper
+  # bx     → hash=2106591975 → bv(100)=49 → lower (last before 50/50 boundary)
+  # cd     → hash=2158755732 → bv(100)=50 → upper (first after 50/50 boundary)
+  # loAVn  → hash=2          → bv(100)=0  → lower (closest to hash=0, ±2)
+  # ePMRz  → hash=4294967285 → bv(100)=99 → upper (closest to hash=u32::MAX, ±10)
+  @fractional @fractional-v2
+  Scenario Outline: Fractional operator hash edge cases
+    Given a String-flag with key "fractional-hash-edge-flag" and a default value "fallback"
+    And a context containing a targeting key with value "<key>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | key    | value | note                                          |
+      | loAVn  | lower | hash≈0 (nearest 5-char, ±2); always first bucket  |
+      | bx     | lower | hash=2106591975; last value before 50/50 boundary |
+      | SI7p-  | lower | hash=i32::MAX exactly; last before sign-bit       |
+      | 6LvT0  | upper | hash=i32::MIN exactly; first with sign-bit        |
+      | cd     | upper | hash=2158755732; first value after 50/50 boundary |
+      | ePMRz  | upper | hash≈u32::MAX (nearest 5-char, ±10); always last  |
+
   @string
   Scenario Outline: Substring operators
     Given a String-flag with key "starts-ends-flag" and a default value "fallback"
