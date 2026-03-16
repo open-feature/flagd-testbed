@@ -135,6 +135,40 @@ Feature: Targeting rules
       | 6LvT0  | upper |
       | ceQdGm | upper |
 
+  # Nested JSON Logic expressions as bucket variant names.
+  # Requires providers to support the @fractional-nested feature.
+  # Use -t "not @fractional-nested" to exclude during transition.
+  @fractional @fractional-nested
+  Scenario Outline: Fractional operator with nested if expression as variant name
+    # fractional-nested-if-flag: seed=targetingKey, bucket0=[if(tier=="premium","premium","standard"),50], bucket1=["standard",50]
+    # jon@company.com bv(100)=36 → bucket0; user1 bv(100)=76 → bucket1
+    Given a String-flag with key "fractional-nested-if-flag" and a default value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "tier", with type "String" and with value "<tier>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | targetingKey    | tier    | value    |
+      | jon@company.com | premium | premium  |
+      | jon@company.com | basic   | standard |
+      | user1           | premium | standard |
+      | user1           | basic   | standard |
+
+  @fractional @fractional-nested
+  Scenario Outline: Fractional operator with nested var expression as variant name
+    # fractional-nested-var-flag: seed=targetingKey, bucket0=[var("color"),50], bucket1=["blue",50]
+    # jon@company.com bv(100)=36 → bucket0 (resolves var "color"); user1 bv(100)=76 → bucket1 ("blue")
+    Given a String-flag with key "fractional-nested-var-flag" and a default value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "color", with type "String" and with value "<color>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | targetingKey    | color | value |
+      | jon@company.com | red   | red   |
+      | jon@company.com | green | green |
+      | user1           | red   | blue  |
+
   @string
   Scenario Outline: Substring operators
     Given a String-flag with key "starts-ends-flag" and a default value "fallback"

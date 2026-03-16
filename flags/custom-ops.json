@@ -99,6 +99,48 @@
         ]
       }
     },
+    "fractional-nested-if-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "premium": "premium",
+        "standard": "standard",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          { "var": "targetingKey" },
+          [
+            {
+              "if": [
+                { "==": [{ "var": "tier" }, "premium"] },
+                "premium",
+                "standard"
+              ]
+            },
+            50
+          ],
+          [ "standard", 50 ]
+        ]
+      }
+    },
+    "fractional-nested-var-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "red": "red",
+        "green": "green",
+        "blue": "blue",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          { "var": "targetingKey" },
+          [ { "var": "color" }, 50 ],
+          [ "blue", 50 ]
+        ]
+      }
+    },
     "starts-ends-flag": {
       "state": "ENABLED",
       "variants": {
