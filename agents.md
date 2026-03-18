@@ -217,7 +217,7 @@ A PR that adds only one of the two will be incomplete — the scenario will fail
 
 - [ ] Flag key in JSON matches exactly the key referenced in the Gherkin step.
 - [ ] Scenario is tagged with the correct provider mode tags (`@rpc`, `@in-process`, `@file`).
-- [ ] Any new capability tag is documented in this file and in `README.md`.
+- [ ] Any new capability tag is documented in `README.md`.
 - [ ] `npm run gherkin-lint` passes locally.
 - [ ] PR title uses `feat:` (new scenario) or `fix:` (correction).
 
