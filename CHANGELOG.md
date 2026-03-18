@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/open-feature/flagd-testbed/compare/v3.1.1...v3.2.0) (2026-03-18)
+
+
+### ✨ New Features
+
+* **fractional:** add nested fractional expression gherkin scenarios ([#345](https://github.com/open-feature/flagd-testbed/issues/345)) ([267a1bf](https://github.com/open-feature/flagd-testbed/commit/267a1bff080340db017d1906a6a3c7336d7b2c32))
+
 ## [3.1.1](https://github.com/open-feature/flagd-testbed/compare/v3.1.0...v3.1.1) (2026-03-18)
 
 
