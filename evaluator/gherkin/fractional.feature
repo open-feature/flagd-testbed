@@ -110,3 +110,42 @@ Feature: Evaluator fractional operator
       | SI7p-  | lower |
       | 6LvT0  | upper |
       | ceQdGm | upper |
+
+  # Nested JSON Logic expressions as bucket variant names.
+  # Use -t "not @fractional-nested" to exclude during transition.
+  @fractional-nested
+  Scenario Outline: Fractional operator with nested if expression as variant name
+    Given a String-flag with key "fractional-nested-if-flag" and a fallback value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "tier", with type "String" and with value "<tier>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+
+    Examples:
+      | targetingKey    | tier    | value    |
+      | jon@company.com | premium | premium  |
+      | jon@company.com | basic   | standard |
+      | user1           | premium | standard |
+      | user1           | basic   | standard |
+
+  @fractional-nested
+  Scenario Outline: Fractional operator with nested var expression as variant name
+    Given a String-flag with key "fractional-nested-var-flag" and a fallback value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "color", with type "String" and with value "<color>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+
+    Examples:
+      | targetingKey    | color  | value    |
+      | jon@company.com | red    | red      |
+      | jon@company.com | green  | green    |
+      | user1           | red    | blue     |
+      | jon@company.com | yellow | fallback |
+      | jon@company.com |        | fallback |
+
+  @operator-errors
+  Scenario: Fractional operator with missing bucket key falls back to default variant
+    Given a String-flag with key "fractional-null-bucket-key-flag" and a fallback value "wrong"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
