@@ -295,6 +295,18 @@
         ]
       }
     },
+    "fractional-hash-edge-flag": {
+      "state": "ENABLED",
+      "variants": { "lower": "lower", "upper": "upper" },
+      "defaultVariant": "lower",
+      "targeting": {
+        "fractional": [
+          { "var": "targetingKey" },
+          [ "lower", 50 ],
+          [ "upper", 50 ]
+        ]
+      }
+    },
     "starts-ends-flag": {
       "state": "ENABLED",
       "variants": {

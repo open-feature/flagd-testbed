@@ -78,6 +78,14 @@ Feature: Evaluator fractional operator
     When the flag was evaluated with details
     Then the resolved details value should be "<value>"
 
+    @fractional-v1
+    Examples: v1
+      | name  | value           |
+      | jack  | ace-of-hearts   |
+      | queen | ace-of-spades   |
+      | ten   | ace-of-hearts   |
+      | nine  | ace-of-diamonds |
+
     @fractional-v2
     Examples: v2
       | name  | value           |
@@ -85,3 +93,20 @@ Feature: Evaluator fractional operator
       | eight | ace-of-diamonds |
       | nine  | ace-of-clubs    |
       | two   | ace-of-spades   |
+
+  # Hash edge-case vectors — keys chosen by brute-force search so their
+  # MurmurHash3-x86-32 (seed=0) falls at the six critical boundary values.
+  @fractional-v2
+  Scenario Outline: Fractional operator hash edge cases
+    Given a String-flag with key "fractional-hash-edge-flag" and a fallback value "fallback"
+    And a context containing a targeting key with value "<key>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+
+    Examples:
+      | key    | value |
+      | ejOoVL | lower |
+      | bY9fO- | lower |
+      | SI7p-  | lower |
+      | 6LvT0  | upper |
+      | ceQdGm | upper |
