@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.1.1](https://github.com/open-feature/flagd-testbed/compare/v3.1.0...v3.1.1) (2026-03-18)
+
+
+### 🐛 Bug Fixes
+
+* **evaluator:** add @fractional-v1/[@fractional-v2](https://github.com/fractional-v2) tagged examples to fractional scenarios ([#350](https://github.com/open-feature/flagd-testbed/issues/350)) ([f51f628](https://github.com/open-feature/flagd-testbed/commit/f51f6285c638700cb3bfac505a894a5aa2e19708))
+
+
+### 📚 Documentation
+
+* add agents.md with repository guidance for AI agents ([#347](https://github.com/open-feature/flagd-testbed/issues/347)) ([a18ff40](https://github.com/open-feature/flagd-testbed/commit/a18ff40f0b5f09468e665ed2e4294480758ffdd5))
+
 ## [3.1.0](https://github.com/open-feature/flagd-testbed/compare/v3.0.1...v3.1.0) (2026-03-18)
 
 
