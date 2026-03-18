@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/open-feature/flagd-testbed/compare/v3.0.1...v3.1.0) (2026-03-18)
+
+
+### ✨ New Features
+
+* add evaluator testkit gherkin features and flag configuration ([#344](https://github.com/open-feature/flagd-testbed/issues/344)) ([327ad6e](https://github.com/open-feature/flagd-testbed/commit/327ad6ef44357d770d4a711d0be55a9f594a8bfe))
+
 ## [3.0.1](https://github.com/open-feature/flagd-testbed/compare/v3.0.0...v3.0.1) (2026-03-04)
 
 
