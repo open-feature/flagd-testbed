@@ -171,6 +171,21 @@ Feature: Targeting rules
       | jon@company.com | yellow | fallback |
       | jon@company.com |        | fallback |
 
+  @fractional @fractional-nested
+  Scenario Outline: Fractional operator with nested if expression as weight
+    # fractional-nested-weight-flag: seed=targetingKey, bucket0=["red",if(tier=="premium",100,0)], bucket1=["blue",10]
+    Given a String-flag with key "fractional-nested-weight-flag" and a default value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "tier", with type "String" and with value "<tier>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | targetingKey    | tier    | value   |
+      | jon@company.com | premium | red     |
+      | jon@company.com | basic   | blue    |
+      | user1           | premium | red     |
+      | user1           | basic   | blue    |
+
   @string
   Scenario Outline: Substring operators
     Given a String-flag with key "starts-ends-flag" and a default value "fallback"
