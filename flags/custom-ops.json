@@ -141,6 +141,31 @@
         ]
       }
     },
+    "fractional-nested-weight-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "red": "red",
+        "blue": "blue",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          { "var": "targetingKey" },
+          [
+            "red",
+            {
+              "if": [
+                { "==": [{ "var": "tier" }, "premium"] },
+                100,
+                0
+              ]
+            }
+          ],
+          [ "blue", 10 ]
+        ]
+      }
+    },
     "starts-ends-flag": {
       "state": "ENABLED",
       "variants": {
