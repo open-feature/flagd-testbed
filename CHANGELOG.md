@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/open-feature/flagd-testbed/compare/v3.2.0...v3.3.0) (2026-03-20)
+
+
+### ✨ New Features
+
+* add nested fractional weight assertion ([#352](https://github.com/open-feature/flagd-testbed/issues/352)) ([ab939e6](https://github.com/open-feature/flagd-testbed/commit/ab939e62981a4427fb57cab491cd2fcc3cbdae56))
+
 ## [3.2.0](https://github.com/open-feature/flagd-testbed/compare/v3.1.1...v3.2.0) (2026-03-18)
 
 
