@@ -386,6 +386,92 @@
           null
         ]
       }
+    },
+    "fractional-hash-edge-flag": {
+      "state": "ENABLED",
+      "variants": { "lower": "lower", "upper": "upper" },
+      "defaultVariant": "lower",
+      "targeting": {
+        "fractional": [
+          { "var": "targetingKey" },
+          [ "lower", 50 ],
+          [ "upper", 50 ]
+        ]
+      }
+    },
+    "semver-v-prefix-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match" },
+      "defaultVariant": "no-match",
+      "targeting": { "if": [{"sem_ver": [{"var": "version"}, "=", "v1.0.0"]}, "match", "no-match"] }
+    },
+    "semver-partial-version-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match" },
+      "defaultVariant": "no-match",
+      "targeting": { "if": [{"sem_ver": [{"var": "version"}, "^", "1"]}, "match", "no-match"] }
+    },
+    "semver-build-metadata-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match" },
+      "defaultVariant": "no-match",
+      "targeting": { "if": [{"sem_ver": [{"var": "version"}, "=", "1.0.0+build"]}, "match", "no-match"] }
+    },
+    "semver-invalid-version-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": { "sem_ver": [{"var": "version"}, "=", "1.0.0"] }
+    },
+    "semver-invalid-operator-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": { "sem_ver": [{"var": "version"}, "===", "1.0.0"] }
+    },
+    "fractional-null-bucket-key-flag": {
+      "state": "ENABLED",
+      "variants": { "one": "one", "two": "two", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          {"var": "missing_key"},
+          ["one", 50],
+          ["two", 50]
+        ]
+      }
+    },
+    "nested-ref-targeted-flag": {
+      "state": "ENABLED",
+      "variants": { "privileged": "privileged", "standard": "standard", "none": "none" },
+      "defaultVariant": "none",
+      "targeting": {
+        "if": [{"$ref": "is_privileged"}, "privileged", "standard"]
+      }
+    },
+    "fractional-nested-if-flag": {
+      "state": "ENABLED",
+      "variants": { "premium": "premium", "standard": "standard", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          { "var": "targetingKey" },
+          [{"if": [{"==": [{"var": "tier"}, "premium"]}, "premium", "standard"]}, 50],
+          [ "standard", 50 ]
+        ]
+      }
+    },
+    "fractional-nested-var-flag": {
+      "state": "ENABLED",
+      "variants": { "red": "red", "green": "green", "blue": "blue", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          { "var": "targetingKey" },
+          [ { "var": "color" }, 50 ],
+          [ "blue", 50 ]
+        ]
+      }
     }
   },
   "$evaluators": {
@@ -393,6 +479,12 @@
       "==": [
         "ballmer@macrosoft.com",
         {"var": ["email"]}
+      ]
+    },
+    "is_privileged": {
+      "or": [
+        {"$ref": "is_ballmer"},
+        {"==": ["admin", {"var": ["role"]}]}
       ]
     }
   }

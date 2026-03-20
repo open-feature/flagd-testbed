@@ -31,3 +31,56 @@ Feature: Evaluator semantic version operator
       | 3.0.1   | minor |
       | 3.1.0   | major |
       | 4.0.0   | none  |
+
+  # Edge cases: v-prefix, partial versions, build metadata.
+  # Use -t "not @semver-edge-cases" to exclude during transition.
+  @semver-edge-cases
+  Scenario Outline: sem_ver v-prefix handling
+    Given a String-flag with key "semver-v-prefix-flag" and a fallback value "fallback"
+    And a context containing a key "version", with type "String" and with value "<version>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+
+    Examples:
+      | version | value    |
+      | 1.0.0   | match    |
+      | v1.0.0  | match    |
+      | 2.0.0   | no-match |
+
+  @semver-edge-cases
+  Scenario Outline: sem_ver partial version handling
+    Given a String-flag with key "semver-partial-version-flag" and a fallback value "fallback"
+    And a context containing a key "version", with type "String" and with value "<version>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+
+    Examples:
+      | version | value    |
+      | 1.5.0   | match    |
+      | 1.0.0   | match    |
+      | 2.0.0   | no-match |
+
+  @semver-edge-cases
+  Scenario Outline: sem_ver build metadata ignored
+    Given a String-flag with key "semver-build-metadata-flag" and a fallback value "fallback"
+    And a context containing a key "version", with type "String" and with value "<version>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+
+    Examples:
+      | version     | value    |
+      | 1.0.0       | match    |
+      | 1.0.0+other | match    |
+      | 2.0.0       | no-match |
+
+  @operator-errors
+  Scenario Outline: sem_ver operator errors return null and fall back to default variant
+    Given a String-flag with key "<key>" and a fallback value "wrong"
+    And a context containing a key "version", with type "String" and with value "<context_value>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+
+    Examples:
+      | key                          | context_value | value    |
+      | semver-invalid-version-flag  | not-a-version | fallback |
+      | semver-invalid-operator-flag | 1.0.0         | fallback |
