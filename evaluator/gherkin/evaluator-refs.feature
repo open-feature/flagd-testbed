@@ -13,3 +13,16 @@ Feature: Evaluator evaluator refs
       | key                            | value |
       | some-email-targeted-flag       | hi    |
       | some-other-email-targeted-flag | yes   |
+
+  @evaluator-ref-edge-cases
+  Scenario Outline: Nested evaluator ref resolution
+    Given an evaluator
+    And a String-flag with key "nested-ref-targeted-flag" and a fallback value "fallback"
+    And a context containing a key "<context_key>", with type "String" and with value "<context_value>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | context_key | context_value         | value      |
+      | email       | ballmer@macrosoft.com | privileged |
+      | role        | admin                 | privileged |
+      | email       | other@example.com     | standard   |

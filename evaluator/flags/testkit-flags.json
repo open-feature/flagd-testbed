@@ -474,6 +474,18 @@
           ["two", 50]
         ]
       }
+    },
+    "nested-ref-targeted-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "privileged": "privileged",
+        "standard": "standard",
+        "none": "none"
+      },
+      "defaultVariant": "none",
+      "targeting": {
+        "if": [{"$ref": "is_privileged"}, "privileged", "standard"]
+      }
     }
   },
   "$evaluators": {
@@ -481,6 +493,12 @@
       "==": [
         "ballmer@macrosoft.com",
         {"var": ["email"]}
+      ]
+    },
+    "is_privileged": {
+      "or": [
+        {"$ref": "is_ballmer"},
+        {"==": ["admin", {"var": ["role"]}]}
       ]
     }
   }
