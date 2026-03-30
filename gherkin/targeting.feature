@@ -279,11 +279,11 @@ Feature: Targeting rules
     Given a String-flag with key "<key>" and a default value "wrong"
     And a context containing a key "version", with type "String" and with value "<context_value>"
     When the flag was evaluated with details
-    Then the resolved details value should be "<value>"
+    Then the resolved details value should be "fallback"
     Examples:
-      | key                          | context_value   | value    |
-      | semver-invalid-version-flag  | not-a-version   | fallback |
-      | semver-invalid-operator-flag | 1.0.0           | fallback |
+      | key                          | context_value   |
+      | semver-invalid-version-flag  | not-a-version   |
+      | semver-invalid-operator-flag | 1.0.0           |
 
   @operator-errors
   Scenario: fractional operator with missing bucket key falls back to default variant
