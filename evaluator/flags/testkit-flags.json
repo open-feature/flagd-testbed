@@ -474,6 +474,30 @@
           ["two", 50]
         ]
       }
+    },
+    "semver-v-prefix-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match" },
+      "defaultVariant": "no-match",
+      "targeting": {
+        "if": [{"sem_ver": [{"var": "version"}, "=", "v1.0.0"]}, "match", "no-match"]
+      }
+    },
+    "semver-partial-version-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match" },
+      "defaultVariant": "no-match",
+      "targeting": {
+        "if": [{"sem_ver": [{"var": "version"}, "^", "1"]}, "match", "no-match"]
+      }
+    },
+    "semver-build-metadata-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match" },
+      "defaultVariant": "no-match",
+      "targeting": {
+        "if": [{"sem_ver": [{"var": "version"}, "=", "1.0.0+build"]}, "match", "no-match"]
+      }
     }
   },
   "$evaluators": {
