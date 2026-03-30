@@ -173,3 +173,11 @@ Feature: Evaluator fractional operator
     And a context containing a targeting key with value "some-targeting-key"
     When the flag was evaluated with details
     Then the resolved details value should be "hundreds"
+
+  @fractional-nested
+  Scenario: Fractional as condition evaluates false path
+    Given an evaluator
+    And a String-flag with key "fractional-as-condition-false-flag" and a fallback value "zero"
+    And a context containing a targeting key with value "some-targeting-key"
+    When the flag was evaluated with details
+    Then the resolved details value should be "ones"

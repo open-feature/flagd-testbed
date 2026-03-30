@@ -429,7 +429,19 @@
       "defaultVariant": "fallback",
       "targeting": {
         "if": [
-          {"fractional": [["false", 0], ["true", 100]]},
+          {"fractional": [[false, 0], [true, 100]]},
+          "big",
+          "small"
+        ]
+      }
+    },
+    "fractional-as-condition-false-flag": {
+      "state": "ENABLED",
+      "variants": { "big": "hundreds", "small": "ones", "fallback": "zero" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {"fractional": [[false, 100], [true, 0]]},
           "big",
           "small"
         ]
