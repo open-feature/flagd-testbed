@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.4.0](https://github.com/open-feature/flagd-testbed/compare/v3.3.0...v3.4.0) (2026-03-30)
+
+
+### ✨ New Features
+
+* add fractional as condition flag ([#354](https://github.com/open-feature/flagd-testbed/issues/354)) ([fdfac67](https://github.com/open-feature/flagd-testbed/commit/fdfac677c55d2e4b7d4a9551902c43f4bc372393))
+* **fractional:** mirror nested fractional scenarios to evaluator gherkin suite ([#357](https://github.com/open-feature/flagd-testbed/issues/357)) ([eaec4d9](https://github.com/open-feature/flagd-testbed/commit/eaec4d928326f609ad233d492b0674c722baf743))
+
 ## [3.3.0](https://github.com/open-feature/flagd-testbed/compare/v3.2.0...v3.3.0) (2026-03-20)
 
 
