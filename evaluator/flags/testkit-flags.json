@@ -386,6 +386,66 @@
           null
         ]
       }
+    },
+    "fractional-nested-if-flag": {
+      "state": "ENABLED",
+      "variants": { "premium": "premium", "standard": "standard", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          {"var": "targetingKey"},
+          [{"if": [{"==": [{"var": "tier"}, "premium"]}, "premium", "standard"]}, 50],
+          ["standard", 50]
+        ]
+      }
+    },
+    "fractional-nested-var-flag": {
+      "state": "ENABLED",
+      "variants": { "red": "red", "green": "green", "blue": "blue", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          {"var": "targetingKey"},
+          [{"var": "color"}, 50],
+          ["blue", 50]
+        ]
+      }
+    },
+    "fractional-nested-weight-flag": {
+      "state": "ENABLED",
+      "variants": { "red": "red", "blue": "blue", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          {"var": "targetingKey"},
+          ["red", {"if": [{"==": [{"var": "tier"}, "premium"]}, 100, 0]}],
+          ["blue", 10]
+        ]
+      }
+    },
+    "fractional-as-condition-flag": {
+      "state": "ENABLED",
+      "variants": { "big": "hundreds", "small": "ones", "fallback": "zero" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {"fractional": [[false, 0], [true, 100]]},
+          "big",
+          "small"
+        ]
+      }
+    },
+    "fractional-as-condition-false-flag": {
+      "state": "ENABLED",
+      "variants": { "big": "hundreds", "small": "ones", "fallback": "zero" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {"fractional": [[false, 100], [true, 0]]},
+          "big",
+          "small"
+        ]
+      }
     }
   },
   "$evaluators": {

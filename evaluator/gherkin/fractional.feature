@@ -110,3 +110,74 @@ Feature: Evaluator fractional operator
       | SI7p-  | lower |
       | 6LvT0  | upper |
       | ceQdGm | upper |
+
+  # Nested JSON Logic expressions as bucket variant names / weights.
+  # Requires evaluator implementations to support the @fractional-nested feature.
+  # Use -t "not @fractional-nested" to exclude during transition.
+
+  @fractional-nested
+  Scenario Outline: Fractional operator with nested if expression as variant name
+    # bucket0=[if(tier=="premium","premium","standard"),50], bucket1=["standard",50]
+    # jon@company.com bv(100)=36 → bucket0; user1 bv(100)=76 → bucket1
+    Given an evaluator
+    And a String-flag with key "fractional-nested-if-flag" and a fallback value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "tier", with type "String" and with value "<tier>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | targetingKey    | tier    | value    |
+      | jon@company.com | premium | premium  |
+      | jon@company.com | basic   | standard |
+      | user1           | premium | standard |
+      | user1           | basic   | standard |
+
+  @fractional-nested
+  Scenario Outline: Fractional operator with nested var expression as variant name
+    # bucket0=[var("color"),50], bucket1=["blue",50]
+    # jon@company.com bv(100)=36 → bucket0 (resolves var "color"); user1 bv(100)=76 → bucket1 ("blue")
+    Given an evaluator
+    And a String-flag with key "fractional-nested-var-flag" and a fallback value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "color", with type "String" and with value "<color>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | targetingKey    | color  | value    |
+      | jon@company.com | red    | red      |
+      | jon@company.com | green  | green    |
+      | user1           | red    | blue     |
+      | jon@company.com | yellow | fallback |
+      | jon@company.com |        | fallback |
+
+  @fractional-nested
+  Scenario Outline: Fractional operator with nested if expression as weight
+    # bucket0=["red",if(tier=="premium",100,0)], bucket1=["blue",10]
+    Given an evaluator
+    And a String-flag with key "fractional-nested-weight-flag" and a fallback value "fallback"
+    And a context containing a targeting key with value "<targetingKey>"
+    And a context containing a key "tier", with type "String" and with value "<tier>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | targetingKey    | tier    | value |
+      | jon@company.com | premium | red   |
+      | jon@company.com | basic   | blue  |
+      | user1           | premium | red   |
+      | user1           | basic   | blue  |
+
+  @fractional-nested
+  Scenario: Fractional as condition
+    Given an evaluator
+    And a String-flag with key "fractional-as-condition-flag" and a fallback value "zero"
+    And a context containing a targeting key with value "some-targeting-key"
+    When the flag was evaluated with details
+    Then the resolved details value should be "hundreds"
+
+  @fractional-nested
+  Scenario: Fractional as condition evaluates false path
+    Given an evaluator
+    And a String-flag with key "fractional-as-condition-false-flag" and a fallback value "zero"
+    And a context containing a targeting key with value "some-targeting-key"
+    When the flag was evaluated with details
+    Then the resolved details value should be "ones"

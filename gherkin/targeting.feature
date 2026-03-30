@@ -193,6 +193,13 @@ Feature: Targeting rules
     When the flag was evaluated with details
     Then the resolved details value should be "hundreds"
 
+  @fractional @fractional-nested
+  Scenario: Fractional as condition evaluates false path
+    Given a String-flag with key "fractional-as-condition-false-flag" and a default value "zero"
+    And a context containing a targeting key with value "some-targeting-key"
+    When the flag was evaluated with details
+    Then the resolved details value should be "ones"
+
   @string
   Scenario Outline: Substring operators
     Given a String-flag with key "starts-ends-flag" and a default value "fallback"
