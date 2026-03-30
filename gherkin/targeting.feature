@@ -359,3 +359,48 @@ Feature: Targeting rules
     Given a String-flag with key "fractional-null-bucket-key-flag" and a default value "wrong"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+  # Follow-up error scenarios from https://github.com/open-feature/flagd/issues/1874
+  # Operators must return null (not false) on error so the default variant is selected.
+
+  @operator-errors @string
+  Scenario Outline: starts_with and ends_with return null for non-string input
+    Given a String-flag with key "<key>" and a default value "wrong"
+    And a context containing a key "num", with type "Integer" and with value "123"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
+    Examples:
+      | key                         |
+      | starts-with-non-string-flag |
+      | ends-with-non-string-flag   |
+
+  @operator-errors @string
+  Scenario Outline: starts_with and ends_with return null for wrong argument count
+    Given a String-flag with key "<key>" and a default value "wrong"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
+    Examples:
+      | key                        |
+      | starts-with-wrong-args-flag |
+      | ends-with-wrong-args-flag   |
+
+  @operator-errors @semver
+  Scenario: sem_ver returns null for wrong argument count
+    Given a String-flag with key "semver-wrong-args-flag" and a default value "wrong"
+    And a context containing a key "version", with type "String" and with value "1.0.0"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
+
+  @operator-errors @fractional
+  Scenario: fractional with all-zero bucket weights falls back to default variant
+    Given a String-flag with key "fractional-zero-weights-flag" and a default value "wrong"
+    And a context containing a targeting key with value "any-user"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
+
+  @operator-errors @fractional
+  Scenario: fractional negative bucket weight is clamped to zero
+    # ["one", -50] is treated as ["one", 0]; "two" gets 100% of the weight
+    Given a String-flag with key "fractional-negative-weight-flag" and a default value "wrong"
+    And a context containing a targeting key with value "any-user"
+    When the flag was evaluated with details
+    Then the resolved details value should be "two"
