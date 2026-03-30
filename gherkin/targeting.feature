@@ -240,7 +240,7 @@ Feature: Targeting rules
       | 3.1.0   | major |
       | 4.0.0   | none  |
 
-  @semver @semver-edge-cases
+  @semver @semver-edge-cases @semver-v-prefix
   Scenario Outline: sem_ver v-prefix handling
     Given a String-flag with key "semver-v-prefix-flag" and a default value "fallback"
     And a context containing a key "version", with type "String" and with value "<version>"
@@ -252,7 +252,7 @@ Feature: Targeting rules
       | v1.0.0  | match    |
       | 2.0.0   | no-match |
 
-  @semver @semver-edge-cases
+  @semver @semver-edge-cases @semver-partial-version
   Scenario Outline: sem_ver partial version handling
     Given a String-flag with key "semver-partial-version-flag" and a default value "fallback"
     And a context containing a key "version", with type "String" and with value "<version>"
@@ -264,7 +264,7 @@ Feature: Targeting rules
       | 1.0.0   | match    |
       | 2.0.0   | no-match |
 
-  @semver @semver-edge-cases
+  @semver @semver-edge-cases @semver-build-metadata
   Scenario Outline: sem_ver build metadata ignored
     Given a String-flag with key "semver-build-metadata-flag" and a default value "fallback"
     And a context containing a key "version", with type "String" and with value "<version>"

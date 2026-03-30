@@ -44,7 +44,7 @@ Feature: Evaluator semantic version operator
       | semver-invalid-version-flag  | not-a-version |
       | semver-invalid-operator-flag | 1.0.0         |
 
-  @semver-edge-cases
+  @semver-edge-cases @semver-v-prefix
   Scenario Outline: v-prefix handling
     Given an evaluator
     And a String-flag with key "semver-v-prefix-flag" and a fallback value "fallback"
@@ -57,7 +57,7 @@ Feature: Evaluator semantic version operator
       | v1.0.0  | match    |
       | 2.0.0   | no-match |
 
-  @semver-edge-cases
+  @semver-edge-cases @semver-partial-version
   Scenario Outline: partial version handling
     Given an evaluator
     And a String-flag with key "semver-partial-version-flag" and a fallback value "fallback"
@@ -70,7 +70,7 @@ Feature: Evaluator semantic version operator
       | 1.0.0   | match    |
       | 2.0.0   | no-match |
 
-  @semver-edge-cases
+  @semver-edge-cases @semver-build-metadata
   Scenario Outline: build metadata ignored in comparison
     Given an evaluator
     And a String-flag with key "semver-build-metadata-flag" and a fallback value "fallback"
