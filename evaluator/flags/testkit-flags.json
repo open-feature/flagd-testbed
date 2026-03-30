@@ -497,7 +497,7 @@
     },
     "is_privileged": {
       "or": [
-        {"$ref": "is_ballmer"},
+        {"==": ["ballmer@macrosoft.com", {"var": ["email"]}]},
         {"==": ["admin", {"var": ["role"]}]}
       ]
     }
