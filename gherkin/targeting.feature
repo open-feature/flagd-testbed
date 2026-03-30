@@ -186,6 +186,13 @@ Feature: Targeting rules
       | user1           | premium | red     |
       | user1           | basic   | blue    |
 
+  @fractional @fractional-nested
+  Scenario: Fractional as condition
+    Given a String-flag with key "fractional-as-condition-flag" and a default value "zero"
+    And a context containing a targeting key with value "some-targeting-key"
+    When the flag was evaluated with details
+    Then the resolved details value should be "hundreds"
+
   @string
   Scenario Outline: Substring operators
     Given a String-flag with key "starts-ends-flag" and a default value "fallback"
