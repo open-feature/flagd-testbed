@@ -166,6 +166,26 @@
         ]
       }
     },
+    "fractional-as-condition-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "big": "hundreds",
+        "small": "ones",
+        "fallback": "zero"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {
+            "fractional": [
+              [ false, 0 ],
+              [ true, 100 ]
+            ]
+          },
+          "big", "small"
+        ]
+      }
+    },
     "starts-ends-flag": {
       "state": "ENABLED",
       "variants": {
