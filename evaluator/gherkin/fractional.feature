@@ -181,3 +181,10 @@ Feature: Evaluator fractional operator
     And a context containing a targeting key with value "some-targeting-key"
     When the flag was evaluated with details
     Then the resolved details value should be "ones"
+
+  @operator-errors
+  Scenario: fractional operator with missing bucket key falls back to default variant
+    Given an evaluator
+    And a String-flag with key "fractional-null-bucket-key-flag" and a fallback value "wrong"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"

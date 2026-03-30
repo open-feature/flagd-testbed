@@ -446,6 +446,34 @@
           "small"
         ]
       }
+    },
+    "semver-invalid-version-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "sem_ver": [{"var": "version"}, "=", "1.0.0"]
+      }
+    },
+    "semver-invalid-operator-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "sem_ver": [{"var": "version"}, "===", "1.0.0"]
+      }
+    },
+    "fractional-null-bucket-key-flag": {
+      "state": "ENABLED",
+      "variants": { "one": "one", "two": "two", "fallback": "fallback" },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          {"var": "missing_key"},
+          ["one", 50],
+          ["two", 50]
+        ]
+      }
     }
   },
   "$evaluators": {
