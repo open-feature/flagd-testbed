@@ -134,7 +134,14 @@ services:
             - name: local-sync-service
               type: LOGICAL_DNS
               dns_lookup_family: V4_ONLY
+              connect_timeout: 0.25s
               http2_protocol_options: {}
+              health_checks:
+                - timeout: 1s
+                  interval: 1s
+                  unhealthy_threshold: 1
+                  healthy_threshold: 1
+                  tcp_health_check: {}
               load_assignment:
                 cluster_name: local-sync-service
                 endpoints:
@@ -148,7 +155,14 @@ services:
             - name: local-rpc-service
               type: LOGICAL_DNS
               dns_lookup_family: V4_ONLY
+              connect_timeout: 0.25s
               http2_protocol_options: {}
+              health_checks:
+                - timeout: 1s
+                  interval: 1s
+                  unhealthy_threshold: 1
+                  healthy_threshold: 1
+                  tcp_health_check: {}
               load_assignment:
                 cluster_name: local-rpc-service
                 endpoints:

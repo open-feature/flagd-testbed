@@ -198,6 +198,7 @@ Feature: Configuration Test
       | option     | type   | value      |
       | providerId | String | providerId |
 
+  @env-var
   Scenario Outline: Dedicated Config via Env_var
     Given an environment variable "<env>" with value "<value>"
     When a config was initialized
@@ -274,7 +275,7 @@ Feature: Configuration Test
       | option     | env               | type   | value          |
       | providerId | FLAGD_PROVIDER_ID | String | env-providerId |
 
-  @in-process @sync-port
+  @in-process @sync-port @env-var
   Scenario Outline: Dedicated Config via Env_var special In-process case
     Given an environment variable "<env>" with value "<value>"
     And an option "resolver" of type "ResolverType" with value "in-process"
@@ -284,7 +285,7 @@ Feature: Configuration Test
       | option | env             | type    | value |
       | port   | FLAGD_SYNC_PORT | Integer | 1234  |
 
-  @file
+  @file @env-var
   Scenario Outline: Dedicated Config via Env_var special file case
     Given an environment variable "<env>" with value "<value>"
     And an option "offlineFlagSourcePath" of type "String" with value "some-path"
@@ -296,6 +297,7 @@ Feature: Configuration Test
       | resolver | FLAGD_RESOLVER | ResolverType | file  |
       | resolver | FLAGD_RESOLVER | ResolverType | FILE  |
 
+  @env-var
   Scenario Outline: Dedicated Config via Env_var and set
     Given an environment variable "<env>" with value "<env-value>"
     And an option "<option>" of type "<type>" with value "<value>"
@@ -376,7 +378,7 @@ Feature: Configuration Test
       | option     | env               | type   | value      | env-value  |
       | providerId | FLAGD_PROVIDER_ID | String | providerId | env-prov |
 
-  @in-process @sync-port
+  @in-process @sync-port @env-var
   Scenario: FLAGD_SYNC_PORT takes priority over FLAGD_PORT
     Given an environment variable "FLAGD_SYNC_PORT" with value "9999"
     And an environment variable "FLAGD_PORT" with value "8888"
