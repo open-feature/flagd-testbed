@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.5.0](https://github.com/open-feature/flagd-testbed/compare/v3.4.0...v3.5.0) (2026-04-01)
+
+
+### ✨ New Features
+
+* add [@env-var](https://github.com/env-var) tag to env-var config scenarios ([#359](https://github.com/open-feature/flagd-testbed/issues/359)) ([7fb6fa1](https://github.com/open-feature/flagd-testbed/commit/7fb6fa1139ed1788ecf9d97c4a75a7289c1a7571))
+* **operators:** add error return scenarios for custom operator null fallback ([#342](https://github.com/open-feature/flagd-testbed/issues/342)) ([eb3fa72](https://github.com/open-feature/flagd-testbed/commit/eb3fa72025612e7b10d83760cf29e43568520466))
+* update flagd ([#360](https://github.com/open-feature/flagd-testbed/issues/360)) ([3ff7923](https://github.com/open-feature/flagd-testbed/commit/3ff792319db711e2c6234c880d684e635683f9f2))
+
 ## [3.4.0](https://github.com/open-feature/flagd-testbed/compare/v3.3.0...v3.4.0) (2026-03-30)
 
 
