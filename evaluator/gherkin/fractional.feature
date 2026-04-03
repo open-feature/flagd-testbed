@@ -72,9 +72,9 @@ Feature: Evaluator fractional operator
       | nine  | clubs    |
       | two   | spades   |
 
-  @fractional @fractional-v2
+  @fractional-v2
   Scenario: Fractional operator with single entry always resolves to the only variant
-    Given a String-flag with key "fractional-single-entry-flag" and a default value "fallback"
+    Given a String-flag with key "fractional-single-entry-flag" and a fallback value "fallback"
     When the flag was evaluated with details
     Then the resolved details value should be "single"
 
