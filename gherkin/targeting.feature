@@ -36,7 +36,7 @@ Feature: Targeting rules
       | ref-whitespace-space-after-colon-flag  | user@example.com      | bye   |
       | ref-whitespace-space-around-colon-flag | user@example.com      | bye   |
 
-  @evaluator-refs
+  @evaluator-refs @non-existent-evaluator-ref
   Scenario: Ref to nonexistent evaluator yields parse error
     Given a String-flag with key "ref-to-nonexistent-evaluator-flag" and a default value "fallback"
     When the flag was evaluated with details

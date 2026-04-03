@@ -511,6 +511,78 @@
       "targeting": {
         "if": [{"sem_ver": [{"var": "version"}, "=", "1.0.0+build"]}, "match", "no-match"]
       }
+    },
+    "ref-whitespace-compact-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "hi": "hi",
+        "bye": "bye",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {
+            "$ref":"is_ballmer"
+          },
+          "hi",
+          "bye"
+        ]
+      }
+    },
+    "ref-whitespace-space-after-colon-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "hi": "hi",
+        "bye": "bye",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {
+            "$ref": "is_ballmer"
+          },
+          "hi",
+          "bye"
+        ]
+      }
+    },
+    "ref-whitespace-space-around-colon-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "hi": "hi",
+        "bye": "bye",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {
+            "$ref" : "is_ballmer"
+          },
+          "hi",
+          "bye"
+        ]
+      }
+    },
+    "ref-to-nonexistent-evaluator-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "hit": "hit",
+        "miss": "miss",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {
+            "$ref": "nonexistent_evaluator"
+          },
+          "hit",
+          "miss"
+        ]
+      }
     }
   },
   "$evaluators": {
