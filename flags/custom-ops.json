@@ -23,6 +23,19 @@
         ]
       }
     },
+    "fractional-single-entry-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "single": "single",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          [ "single", 1 ]
+        ]
+      }
+    },
     "fractional-flag-shorthand": {
       "state": "ENABLED",
       "variants": {

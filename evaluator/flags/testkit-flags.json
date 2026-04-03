@@ -447,6 +447,19 @@
         ]
       }
     },
+    "fractional-single-entry-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "single": "single",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          [ "single", 1 ]
+        ]
+      }
+    },
     "semver-invalid-version-flag": {
       "state": "ENABLED",
       "variants": { "match": "match", "no-match": "no-match", "fallback": "fallback" },

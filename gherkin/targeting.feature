@@ -67,6 +67,12 @@ Feature: Targeting rules
       | jon@company.com  | heads |
       | jane@company.com | tails |
 
+  @fractional @fractional-v2
+  Scenario: Fractional operator with single entry always resolves to the only variant
+    Given a String-flag with key "fractional-single-entry-flag" and a default value "fallback"
+    When the flag was evaluated with details
+    Then the resolved details value should be "single"
+
   @fractional
   Scenario Outline: Fractional operator with shared seed
     Given a String-flag with key "fractional-flag-A-shared-seed" and a default value "fallback"
