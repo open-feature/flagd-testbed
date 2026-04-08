@@ -72,6 +72,12 @@ Feature: Evaluator fractional operator
       | nine  | clubs    |
       | two   | spades   |
 
+  @fractional-v2
+  Scenario: Fractional operator with single entry always resolves to the only variant
+    Given a String-flag with key "fractional-single-entry-flag" and a fallback value "fallback"
+    When the flag was evaluated with details
+    Then the resolved details value should be "single"
+
   Scenario Outline: Second fractional operator with shared seed
     Given a String-flag with key "fractional-flag-B-shared-seed" and a fallback value "fallback"
     And a context containing a nested property with outer key "user" and inner key "name", with value "<name>"
