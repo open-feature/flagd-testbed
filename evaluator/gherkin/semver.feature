@@ -43,3 +43,46 @@ Feature: Evaluator semantic version operator
       | key                          | context_value |
       | semver-invalid-version-flag  | not-a-version |
       | semver-invalid-operator-flag | 1.0.0         |
+
+  @semver-edge-cases @semver-v-prefix
+  Scenario Outline: v-prefix handling
+    Given an evaluator
+    And a String-flag with key "semver-v-prefix-flag" and a fallback value "fallback"
+    And a context containing a key "version", with type "String" and with value "<version>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | version | value    |
+      | 1.0.0   | match    |
+      | v1.0.0  | match    |
+      | V1.0.0  | match    |
+      | 2.0.0   | no-match |
+
+  @semver-edge-cases @semver-partial-version
+  Scenario Outline: partial version handling
+    Given an evaluator
+    And a String-flag with key "semver-partial-version-flag" and a fallback value "fallback"
+    And a context containing a key "version", with type "<type>" and with value "<version>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | version | type    | value    |
+      | 1.5.0   | String  | match    |
+      | 1.0.0   | String  | match    |
+      | 1.0     | String  | match    |
+      | 1       | String  | match    |
+      | 1       | Integer | match    |
+      | 2.0.0   | String  | no-match |
+
+  @semver-edge-cases @semver-build-metadata
+  Scenario Outline: build metadata ignored in comparison
+    Given an evaluator
+    And a String-flag with key "semver-build-metadata-flag" and a fallback value "fallback"
+    And a context containing a key "version", with type "String" and with value "<version>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | version     | value    |
+      | 1.0.0       | match    |
+      | 1.0.0+other | match    |
+      | 2.0.0       | no-match |
