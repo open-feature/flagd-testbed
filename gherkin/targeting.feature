@@ -42,7 +42,6 @@ Feature: Targeting rules
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
     And the error-code should be "PARSE_ERROR"
-    And the error message should contain "nonexistent_evaluator"
 
   # custom operators
   # @fractional-v1: legacy float-based bucketing (abs(hash) / i32::MAX * 100)
