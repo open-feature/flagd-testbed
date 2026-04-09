@@ -39,6 +39,7 @@ Feature: Evaluator semantic version operator
     And a context containing a key "version", with type "String" and with value "<context_value>"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
     Examples:
       | key                          | context_value |
       | semver-invalid-version-flag  | not-a-version |
@@ -96,3 +97,4 @@ Feature: Evaluator semantic version operator
     And a context containing a key "version", with type "String" and with value "1.0.0"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"

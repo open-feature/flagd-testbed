@@ -28,6 +28,7 @@ Feature: Evaluator string comparison operator
     And a context containing a key "num", with type "Integer" and with value "123"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
     Examples:
       | key                         |
       | starts-with-non-string-flag |
@@ -39,6 +40,7 @@ Feature: Evaluator string comparison operator
     And a String-flag with key "<key>" and a fallback value "wrong"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
     Examples:
       | key                         |
       | starts-with-wrong-args-flag |

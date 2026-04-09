@@ -349,6 +349,7 @@ Feature: Targeting rules
     And a context containing a key "version", with type "String" and with value "<context_value>"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
     Examples:
       | key                          | context_value   |
       | semver-invalid-version-flag  | not-a-version   |
@@ -359,6 +360,8 @@ Feature: Targeting rules
     Given a String-flag with key "fractional-null-bucket-key-flag" and a default value "wrong"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
+
   # Follow-up error scenarios from https://github.com/open-feature/flagd/issues/1874
   # Operators must return null (not false) on error so the default variant is selected.
 
@@ -368,6 +371,7 @@ Feature: Targeting rules
     And a context containing a key "num", with type "Integer" and with value "123"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
     Examples:
       | key                         |
       | starts-with-non-string-flag |
@@ -378,8 +382,9 @@ Feature: Targeting rules
     Given a String-flag with key "<key>" and a default value "wrong"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
     Examples:
-      | key                        |
+      | key                         |
       | starts-with-wrong-args-flag |
       | ends-with-wrong-args-flag   |
 
@@ -389,6 +394,7 @@ Feature: Targeting rules
     And a context containing a key "version", with type "String" and with value "1.0.0"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
 
   @operator-errors @fractional
   Scenario: fractional with all-zero bucket weights falls back to default variant
@@ -396,6 +402,7 @@ Feature: Targeting rules
     And a context containing a targeting key with value "any-user"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
 
   @operator-errors @fractional
   Scenario: fractional negative bucket weight is clamped to zero

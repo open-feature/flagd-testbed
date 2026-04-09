@@ -195,6 +195,8 @@ Feature: Evaluator fractional operator
     And a String-flag with key "fractional-null-bucket-key-flag" and a fallback value "wrong"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
+
   # Follow-up error scenarios from https://github.com/open-feature/flagd/issues/1874
 
   @operator-errors
@@ -204,6 +206,7 @@ Feature: Evaluator fractional operator
     And a context containing a targeting key with value "any-user"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
 
   @operator-errors
   Scenario: fractional negative bucket weight is clamped to zero
