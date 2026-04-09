@@ -75,6 +75,7 @@ Feature: Evaluator fractional operator
   @fractional-v2
   Scenario: Fractional operator with single entry always resolves to the only variant
     Given a String-flag with key "fractional-single-entry-flag" and a fallback value "fallback"
+    And a context containing a targeting key with value "some-targeting-key"
     When the flag was evaluated with details
     Then the resolved details value should be "single"
 
