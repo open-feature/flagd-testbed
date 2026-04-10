@@ -39,6 +39,7 @@ Feature: Evaluator semantic version operator
     And a context containing a key "version", with type "String" and with value "<context_value>"
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
     Examples:
       | key                          | context_value |
       | semver-invalid-version-flag  | not-a-version |
@@ -86,3 +87,14 @@ Feature: Evaluator semantic version operator
       | 1.0.0       | match    |
       | 1.0.0+other | match    |
       | 2.0.0       | no-match |
+
+  # Follow-up error scenarios from https://github.com/open-feature/flagd/issues/1874
+
+  @operator-errors
+  Scenario: sem_ver returns null for wrong argument count
+    Given an evaluator
+    And a String-flag with key "semver-wrong-args-flag" and a fallback value "wrong"
+    And a context containing a key "version", with type "String" and with value "1.0.0"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
+    And the reason should be "DEFAULT"
