@@ -60,7 +60,7 @@ Feature: Evaluator semantic version operator
       | 2.0.0   | no-match |
 
   @semver-edge-cases @semver-partial-version
-  Scenario Outline: partial version handling
+  Scenario Outline: partial version string handling
     Given an evaluator
     And a String-flag with key "semver-partial-version-flag" and a fallback value "fallback"
     And a context containing a key "version", with type "<type>" and with value "<version>"
@@ -78,7 +78,7 @@ Feature: Evaluator semantic version operator
       | 2.0.0   | String  | no-match |
 
   @semver-edge-cases @semver-numeric-context
-  Scenario Outline: numeric context value handling
+  Scenario Outline: numeric context value coercion
     Given an evaluator
     And a String-flag with key "semver-numeric-context-flag" and a fallback value "fallback"
     And a context containing a key "version", with type "<type>" and with value "<version>"
