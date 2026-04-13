@@ -341,6 +341,20 @@
         ]
       }
     },
+    "semver-numeric-context-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "match": "match",
+        "no-match": "no-match"
+      },
+      "defaultVariant": "no-match",
+      "targeting": {
+        "if": [
+          {"sem_ver": [{"var": "version"}, ">", "1.1"]},
+          "match", "no-match"
+        ]
+      }
+    },
     "semver-build-metadata-flag": {
       "state": "ENABLED",
       "variants": {

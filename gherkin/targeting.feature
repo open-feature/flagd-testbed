@@ -283,7 +283,7 @@ Feature: Targeting rules
       | 2.0.0   | no-match |
 
   @semver @semver-edge-cases @semver-partial-version
-  Scenario Outline: sem_ver partial version handling
+  Scenario Outline: sem_ver partial version string handling
     Given a String-flag with key "semver-partial-version-flag" and a default value "fallback"
     And a context containing a key "version", with type "<type>" and with value "<version>"
     When the flag was evaluated with details
@@ -295,7 +295,23 @@ Feature: Targeting rules
       | 1.0     | String  | match    |
       | 1       | String  | match    |
       | 1       | Integer | match    |
+      | 1       | Float   | match    |
+      | 1.2     | Float   | match    |
       | 2.0.0   | String  | no-match |
+
+  @semver @semver-edge-cases @semver-numeric-context
+  Scenario Outline: sem_ver numeric context value coercion
+    Given a String-flag with key "semver-numeric-context-flag" and a default value "fallback"
+    And a context containing a key "version", with type "<type>" and with value "<version>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<value>"
+    Examples:
+      | version | type    | value    |
+      | 1.2     | Float   | match    |
+      | 1.1     | Float   | no-match |
+      | 2       | Integer | match    |
+      | 1       | Integer | no-match |
+      | 1.2     | String  | match    |
 
   @semver @semver-edge-cases @semver-build-metadata
   Scenario Outline: sem_ver build metadata ignored

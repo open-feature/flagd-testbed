@@ -521,6 +521,14 @@
         "if": [{"sem_ver": [{"var": "version"}, "=", "1.0.0+build"]}, "match", "no-match"]
       }
     },
+    "semver-numeric-context-flag": {
+      "state": "ENABLED",
+      "variants": { "match": "match", "no-match": "no-match" },
+      "defaultVariant": "no-match",
+      "targeting": {
+        "if": [{"sem_ver": [{"var": "version"}, ">", "1.1"]}, "match", "no-match"]
+      }
+    },
     "ref-whitespace-compact-flag": {
       "state": "ENABLED",
       "variants": {
