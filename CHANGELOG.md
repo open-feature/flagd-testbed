@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.1](https://github.com/open-feature/flagd-testbed/compare/v3.6.0...v3.6.1) (2026-04-20)
+
+
+### 🐛 Bug Fixes
+
+* remove if-wrappers from error flags ([#369](https://github.com/open-feature/flagd-testbed/issues/369)) ([e40714e](https://github.com/open-feature/flagd-testbed/commit/e40714ed3a265affc087865357ca56994afb1fd1))
+
 ## [3.6.0](https://github.com/open-feature/flagd-testbed/compare/v3.5.0...v3.6.0) (2026-04-13)
 
 
