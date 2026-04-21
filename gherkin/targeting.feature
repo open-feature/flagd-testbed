@@ -90,7 +90,7 @@ Feature: Targeting rules
       | jon@company.com  | heads |
       | jane@company.com | tails |
 
-  @fractional @fractional-v2
+  @fractional @fractional-v2 @fractional-single-entry
   Scenario: Fractional operator with single entry always resolves to the only variant
     Given a String-flag with key "fractional-single-entry-flag" and a default value "fallback"
     And a context containing a targeting key with value "some-targeting-key"
