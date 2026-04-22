@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.2](https://github.com/open-feature/flagd-testbed/compare/v3.6.1...v3.6.2) (2026-04-21)
+
+
+### 🐛 Bug Fixes
+
+* add single fractional tag ([2bc2a98](https://github.com/open-feature/flagd-testbed/commit/2bc2a9822773bdd2345116bd85c342e788445f38))
+
 ## [3.6.1](https://github.com/open-feature/flagd-testbed/compare/v3.6.0...v3.6.1) (2026-04-20)
 
 
