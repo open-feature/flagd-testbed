@@ -1,4 +1,4 @@
-ARG FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.15.0
+ARG FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.15.5
 ARG TARGETARCH
 
 FROM ${FLAGD_BASE_IMAGE} AS flagd
