@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.0](https://github.com/open-feature/flagd-testbed/compare/v3.6.2...v3.7.0) (2026-04-30)
+
+
+### ✨ New Features
+
+* latest flagd ([#372](https://github.com/open-feature/flagd-testbed/issues/372)) ([4b325bb](https://github.com/open-feature/flagd-testbed/commit/4b325bb0e2fef9095c12fcef7863d0d7578637bb))
+
 ## [3.6.2](https://github.com/open-feature/flagd-testbed/compare/v3.6.1...v3.6.2) (2026-04-21)
 
 
