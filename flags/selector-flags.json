@@ -7,6 +7,14 @@
         "bar": "bar"
       },
       "defaultVariant": "foo"
+    },
+    "cross-flagset-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": true,
+        "off": false
+      },
+      "defaultVariant": "on"
     }
   }
 }
