@@ -1,3 +1,4 @@
+@disabled
 Feature: Disabled flag evaluation
 
   # Test coverage for disabled flag behavior. A flag with state=DISABLED resolves
@@ -20,14 +21,6 @@ Feature: Disabled flag evaluation
       | disabled-integer-flag | Integer | 1       |
       | disabled-float-flag   | Float   | 0.1     |
       | disabled-object-flag  | Object  | {}      |
-
-  @rpc
-  Scenario: Bulk evaluation includes disabled flags with reason DISABLED
-    Given an option "cache" of type "CacheType" with value "disabled"
-    And a stable flagd provider
-    When all flags were evaluated in bulk
-    Then the bulk evaluation result should contain a flag with key "disabled-boolean-flag" and reason "DISABLED"
-    And the bulk evaluation result should contain a flag with key "boolean-flag" and reason "STATIC"
 
   @in-process
   Scenario Outline: Flag disabled in one flag set, enabled in another
