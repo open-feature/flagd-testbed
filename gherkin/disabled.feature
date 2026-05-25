@@ -1,11 +1,11 @@
-@disabled
+@disabled @in-process
 Feature: Disabled flag evaluation
 
   # Test coverage for disabled flag behavior. A flag with state=DISABLED resolves
   # successfully with reason=DISABLED and no value or variant (SDK uses code default).
   # Relates to: https://github.com/open-feature/flagd/issues/1965
 
-  @rpc @in-process
+  @rpc
   Scenario Outline: Evaluating a disabled flag returns reason DISABLED and code default
     Given an option "cache" of type "CacheType" with value "disabled"
     And a stable flagd provider
@@ -22,7 +22,6 @@ Feature: Disabled flag evaluation
       | disabled-float-flag   | Float   | 0.1     |
       | disabled-object-flag  | Object  | {}      |
 
-  @in-process
   Scenario Outline: Flag disabled in one flag set, enabled in another
     Given an option "cache" of type "CacheType" with value "disabled"
     And an option "selector" of type "String" with value "<selector>"
