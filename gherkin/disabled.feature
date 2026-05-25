@@ -19,6 +19,7 @@ Feature: Disabled flag evaluation
       | disabled-string-flag  | String  | bye     |
       | disabled-integer-flag | Integer | 1       |
       | disabled-float-flag   | Float   | 0.1     |
+      | disabled-object-flag  | Object  | {}      |
 
   @rpc
   Scenario: Bulk evaluation includes disabled flags with reason DISABLED
@@ -40,5 +41,5 @@ Feature: Disabled flag evaluation
 
     Examples:
       | selector                     | resolved_value | reason   |
-      | rawflags/disabled-flags.json | false          | DISABLED |
+      | flags/allFlags.json          | false          | DISABLED |
       | rawflags/selector-flags.json | true           | STATIC   |
