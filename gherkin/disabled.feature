@@ -2,7 +2,8 @@
 Feature: Disabled flag evaluation
 
   # Test coverage for disabled flag behavior. A flag with state=DISABLED resolves
-  # successfully with reason=DISABLED and no value or variant (SDK uses code default).
+  # successfully with reason=DISABLED; the evaluator substitutes the caller-provided
+  # default value and omits the variant.
   # Relates to: https://github.com/open-feature/flagd/issues/1965
 
   Scenario Outline: Evaluating a disabled flag returns reason DISABLED and code default

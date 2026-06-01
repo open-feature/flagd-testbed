@@ -13,19 +13,10 @@ Feature: Evaluator disabled flag evaluation
     Then the resolved details value should be "<default>"
     And the reason should be "DISABLED"
 
-    Examples: Boolean evaluations
+    Examples:
       | key                   | type    | default |
       | disabled-boolean-flag | Boolean | false   |
-
-    Examples: String evaluations
-      | key                  | type   | default |
-      | disabled-string-flag | String | bye     |
-
-    Examples: Number evaluations
-      | key                   | type    | default |
+      | disabled-string-flag  | String  | bye     |
       | disabled-integer-flag | Integer | 1       |
       | disabled-float-flag   | Float   | 0.1     |
-
-    Examples: Object evaluations
-      | key                  | type   | default |
-      | disabled-object-flag | Object | {}      |
+      | disabled-object-flag  | Object  | {}      |
