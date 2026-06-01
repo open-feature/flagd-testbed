@@ -16,5 +16,8 @@
       },
       "defaultVariant": "on"
     }
+  },
+  "metadata": {
+    "flagSetId": "selector-set"
   }
 }

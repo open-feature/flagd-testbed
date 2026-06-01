@@ -1,11 +1,10 @@
-@disabled @in-process
+@disabled @in-process @rpc
 Feature: Disabled flag evaluation
 
   # Test coverage for disabled flag behavior. A flag with state=DISABLED resolves
   # successfully with reason=DISABLED and no value or variant (SDK uses code default).
   # Relates to: https://github.com/open-feature/flagd/issues/1965
 
-  @rpc
   Scenario Outline: Evaluating a disabled flag returns reason DISABLED and code default
     Given an option "cache" of type "CacheType" with value "disabled"
     And a stable flagd provider
