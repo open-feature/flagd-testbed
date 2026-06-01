@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.0](https://github.com/open-feature/flagd-testbed/compare/v3.7.0...v3.8.0) (2026-06-01)
+
+
+### ✨ New Features
+
+* add disabled flag evaluation test scenarios ([#376](https://github.com/open-feature/flagd-testbed/issues/376)) ([b771775](https://github.com/open-feature/flagd-testbed/commit/b771775114f2ef35a571239e1294faeeb8aebf5e))
+
 ## [3.7.0](https://github.com/open-feature/flagd-testbed/compare/v3.6.2...v3.7.0) (2026-04-30)
 
 
