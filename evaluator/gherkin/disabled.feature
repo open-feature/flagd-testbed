@@ -1,16 +1,16 @@
 @disabled
 Feature: Evaluator disabled flag evaluation
 
-  # Validates that disabled flags resolve with reason=DISABLED and no value/variant.
-  # The evaluator omits value and variant; the SDK substitutes the caller-provided default.
+  # Validates that disabled flags resolve with reason=DISABLED. The evaluator
+  # substitutes the caller-provided default value and omits the variant.
   # Flags are configured in evaluator/flags/testkit-flags.json.
   # Relates to: https://github.com/open-feature/flagd/issues/1965
 
-  Scenario Outline: Resolve disabled flag returns reason DISABLED with absent value
+  Scenario Outline: Resolve disabled flag returns reason DISABLED with the default value
     Given an evaluator
     And a <type>-flag with key "<key>" and a fallback value "<default>"
     When the flag was evaluated with details
-    Then the resolved value should be absent
+    Then the resolved details value should be "<default>"
     And the reason should be "DISABLED"
 
     Examples: Boolean evaluations
