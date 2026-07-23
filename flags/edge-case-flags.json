@@ -8,7 +8,11 @@
       },
       "defaultVariant": "two",
       "targeting": {
-        "if": [true, null, "one"]
+        "if": [
+          true,
+          null,
+          "one"
+        ]
       }
     },
     "error-targeting-flag": {
@@ -19,7 +23,9 @@
       },
       "defaultVariant": "two",
       "targeting": {
-        "invalid": ["this is not valid targeting"]
+        "invalid": [
+          "this is not valid targeting"
+        ]
       }
     },
     "missing-variant-targeting-flag": {
@@ -30,7 +36,11 @@
       },
       "defaultVariant": "two",
       "targeting": {
-        "if": [true, "three", "one"]
+        "if": [
+          true,
+          "three",
+          "one"
+        ]
       }
     },
     "non-string-variant-targeting-flag": {
@@ -41,7 +51,11 @@
       },
       "defaultVariant": "false",
       "targeting": {
-        "if": [true, true, false]
+        "if": [
+          true,
+          true,
+          false
+        ]
       }
     },
     "empty-targeting-flag": {
@@ -62,7 +76,13 @@
       },
       "defaultVariant": "fallback",
       "targeting": {
-        "sem_ver": [{"var": "version"}, "=", "1.0.0"]
+        "sem_ver": [
+          {
+            "var": "version"
+          },
+          "=",
+          "1.0.0"
+        ]
       }
     },
     "semver-invalid-operator-flag": {
@@ -74,7 +94,13 @@
       },
       "defaultVariant": "fallback",
       "targeting": {
-        "sem_ver": [{"var": "version"}, "===", "1.0.0"]
+        "sem_ver": [
+          {
+            "var": "version"
+          },
+          "===",
+          "1.0.0"
+        ]
       }
     },
     "fractional-null-bucket-key-flag": {
@@ -87,9 +113,17 @@
       "defaultVariant": "fallback",
       "targeting": {
         "fractional": [
-          {"var": "missing_key"},
-          ["one", 50],
-          ["two", 50]
+          {
+            "var": "missing_key"
+          },
+          [
+            "one",
+            50
+          ],
+          [
+            "two",
+            50
+          ]
         ]
       }
     },
@@ -102,7 +136,12 @@
       },
       "defaultVariant": "fallback",
       "targeting": {
-        "starts_with": [{"var": "num"}, "abc"]
+        "starts_with": [
+          {
+            "var": "num"
+          },
+          "abc"
+        ]
       }
     },
     "ends-with-non-string-flag": {
@@ -114,7 +153,12 @@
       },
       "defaultVariant": "fallback",
       "targeting": {
-        "ends_with": [{"var": "num"}, "xyz"]
+        "ends_with": [
+          {
+            "var": "num"
+          },
+          "xyz"
+        ]
       }
     },
     "starts-with-wrong-args-flag": {
@@ -126,7 +170,9 @@
       },
       "defaultVariant": "fallback",
       "targeting": {
-        "starts_with": ["abc"]
+        "starts_with": [
+          "abc"
+        ]
       }
     },
     "ends-with-wrong-args-flag": {
@@ -138,7 +184,9 @@
       },
       "defaultVariant": "fallback",
       "targeting": {
-        "ends_with": ["xyz"]
+        "ends_with": [
+          "xyz"
+        ]
       }
     },
     "fractional-zero-weights-flag": {
@@ -151,21 +199,41 @@
       "defaultVariant": "fallback",
       "targeting": {
         "fractional": [
-          {"var": "targetingKey"},
-          ["one", 0],
-          ["two", 0]
+          {
+            "var": "targetingKey"
+          },
+          [
+            "one",
+            0
+          ],
+          [
+            "two",
+            0
+          ]
         ]
       }
     },
     "fractional-negative-weight-flag": {
       "state": "ENABLED",
-      "variants": { "one": "one", "two": "two", "fallback": "fallback" },
+      "variants": {
+        "one": "one",
+        "two": "two",
+        "fallback": "fallback"
+      },
       "defaultVariant": "fallback",
       "targeting": {
         "fractional": [
-          {"var": "targetingKey"},
-          ["one", -50],
-          ["two", 100]
+          {
+            "var": "targetingKey"
+          },
+          [
+            "one",
+            -50
+          ],
+          [
+            "two",
+            100
+          ]
         ]
       }
     },
@@ -178,7 +246,28 @@
       },
       "defaultVariant": "fallback",
       "targeting": {
-        "sem_ver": [{"var": "version"}, "="]
+        "sem_ver": [
+          {
+            "var": "version"
+          },
+          "="
+        ]
+      }
+    },
+    "targeting-null-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "one": 1,
+        "two": 2
+      },
+      "defaultVariant": "two",
+      "targeting": {
+        "fractional": [
+          null,
+          [
+            "one"
+          ]
+        ]
       }
     }
   }
