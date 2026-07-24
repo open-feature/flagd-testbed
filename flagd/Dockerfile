@@ -42,6 +42,11 @@ COPY --from=certs custom-root-cert.crt /ssl/
 
 RUN mkdir "flags"
 
+# run as non-root
+RUN adduser -D -H -u 10001 testbed \
+    && chown -R testbed:testbed /flags /rawflags /configs /ssl
+USER testbed
+
 
 LABEL org.opencontainers.image.source="https://github.com/open-feature/flagd-testbed"
 
