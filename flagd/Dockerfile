@@ -42,12 +42,6 @@ COPY --from=certs custom-root-cert.crt /ssl/
 
 RUN mkdir "flags"
 
-# NOTE: intentionally runs as root. launchpad writes generated flag configs into
-# /flags, which consumers bind-mount from host dirs of arbitrary ownership (see
-# docker-compose.yaml); a non-root user cannot write there. This is a test-only
-# fixture, not a deployed workload.
-
-
 LABEL org.opencontainers.image.source="https://github.com/open-feature/flagd-testbed"
 
 ENTRYPOINT ["./launchpad"]
