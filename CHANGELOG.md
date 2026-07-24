@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.1](https://github.com/open-feature/flagd-testbed/compare/v3.8.0...v3.8.1) (2026-07-24)
+
+
+### 🐛 Bug Fixes
+
+* minor security hardening ([#381](https://github.com/open-feature/flagd-testbed/issues/381)) ([43f8cd2](https://github.com/open-feature/flagd-testbed/commit/43f8cd2b0641baba0f0a318705b5884ddd07dbee))
+
 ## [3.8.0](https://github.com/open-feature/flagd-testbed/compare/v3.7.0...v3.8.0) (2026-06-01)
 
 
