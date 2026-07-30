@@ -653,8 +653,8 @@ Feature: Targeting rules
 
     Examples: v3
       | hashing_input           | value    |
-      | あいうえおかき          | bucket17 |
-      | あいうえおかきく        | bucket16 |
+      | あいうえおかき            | bucket17 |
+      | あいうえおかきく           | bucket16 |
       | ééééééééééé             | bucket16 |
       | éééééééééééé            | bucket19 |
       | café façade résumé café | bucket9  |
