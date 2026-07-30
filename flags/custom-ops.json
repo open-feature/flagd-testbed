@@ -12,14 +12,32 @@
       "defaultVariant": "wild",
       "targeting": {
         "fractional": [
-          {"cat": [
-            { "var": "$flagd.flagKey" },
-            { "var": "user.name" }
-          ]},
-          [ "clubs", 25 ],
-          [ "diamonds", 25 ],
-          [ "hearts", 25 ],
-          [ "spades", 25 ]
+          {
+            "cat": [
+              {
+                "var": "$flagd.flagKey"
+              },
+              {
+                "var": "user.name"
+              }
+            ]
+          },
+          [
+            "clubs",
+            25
+          ],
+          [
+            "diamonds",
+            25
+          ],
+          [
+            "hearts",
+            25
+          ],
+          [
+            "spades",
+            25
+          ]
         ]
       }
     },
@@ -32,7 +50,10 @@
       "defaultVariant": "fallback",
       "targeting": {
         "fractional": [
-          [ "single", 1 ]
+          [
+            "single",
+            1
+          ]
         ]
       }
     },
@@ -46,8 +67,13 @@
       "defaultVariant": "draw",
       "targeting": {
         "fractional": [
-          [ "heads" ],
-          [ "tails", 1 ]
+          [
+            "heads"
+          ],
+          [
+            "tails",
+            1
+          ]
         ]
       }
     },
@@ -63,14 +89,30 @@
       "defaultVariant": "wild",
       "targeting": {
         "fractional": [
-          { "cat": [
-            "shared-seed",
-            { "var": "user.name" }
-          ]},
-          [ "clubs", 25 ],
-          [ "diamonds", 25 ],
-          [ "hearts", 25 ],
-          [ "spades", 25 ]
+          {
+            "cat": [
+              "shared-seed",
+              {
+                "var": "user.name"
+              }
+            ]
+          },
+          [
+            "clubs",
+            25
+          ],
+          [
+            "diamonds",
+            25
+          ],
+          [
+            "hearts",
+            25
+          ],
+          [
+            "spades",
+            25
+          ]
         ]
       }
     },
@@ -86,14 +128,30 @@
       "defaultVariant": "wild",
       "targeting": {
         "fractional": [
-          { "cat": [
-            "shared-seed",
-            { "var": "user.name" }
-          ]},
-          [ "clubs", 25 ],
-          [ "diamonds", 25 ],
-          [ "hearts", 25 ],
-          [ "spades", 25 ]
+          {
+            "cat": [
+              "shared-seed",
+              {
+                "var": "user.name"
+              }
+            ]
+          },
+          [
+            "clubs",
+            25
+          ],
+          [
+            "diamonds",
+            25
+          ],
+          [
+            "hearts",
+            25
+          ],
+          [
+            "spades",
+            25
+          ]
         ]
       }
     },
@@ -106,9 +164,17 @@
       "defaultVariant": "lower",
       "targeting": {
         "fractional": [
-          { "var": "targetingKey" },
-          [ "lower", 50 ],
-          [ "upper", 50 ]
+          {
+            "var": "targetingKey"
+          },
+          [
+            "lower",
+            50
+          ],
+          [
+            "upper",
+            50
+          ]
         ]
       }
     },
@@ -122,18 +188,30 @@
       "defaultVariant": "fallback",
       "targeting": {
         "fractional": [
-          { "var": "targetingKey" },
+          {
+            "var": "targetingKey"
+          },
           [
             {
               "if": [
-                { "==": [{ "var": "tier" }, "premium"] },
+                {
+                  "==": [
+                    {
+                      "var": "tier"
+                    },
+                    "premium"
+                  ]
+                },
                 "premium",
                 "standard"
               ]
             },
             50
           ],
-          [ "standard", 50 ]
+          [
+            "standard",
+            50
+          ]
         ]
       }
     },
@@ -148,9 +226,19 @@
       "defaultVariant": "fallback",
       "targeting": {
         "fractional": [
-          { "var": "targetingKey" },
-          [ { "var": "color" }, 50 ],
-          [ "blue", 50 ]
+          {
+            "var": "targetingKey"
+          },
+          [
+            {
+              "var": "color"
+            },
+            50
+          ],
+          [
+            "blue",
+            50
+          ]
         ]
       }
     },
@@ -164,18 +252,30 @@
       "defaultVariant": "fallback",
       "targeting": {
         "fractional": [
-          { "var": "targetingKey" },
+          {
+            "var": "targetingKey"
+          },
           [
             "red",
             {
               "if": [
-                { "==": [{ "var": "tier" }, "premium"] },
+                {
+                  "==": [
+                    {
+                      "var": "tier"
+                    },
+                    "premium"
+                  ]
+                },
                 100,
                 0
               ]
             }
           ],
-          [ "blue", 10 ]
+          [
+            "blue",
+            10
+          ]
         ]
       }
     },
@@ -191,11 +291,18 @@
         "if": [
           {
             "fractional": [
-              [ false, 0 ],
-              [ true, 100 ]
+              [
+                false,
+                0
+              ],
+              [
+                true,
+                100
+              ]
             ]
           },
-          "big", "small"
+          "big",
+          "small"
         ]
       }
     },
@@ -211,11 +318,18 @@
         "if": [
           {
             "fractional": [
-              [ false, 100 ],
-              [ true, 0 ]
+              [
+                false,
+                100
+              ],
+              [
+                true,
+                0
+              ]
             ]
           },
-          "big", "small"
+          "big",
+          "small"
         ]
       }
     },
@@ -230,19 +344,37 @@
       "targeting": {
         "if": [
           {
-            "starts_with": [{"var": "id"}, "abc"]
+            "starts_with": [
+              {
+                "var": "id"
+              },
+              "abc"
+            ]
           },
-          "prefix", {
+          "prefix",
+          {
             "if": [
               {
-                "ends_with": [{"var": "id"}, "xyz"]
+                "ends_with": [
+                  {
+                    "var": "id"
+                  },
+                  "xyz"
+                ]
               },
-              "postfix", {
+              "postfix",
+              {
                 "if": [
                   {
-                    "ends_with": [{"var": "id"}, 3]
+                    "ends_with": [
+                      {
+                        "var": "id"
+                      },
+                      3
+                    ]
                   },
-                  "fail", "none"
+                  "fail",
+                  "none"
                 ]
               }
             ]
@@ -262,24 +394,52 @@
       "targeting": {
         "if": [
           {
-            "sem_ver": [{"var": "version"}, "=", "2.0.0"]
+            "sem_ver": [
+              {
+                "var": "version"
+              },
+              "=",
+              "2.0.0"
+            ]
           },
-          "equal", {
+          "equal",
+          {
             "if": [
               {
-                "sem_ver": [{"var": "version"}, ">", "2.0.0"]
+                "sem_ver": [
+                  {
+                    "var": "version"
+                  },
+                  ">",
+                  "2.0.0"
+                ]
               },
-              "greater", {
+              "greater",
+              {
                 "if": [
                   {
-                    "sem_ver": [{"var": "version"}, "<", "2.0.0"]
+                    "sem_ver": [
+                      {
+                        "var": "version"
+                      },
+                      "<",
+                      "2.0.0"
+                    ]
                   },
-                  "lesser", {
+                  "lesser",
+                  {
                     "if": [
                       {
-                        "sem_ver": [{"var": "version"}, "=", "2.0.0.0"]
+                        "sem_ver": [
+                          {
+                            "var": "version"
+                          },
+                          "=",
+                          "2.0.0.0"
+                        ]
                       },
-                      "fail", "none"
+                      "fail",
+                      "none"
                     ]
                   }
                 ]
@@ -300,14 +460,28 @@
       "targeting": {
         "if": [
           {
-            "sem_ver": [{"var": "version"}, "~", "3.0.0"]
+            "sem_ver": [
+              {
+                "var": "version"
+              },
+              "~",
+              "3.0.0"
+            ]
           },
-          "minor", {
+          "minor",
+          {
             "if": [
               {
-                "sem_ver": [{"var": "version"}, "^", "3.0.0"]
+                "sem_ver": [
+                  {
+                    "var": "version"
+                  },
+                  "^",
+                  "3.0.0"
+                ]
               },
-              "major", "none"
+              "major",
+              "none"
             ]
           }
         ]
@@ -322,8 +496,17 @@
       "defaultVariant": "no-match",
       "targeting": {
         "if": [
-          {"sem_ver": [{"var": "version"}, "=", "v1.0.0"]},
-          "match", "no-match"
+          {
+            "sem_ver": [
+              {
+                "var": "version"
+              },
+              "=",
+              "v1.0.0"
+            ]
+          },
+          "match",
+          "no-match"
         ]
       }
     },
@@ -336,8 +519,17 @@
       "defaultVariant": "no-match",
       "targeting": {
         "if": [
-          {"sem_ver": [{"var": "version"}, "^", "1"]},
-          "match", "no-match"
+          {
+            "sem_ver": [
+              {
+                "var": "version"
+              },
+              "^",
+              "1"
+            ]
+          },
+          "match",
+          "no-match"
         ]
       }
     },
@@ -350,8 +542,17 @@
       "defaultVariant": "no-match",
       "targeting": {
         "if": [
-          {"sem_ver": [{"var": "version"}, ">", "1.1"]},
-          "match", "no-match"
+          {
+            "sem_ver": [
+              {
+                "var": "version"
+              },
+              ">",
+              "1.1"
+            ]
+          },
+          "match",
+          "no-match"
         ]
       }
     },
@@ -364,8 +565,156 @@
       "defaultVariant": "no-match",
       "targeting": {
         "if": [
-          {"sem_ver": [{"var": "version"}, "=", "1.0.0+build"]},
-          "match", "no-match"
+          {
+            "sem_ver": [
+              {
+                "var": "version"
+              },
+              "=",
+              "1.0.0+build"
+            ]
+          },
+          "match",
+          "no-match"
+        ]
+      }
+    },
+    "fractional-basic-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "bucket1": "bucket1",
+        "bucket2": "bucket2",
+        "bucket3": "bucket3",
+        "bucket4": "bucket4",
+        "bucket5": "bucket5",
+        "bucket6": "bucket6",
+        "bucket7": "bucket7",
+        "bucket8": "bucket8",
+        "bucket9": "bucket9",
+        "bucket10": "bucket10",
+        "bucket11": "bucket11",
+        "bucket12": "bucket12",
+        "bucket13": "bucket13",
+        "bucket14": "bucket14",
+        "bucket15": "bucket15",
+        "bucket16": "bucket16",
+        "bucket17": "bucket17",
+        "bucket18": "bucket18",
+        "bucket19": "bucket19",
+        "bucket20": "bucket20",
+        "bucket21": "bucket21",
+        "bucket22": "bucket22",
+        "bucket23": "bucket23",
+        "bucket24": "bucket24",
+        "bucket25": "bucket25",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          {
+            "var": "hashing_input"
+          },
+          [
+            "bucket1",
+            4
+          ],
+          [
+            "bucket2",
+            4
+          ],
+          [
+            "bucket3",
+            4
+          ],
+          [
+            "bucket4",
+            4
+          ],
+          [
+            "bucket5",
+            4
+          ],
+          [
+            "bucket6",
+            4
+          ],
+          [
+            "bucket7",
+            4
+          ],
+          [
+            "bucket8",
+            4
+          ],
+          [
+            "bucket9",
+            4
+          ],
+          [
+            "bucket10",
+            4
+          ],
+          [
+            "bucket11",
+            4
+          ],
+          [
+            "bucket12",
+            4
+          ],
+          [
+            "bucket13",
+            4
+          ],
+          [
+            "bucket14",
+            4
+          ],
+          [
+            "bucket15",
+            4
+          ],
+          [
+            "bucket16",
+            4
+          ],
+          [
+            "bucket17",
+            4
+          ],
+          [
+            "bucket18",
+            4
+          ],
+          [
+            "bucket19",
+            4
+          ],
+          [
+            "bucket20",
+            4
+          ],
+          [
+            "bucket21",
+            4
+          ],
+          [
+            "bucket22",
+            4
+          ],
+          [
+            "bucket23",
+            4
+          ],
+          [
+            "bucket24",
+            4
+          ],
+          [
+            "bucket25",
+            4
+          ]
         ]
       }
     }
