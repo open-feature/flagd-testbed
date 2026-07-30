@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.8.2](https://github.com/open-feature/flagd-testbed/compare/v3.8.1...v3.8.2) (2026-07-24)
+
+
+### 🐛 Bug Fixes
+
+* run testbed image as root to support bind-mounted /flags ([#383](https://github.com/open-feature/flagd-testbed/issues/383)) ([270b24f](https://github.com/open-feature/flagd-testbed/commit/270b24fa5f589f33990a6e47fb647977129b1ed1))
+
+## [3.8.1](https://github.com/open-feature/flagd-testbed/compare/v3.8.0...v3.8.1) (2026-07-24)
+
+
+### 🐛 Bug Fixes
+
+* minor security hardening ([#381](https://github.com/open-feature/flagd-testbed/issues/381)) ([43f8cd2](https://github.com/open-feature/flagd-testbed/commit/43f8cd2b0641baba0f0a318705b5884ddd07dbee))
+
 ## [3.8.0](https://github.com/open-feature/flagd-testbed/compare/v3.7.0...v3.8.0) (2026-06-01)
 
 

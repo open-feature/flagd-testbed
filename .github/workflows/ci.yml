@@ -25,7 +25,7 @@ jobs:
 
       - name: Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-      - run: npm ci
+      - run: npm ci --ignore-scripts
 
       - name: Lint Gherkin
         run: npm run gherkin-lint

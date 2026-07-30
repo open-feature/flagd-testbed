@@ -42,7 +42,6 @@ COPY --from=certs custom-root-cert.crt /ssl/
 
 RUN mkdir "flags"
 
-
 LABEL org.opencontainers.image.source="https://github.com/open-feature/flagd-testbed"
 
 ENTRYPOINT ["./launchpad"]
