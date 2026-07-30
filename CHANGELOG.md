@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.9.0](https://github.com/open-feature/flagd-testbed/compare/v3.8.2...v3.9.0) (2026-07-30)
+
+
+### ✨ New Features
+
+* Update gherkin suite to test non-string attributes in fractional ([#380](https://github.com/open-feature/flagd-testbed/issues/380)) ([197a3c0](https://github.com/open-feature/flagd-testbed/commit/197a3c0e5c38b350729d62bda9cbd3a779065e7e))
+
 ## [3.8.2](https://github.com/open-feature/flagd-testbed/compare/v3.8.1...v3.8.2) (2026-07-24)
 
 
