@@ -32,6 +32,7 @@ Feature: Flagd Provider State Changes
     When the connection is lost for 1s
     Then the stale event handler should have been executed
     Then the ready event handler should have been executed
+    And the error event handler should not have been executed
 
   Scenario: Flag change event
     Given a String-flag with key "changing-flag" and a default value "false"
