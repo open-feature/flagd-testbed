@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.0](https://github.com/open-feature/flagd-testbed/compare/v3.9.0...v3.10.0) (2026-08-18)
+
+
+### ✨ New Features
+
+* assert no error event during ready -&gt; stale -&gt; ready ([#386](https://github.com/open-feature/flagd-testbed/issues/386)) ([a29d916](https://github.com/open-feature/flagd-testbed/commit/a29d916ae873b64ff7dacc8fc15f67e94310cd56))
+
 ## [3.9.0](https://github.com/open-feature/flagd-testbed/compare/v3.8.2...v3.9.0) (2026-07-30)
 
 
