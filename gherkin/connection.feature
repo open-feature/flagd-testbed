@@ -22,7 +22,8 @@ Feature: flagd provider disconnect and reconnect functionality
   @rpc @in-process @file @reconnect
   # This test suite tests the reconnection functionality of flagd providers
   Scenario Outline: Provider reconnection
-    Given a <name> flagd provider
+    Given an option "retryGracePeriod" of type "Integer" with value "5"
+    And a <name> flagd provider
     And a ready event handler
     And a error event handler
     When a ready event was fired
@@ -78,6 +79,7 @@ Feature: flagd provider disconnect and reconnect functionality
   @targetURI @in-process @reconnect
   Scenario: Re-Connection via TargetUri in-process
     Given an option "targetUri" of type "String" with value "envoy://localhost:<port>/sync.service"
+    And an option "retryGracePeriod" of type "Integer" with value "5"
     And a stable flagd provider
     And a ready event handler
     And a error event handler
@@ -89,6 +91,7 @@ Feature: flagd provider disconnect and reconnect functionality
   @targetURI @in-process @reconnect @grace
   Scenario: Re-Connection via TargetUri in-process with grace period
     Given an option "targetUri" of type "String" with value "envoy://localhost:<port>/sync.service"
+    And an option "retryGracePeriod" of type "Integer" with value "5"
     And a stable flagd provider
     And a ready event handler
     And a stale event handler

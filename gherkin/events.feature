@@ -2,7 +2,8 @@
 Feature: Flagd Provider State Changes
 
   Background:
-    Given a stable flagd provider
+    Given an option "retryGracePeriod" of type "Integer" with value "5"
+    And a stable flagd provider
 
   Scenario: Provider events chain ready -> error -> ready
     Given a ready event handler
