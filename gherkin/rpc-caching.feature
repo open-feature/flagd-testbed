@@ -4,6 +4,7 @@ Feature: Flag evaluation with Caching
   # This test suite contains scenarios to test the flag evaluation API with caching (RPC only)
   Background:
     Given an option "cache" of type "CacheType" with value "lru"
+    And an option "retryGracePeriod" of type "Integer" with value "5"
     And a stable flagd provider
 
   Scenario Outline: Resolves <type> details with caching
