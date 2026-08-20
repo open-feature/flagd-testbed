@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.1](https://github.com/open-feature/flagd-testbed/compare/v3.10.0...v3.10.1) (2026-08-19)
+
+
+### 🐛 Bug Fixes
+
+* increase simulated downtime ([#390](https://github.com/open-feature/flagd-testbed/issues/390)) ([218aa94](https://github.com/open-feature/flagd-testbed/commit/218aa94cf6ebc651c02fdff139218b60f2c68a5e))
+
 ## [3.10.0](https://github.com/open-feature/flagd-testbed/compare/v3.9.0...v3.10.0) (2026-08-18)
 
 
