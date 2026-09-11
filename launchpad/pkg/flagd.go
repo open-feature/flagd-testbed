@@ -124,9 +124,14 @@ func StartFlagd(config string) error {
 	flagdLock.Unlock()
 
 	client := &http.Client{Timeout: 500 * time.Millisecond}
-	deadline := time.Now().Add(startupBudget)
 
-	if err := awaitReadyz(client, deadline); err != nil {
+	// Every probe below runs against this context, so the budget bounds the
+	// requests themselves and not just the gaps between them: a probe issued
+	// just short of the deadline cannot stretch /start by its own timeout.
+	ctx, cancel := context.WithTimeout(context.Background(), startupBudget)
+	defer cancel()
+
+	if err := awaitReadyz(ctx, client); err != nil {
 		_ = StopFlagd()
 		return err
 	}
@@ -137,7 +142,7 @@ func StartFlagd(config string) error {
 	// configuration plainly defines. A provider that blocks during its own
 	// initialisation absorbs the window, but a stateless one evaluates the
 	// instant /start returns and races it, so wait for a real evaluation.
-	if err := awaitFlagsServed(client, configPath, deadline); err != nil {
+	if err := awaitFlagsServed(ctx, client, configPath); err != nil {
 		_ = StopFlagd()
 		return err
 	}
@@ -148,31 +153,42 @@ func StartFlagd(config string) error {
 
 // awaitReadyz waits for flagd's readiness probe to report that every sync
 // source has completed at least one successful data sync.
-func awaitReadyz(client *http.Client, deadline time.Time) error {
+func awaitReadyz(ctx context.Context, client *http.Client) error {
 	ticker := time.NewTicker(readyPollInterval)
 	defer ticker.Stop()
-	timeout := time.After(time.Until(deadline))
 
 	for {
 		select {
-		case <-timeout:
+		case <-ctx.Done():
 			return fmt.Errorf("flagd health check timed out")
 		case <-ticker.C:
-			resp, err := client.Get(readyzURL)
-			if err == nil {
-				resp.Body.Close()
-				if resp.StatusCode == http.StatusOK {
-					return nil
-				}
+			if isReady(ctx, client) {
+				return nil
 			}
 		}
 	}
 }
 
+// isReady reports whether flagd's readiness probe answers 200.
+func isReady(ctx context.Context, client *http.Client) bool {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, readyzURL, nil)
+	if err != nil {
+		return false
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+
+	return resp.StatusCode == http.StatusOK
+}
+
 // awaitFlagsServed waits until flagd actually resolves a flag from every file
 // source the configuration lists, so that a successful /start is a promise
 // that the next evaluation resolves against the new baseline.
-func awaitFlagsServed(client *http.Client, configPath string, deadline time.Time) error {
+func awaitFlagsServed(ctx context.Context, client *http.Client, configPath string) error {
 	keys, err := probeKeys(configPath)
 	if err != nil {
 		// Without a probe key there is nothing to verify the store with. Fall
@@ -183,34 +199,52 @@ func awaitFlagsServed(client *http.Client, configPath string, deadline time.Time
 	}
 
 	for _, key := range keys {
-		if err := awaitFlagServed(client, key, deadline); err != nil {
+		if err := awaitFlagServed(ctx, client, key); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func awaitFlagServed(client *http.Client, key string, deadline time.Time) error {
+func awaitFlagServed(ctx context.Context, client *http.Client, key string) error {
+	ticker := time.NewTicker(servedPollInterval)
+	defer ticker.Stop()
+
 	for {
-		if flagIsServed(client, key) {
+		if flagIsServed(ctx, client, key) {
 			return nil
 		}
-		if time.Now().After(deadline) {
+		select {
+		case <-ctx.Done():
 			return fmt.Errorf("flagd did not serve flag %q before the startup budget expired", key)
+		case <-ticker.C:
 		}
-		time.Sleep(servedPollInterval)
 	}
 }
 
 // flagIsServed reports whether flagd holds the given flag in its store. flagd
 // answers FLAG_NOT_FOUND both while the store is still empty and for a key it
-// genuinely does not hold; every other answer means the flag is being served.
-func flagIsServed(client *http.Client, key string) bool {
-	resp, err := client.Post(ofrepEvaluateURL+url.PathEscape(key), "application/json", strings.NewReader("{}"))
+// genuinely does not hold. A 5xx is not an evaluation at all - flagd is telling
+// us it could not answer - so it says nothing about the store and is worth
+// another poll. Every other answer means flagd resolved the key against a
+// populated store, including a 4xx for a flag whose targeting cannot be
+// satisfied from the empty context we send.
+func flagIsServed(ctx context.Context, client *http.Client, key string) bool {
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, ofrepEvaluateURL+url.PathEscape(key), strings.NewReader("{}"))
+	if err != nil {
+		return false
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return false
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode >= http.StatusInternalServerError {
+		return false
+	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
