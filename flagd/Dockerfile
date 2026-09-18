@@ -27,7 +27,7 @@ RUN openssl genpkey -algorithm RSA -out server-key.pem -pkeyopt rsa_keygen_bits:
 RUN openssl req -new -key server-key.pem -out server.csr -subj "/CN=localhost" \
    && openssl x509 -req -in server.csr -CA custom-root-cert.crt -CAkey custom-ca.key -CAcreateserial -out server-cert.pem -days 365 -sha256
 
-FROM busybox:1.37 AS testbed
+FROM busybox:1.38@sha256:dc2d74b28e4cf8984fa52af1f39bc7c3d9c73760b41a74d629f5d11b1ab28616 AS testbed
 
 COPY --from=flagd /flagd-build /flagd
 COPY --from=builder /app/launchpad /launchpad
