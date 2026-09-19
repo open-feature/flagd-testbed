@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.10.2](https://github.com/open-feature/flagd-testbed/compare/v3.10.1...v3.10.2) (2026-09-19)
+
+
+### 🧹 Chore
+
+* **deps:** update actions/checkout action to v4.4.0 ([#404](https://github.com/open-feature/flagd-testbed/issues/404)) ([5022ee2](https://github.com/open-feature/flagd-testbed/commit/5022ee277b3822abaef395885ec297f3edd99f84))
+* **deps:** update actions/checkout action to v5.1.0 ([#406](https://github.com/open-feature/flagd-testbed/issues/406)) ([0647f85](https://github.com/open-feature/flagd-testbed/commit/0647f857e20d831a597dcd5d9be9ce3b00679ec1))
+* **deps:** update actions/setup-node action to v4.4.0 ([#407](https://github.com/open-feature/flagd-testbed/issues/407)) ([8d2ebe1](https://github.com/open-feature/flagd-testbed/commit/8d2ebe1304f94a8bd2cc4a0eb5313591f0ab867b))
+* **deps:** update amannn/action-semantic-pull-request action to v5.5.3 ([#408](https://github.com/open-feature/flagd-testbed/issues/408)) ([05e34e7](https://github.com/open-feature/flagd-testbed/commit/05e34e74f14d95016ac7224a59bcb74c2530a0dc))
+* **deps:** update busybox docker tag to v1.38 ([#409](https://github.com/open-feature/flagd-testbed/issues/409)) ([b2e594a](https://github.com/open-feature/flagd-testbed/commit/b2e594ac9fb186637b636dfba357422f7ae769c5))
+* **deps:** update docker/build-push-action action to v6.19.2 ([#411](https://github.com/open-feature/flagd-testbed/issues/411)) ([4760ec3](https://github.com/open-feature/flagd-testbed/commit/4760ec35013596ef669223e35a898cfb0aa8084c))
+* **deps:** update docker/login-action action to v3.7.0 ([#412](https://github.com/open-feature/flagd-testbed/issues/412)) ([22bbec1](https://github.com/open-feature/flagd-testbed/commit/22bbec180f74ddba8abe80574f3667442ef9538d))
+* **deps:** update docker/setup-buildx-action action to v3.12.0 ([#413](https://github.com/open-feature/flagd-testbed/issues/413)) ([1400b1f](https://github.com/open-feature/flagd-testbed/commit/1400b1f0c133d49140c3f144e0f509d23d3460ae))
+* **deps:** update docker/setup-qemu-action action to v3.7.0 ([#414](https://github.com/open-feature/flagd-testbed/issues/414)) ([b4fbfcc](https://github.com/open-feature/flagd-testbed/commit/b4fbfccbf44ec18c967cae8cc25cf92d0689c9b1))
+* **deps:** update envoyproxy/envoy docker tag to v1.39 ([#415](https://github.com/open-feature/flagd-testbed/issues/415)) ([4b4f858](https://github.com/open-feature/flagd-testbed/commit/4b4f85814bc3e0f164decb892aab69fea0f62bce))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.16.3 ([#403](https://github.com/open-feature/flagd-testbed/issues/403)) ([2146012](https://github.com/open-feature/flagd-testbed/commit/2146012ec3c662dba2f8ad0ca2b7cb37b3edbe84))
+* **deps:** update golang docker tag to v1.25 ([#416](https://github.com/open-feature/flagd-testbed/issues/416)) ([b0beeda](https://github.com/open-feature/flagd-testbed/commit/b0beeda499c032d5933c8d1cbf159036103388c7))
+* **deps:** update marocchino/sticky-pull-request-comment action to v2.9.4 ([#418](https://github.com/open-feature/flagd-testbed/issues/418)) ([bfc6d7b](https://github.com/open-feature/flagd-testbed/commit/bfc6d7b32240f703da0c002834f8726920054e8f))
+
 ## [3.10.1](https://github.com/open-feature/flagd-testbed/compare/v3.10.0...v3.10.1) (2026-08-19)
 
 
