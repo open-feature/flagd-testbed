@@ -1,4 +1,4 @@
-ARG FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.16.3@sha256:a11ae82ec6e40e89edae4327392a1e4ffc03e211f1b724879bb35b2e4f271bb3
+ARG FLAGD_BASE_IMAGE=ghcr.io/open-feature/flagd:v0.17.0@sha256:c9f21380dfe51d3ad662a116bc350c7692dead7a8d1e640aa0f6b40cd3d966df
 ARG TARGETARCH
 
 FROM ${FLAGD_BASE_IMAGE} AS flagd
