@@ -6,8 +6,6 @@ import (
 	"testing"
 )
 
-// writeConfig writes a flagd configuration to a temporary file and returns its
-// path.
 func writeConfig(t *testing.T, body string) string {
 	t.Helper()
 
@@ -68,10 +66,6 @@ func TestFileSourcesRejectsUnreadableAndInvalidConfigs(t *testing.T) {
 	}
 }
 
-// TestServesCombinedFlags covers the distinction the restore path depends on:
-// changing-flag only reaches flagd through the merged flag file, so a
-// configuration that does not read it can never serve the flag and must not be
-// waited on.
 func TestServesCombinedFlags(t *testing.T) {
 	tests := []struct {
 		name string

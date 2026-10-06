@@ -16,19 +16,12 @@ import (
 )
 
 const (
-	// variantBudget bounds how long a restore waits for flagd to serve the
-	// restored variant.
-	variantBudget = 10 * time.Second
-
+	variantBudget      = 10 * time.Second
 	servedPollInterval = 10 * time.Millisecond
+	probeTimeout       = 500 * time.Millisecond
 
-	// probeTimeout bounds a single probe request. variantBudget bounds the
-	// sequence of them.
-	probeTimeout = 500 * time.Millisecond
-
-	// flagd serves OFREP over plain HTTP on 8016 for every configuration we
-	// ship, including the one that configures server certificates (those apply
-	// to the flag evaluation port only), so one URL works for all of them.
+	readyzURL = "http://localhost:8014/readyz"
+	// OFREP is plain HTTP in every config, including the TLS one.
 	ofrepEvaluateURL = "http://localhost:8016/ofrep/v1/evaluate/flags/"
 )
 
@@ -97,13 +90,10 @@ func StartFlagd(config string) error {
 		config = Config
 	}
 
-	// The running process is only reusable if it is the one that would be
-	// started anyway: same configuration, still alive, and not inside a delayed
-	// restart's downtime window. A pending restart implies flagd is already
-	// stopped, so the process check covers it, but saying so is cheaper than
-	// relying on that.
+	// Reuse the running flagd if it has the requested config and still answers;
+	// Process stays non-nil after a crash, hence the readiness probe.
 	reuse := flagdCmd != nil && flagdCmd.Process != nil &&
-		restartCancelFunc == nil && config == Config
+		restartCancelFunc == nil && config == Config && isReady()
 
 	Config = config
 
@@ -117,6 +107,8 @@ func StartFlagd(config string) error {
 	configPath := flagdConfigPath(config)
 
 	if reuse {
+		// The restore runs unlocked; a concurrent /stop or /restart is not
+		// guarded against, harnesses call these sequentially.
 		flagdLock.Unlock()
 		return resumeRunningFlagd()
 	}
@@ -150,7 +142,7 @@ func StartFlagd(config string) error {
 			_ = StopFlagd()
 			return fmt.Errorf("flagd health check timed out")
 		case <-ticker.C:
-			resp, err := client.Get("http://localhost:8014/readyz")
+			resp, err := client.Get(readyzURL)
 			if err == nil {
 				resp.Body.Close()
 				if resp.StatusCode == http.StatusOK {
@@ -166,15 +158,7 @@ func flagdConfigPath(config string) string {
 	return fmt.Sprintf("./configs/%s.json", config)
 }
 
-// resumeRunningFlagd restores the baseline flag state in the flagd that is
-// already running, instead of restarting it.
-//
-// Restarting is how /start achieves isolation today, and for a client that has
-// no /reset to call it is the only way to get it - which means a full flagd
-// restart before every scenario, for a configuration that has not changed. The
-// process is not what carries the scenario's leftovers; the flag definitions
-// are. Putting those back is enough, and it is what the existing file watcher
-// is already there to deliver.
+// resumeRunningFlagd restores the baseline flag state instead of restarting flagd.
 func resumeRunningFlagd() error {
 	restored, err := RestoreChangingFlag()
 	if err != nil {
@@ -182,27 +166,16 @@ func resumeRunningFlagd() error {
 	}
 
 	if !restored {
-		// Nothing has mutated a flag definition since the last restore, so the
-		// running flagd is already serving the baseline. Most scenarios never
-		// call /change, which makes this the common case and a free one.
 		fmt.Println("flagd reused; baseline flag state already in force.")
 		return nil
 	}
 
-	// RestoreChangingFlag does not return until flagd serves the restored
-	// variant, so there is nothing left to wait for here.
 	fmt.Println("flagd reused; baseline flag state restored.")
 	return nil
 }
 
-// awaitVariantInFlagd waits until the running flagd resolves changing-flag to
-// the given variant.
-//
-// There is nothing to wait for when flagd is not running, or when the running
-// configuration does not read the merged flag file - that file is the only
-// source changing-flag reaches flagd through, so a configuration without it can
-// never serve the flag and polling for it would burn the whole budget before
-// failing.
+// awaitVariantInFlagd waits until flagd serves changing-flag as variant. Configs
+// that do not read the merged flag file can never serve it, so they are skipped.
 func awaitVariantInFlagd(variant string) error {
 	if !flagdIsRunning() {
 		return nil
@@ -224,7 +197,15 @@ func flagdIsRunning() bool {
 	return flagdCmd != nil && flagdCmd.Process != nil
 }
 
-// awaitVariantServed waits until flagd resolves key to the given variant.
+func isReady() bool {
+	resp, err := (&http.Client{Timeout: probeTimeout}).Get(readyzURL)
+	if err != nil {
+		return false
+	}
+	resp.Body.Close()
+	return resp.StatusCode == http.StatusOK
+}
+
 func awaitVariantServed(ctx context.Context, client *http.Client, key, variant string) error {
 	ticker := time.NewTicker(servedPollInterval)
 	defer ticker.Stop()
@@ -241,8 +222,6 @@ func awaitVariantServed(ctx context.Context, client *http.Client, key, variant s
 	}
 }
 
-// servedVariant reports the variant flagd currently resolves key to, and an
-// empty string for any answer that is not a successful evaluation.
 func servedVariant(ctx context.Context, client *http.Client, key string) string {
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, ofrepEvaluateURL+url.PathEscape(key), strings.NewReader("{}"))
 	if err != nil {
@@ -269,8 +248,6 @@ func servedVariant(ctx context.Context, client *http.Client, key string) string 
 	return evaluation.Variant
 }
 
-// servesCombinedFlags reports whether the configuration reads the merged flag
-// file that changing-flag reaches flagd through.
 func servesCombinedFlags(configPath string) bool {
 	sources, err := fileSources(configPath)
 	if err != nil {
@@ -286,8 +263,6 @@ func servesCombinedFlags(configPath string) bool {
 	return false
 }
 
-// fileSources returns the URIs of every file source the given flagd
-// configuration reads.
 func fileSources(configPath string) ([]string, error) {
 	content, err := os.ReadFile(configPath)
 	if err != nil {

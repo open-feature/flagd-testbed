@@ -22,17 +22,11 @@ type FlagConfig struct {
 }
 
 const (
-	// ChangingFlagFile is the only flag definition the launchpad ever writes to,
-	// and changing-flag is the only flag in it. Keeping that true is what lets
-	// the baseline be restored without a pristine copy of the definitions - see
-	// RestoreChangingFlag.
-	ChangingFlagFile = "rawflags/changing-flag.json"
-	// ChangingFlagKey is the flag /change toggles.
-	ChangingFlagKey = "changing-flag"
-	// BaselineChangingVariant is the defaultVariant changing-flag ships with.
+	// ChangingFlagFile is the only definition /change writes; RestoreChangingFlag relies on that.
+	ChangingFlagFile        = "rawflags/changing-flag.json"
+	ChangingFlagKey         = "changing-flag"
 	BaselineChangingVariant = "foo"
-	// toggledChangingVariant is the other half of the toggle.
-	toggledChangingVariant = "bar"
+	toggledChangingVariant  = "bar"
 )
 
 var (
@@ -42,8 +36,6 @@ var (
 	changeFlagUpdateListeners []*sync.WaitGroup
 )
 
-// ToggleChangingFlag flips changing-flag to its other variant and reports the
-// one now in force.
 func ToggleChangingFlag() (string, error) {
 	changeLock.Lock()
 	defer changeLock.Unlock()
@@ -61,24 +53,10 @@ func ToggleChangingFlag() (string, error) {
 	return next, writeChangingVariant(next)
 }
 
-// RestoreChangingFlag puts changing-flag back to the variant it ships with and
-// reports whether it had to write anything.
-//
-// /change is the only endpoint that mutates a flag definition, and it mutates
-// exactly one flag with exactly two states, so the shipped baseline is
-// recoverable by flipping the toggle back rather than by restoring from a
-// pristine copy of the definitions - which the image does not carry, because
-// /change overwrites its own source in the container's writable layer.
-//
-// The current variant is read rather than remembered on purpose. A launchpad
-// that restarts inside a container whose writable layer already holds "bar"
-// would believe a remembered flag, and go on serving "bar" while reporting a
-// restored baseline. Reading it is also what makes the common case free: most
-// scenarios never call /change, so most restores write nothing at all.
-//
-// Reading it is only sound because every write waits for flagd to serve what it
-// wrote - see writeChangingVariant. Without that, a file already reading "foo"
-// could not be told apart from a flagd that has not caught up with it yet.
+// RestoreChangingFlag flips changing-flag back to its shipped variant and reports
+// whether it had to. The file is read, not remembered, so a restarted launchpad
+// in a dirty container still restores; this is sound because writes wait for
+// flagd to serve them.
 func RestoreChangingFlag() (bool, error) {
 	changeLock.Lock()
 	defer changeLock.Unlock()
@@ -94,8 +72,6 @@ func RestoreChangingFlag() (bool, error) {
 	return true, writeChangingVariant(BaselineChangingVariant)
 }
 
-// readChangingVariant reports the defaultVariant currently written to
-// changing-flag's definition.
 func readChangingVariant() (string, error) {
 	data, err := os.ReadFile(ChangingFlagFile)
 	if err != nil {
@@ -114,18 +90,8 @@ func readChangingVariant() (string, error) {
 	return flag.DefaultVariant, nil
 }
 
-// writeChangingVariant sets changing-flag's defaultVariant and does not return
-// until flagd serves it.
-//
-// Two watchers stand between the write and the served value: ours, which
-// regenerates the merged flag file, and flagd's, which re-reads it. Waiting on
-// ours alone used to be the whole of this function, and it is not enough -
-// measured against v0.16.0, flagd serves the new variant around 500ms after
-// /change has reported success.
-//
-// Waiting for both is what lets the current file content be read as the state
-// flagd is in, which is the invariant RestoreChangingFlag depends on: if the
-// file says "foo", flagd is serving "foo", so there is nothing to restore.
+// writeChangingVariant returns once flagd serves the new variant, not just once
+// our watcher has regenerated the merged file.
 func writeChangingVariant(variant string) error {
 	// Read the existing file
 	data, err := os.ReadFile(ChangingFlagFile)
@@ -217,7 +183,7 @@ func RestartFileWatcher() error {
 					fmt.Printf("%v config changed, regenerating JSON...\n", event.Name)
 					if err := CombineJSONFiles(InputDir); err != nil {
 						fmt.Printf("Error combining JSON files: %v\n", err)
-						return
+						continue
 					}
 					if strings.HasSuffix(event.Name, "changing-flag.json") {
 						for _, v := range changeFlagUpdateListeners {
