@@ -3,6 +3,6 @@
     "gherkin-lint": "gherkin-lint --rulesdir '/features'"
   },
   "devDependencies": {
-    "gherkin-refine": "^1.3.0"
+    "gherkin-refine": "^1.3.2"
   }
 }
