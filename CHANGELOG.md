@@ -2,6 +2,9 @@
 
 ## [3.10.4](https://github.com/open-feature/flagd-testbed/compare/v3.10.3...v3.10.4) (2026-10-15)
 
+> [!WARNING]
+> The flagd image now implements fractional v3; RPC suites must exclude `@fractional-v2` instead of `@fractional-v3`.
+
 
 ### 🧹 Chore
 
