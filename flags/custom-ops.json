@@ -333,6 +333,133 @@
         ]
       }
     },
+    "fractional-null-bucket-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "a": "a",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          [
+            null,
+            50
+          ],
+          [
+            "a",
+            50
+          ]
+        ]
+      }
+    },
+    "fractional-null-bucket-condition-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "then": "then",
+        "else": "else",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "if": [
+          {
+            "fractional": [
+              [
+                null,
+                50
+              ],
+              [
+                true,
+                50
+              ]
+            ]
+          },
+          "then",
+          "else"
+        ]
+      }
+    },
+    "fractional-bool-bucket-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "true": "on",
+        "false": "off",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          [
+            true,
+            50
+          ],
+          [
+            false,
+            50
+          ]
+        ]
+      }
+    },
+    "fractional-cat-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "big": "big",
+        "dig": "dig",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "cat": [
+          {
+            "fractional": [
+              [
+                "b",
+                50
+              ],
+              [
+                "d",
+                50
+              ]
+            ]
+          },
+          "ig"
+        ]
+      }
+    },
+    "fractional-of-fractional-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "red": "red",
+        "blue": "blue",
+        "fallback": "fallback"
+      },
+      "defaultVariant": "fallback",
+      "targeting": {
+        "fractional": [
+          {
+            "fractional": [
+              [
+                "one",
+                50
+              ],
+              [
+                "two",
+                50
+              ]
+            ]
+          },
+          [
+            "red",
+            10
+          ],
+          [
+            "blue",
+            90
+          ]
+        ]
+      }
+    },
     "starts-ends-flag": {
       "state": "ENABLED",
       "variants": {
