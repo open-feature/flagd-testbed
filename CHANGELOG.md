@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.5](https://github.com/open-feature/flagd-testbed/compare/v3.10.4...v3.10.5) (2026-10-17)
+
+
+### 🧹 Chore
+
+* **deps:** update envoyproxy/envoy docker tag to v1.40 ([#438](https://github.com/open-feature/flagd-testbed/issues/438)) ([b578ee3](https://github.com/open-feature/flagd-testbed/commit/b578ee37508a62c02bf85f9dd39e22e656658cb0))
+
 ## [3.10.4](https://github.com/open-feature/flagd-testbed/compare/v3.10.3...v3.10.4) (2026-10-15)
 
 > [!WARNING]
