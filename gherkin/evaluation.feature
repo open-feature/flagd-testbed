@@ -34,6 +34,35 @@ Feature: flagd evaluations
       | integer-zero-flag | Integer | 1       | 0              |
       | float-zero-flag   | Float   | 0.1     | 0.0            |
 
+  @precision
+  Scenario Outline: Resolves numeric values without loss of precision
+    # 2147483647 is 2^31 - 1. It is outside the range a 32-bit float represents exactly, so a
+    # provider or transport that routes integers through a float and back returns 2147483648.
+    # 10.0 is the mirror case: a float whose value happens to be integral, which must stay a
+    # float rather than arriving as the integer 10.
+    Given a <type>-flag with key "<key>" and a default value "<default>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<resolved_value>"
+    And the variant should be "<variant>"
+    And the reason should be "STATIC"
+
+    Examples:
+      | key                 | type    | default | resolved_value | variant   |
+      | large-integer-flag  | Integer | 1       | 2147483647     | max-int32 |
+      | integral-float-flag | Float   | 0.1     | 10.0           | ten       |
+
+  @precision @large-integers
+  Scenario: Resolves an integer beyond 32 bits without loss of precision
+    # 9007199254740991 is 2^53 - 1, the largest integer a double represents exactly. Separate
+    # from the scenario above, and separately tagged, because a language whose integer type is
+    # 32 bits cannot ask for it at all -- excluding @large-integers is the honest answer there,
+    # not failing it.
+    Given a Integer-flag with key "huge-integer-flag" and a default value "1"
+    When the flag was evaluated with details
+    Then the resolved details value should be "9007199254740991"
+    And the variant should be "max-safe"
+    And the reason should be "STATIC"
+
   @targeting
   Scenario Outline: Resolves zero value with targeting
     Given a <type>-flag with key "<key>" and a default value "<default>"
