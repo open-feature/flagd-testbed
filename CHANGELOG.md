@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.11.0](https://github.com/open-feature/flagd-testbed/compare/v3.10.4...v3.11.0) (2026-10-22)
+
+
+### ✨ New Features
+
+* add additional fractional composition tests ([#436](https://github.com/open-feature/flagd-testbed/issues/436)) ([805ba2b](https://github.com/open-feature/flagd-testbed/commit/805ba2b70f82fa967d7f9178a3a25e1a17640867))
+* flags and scenarios for numeric precision ([#392](https://github.com/open-feature/flagd-testbed/issues/392)) ([3d0c18a](https://github.com/open-feature/flagd-testbed/commit/3d0c18a867e43c3a6a5d17de7269df2de300d250))
+
+
+### 🧹 Chore
+
+* **deps:** update envoyproxy/envoy docker tag to v1.40 ([#438](https://github.com/open-feature/flagd-testbed/issues/438)) ([b578ee3](https://github.com/open-feature/flagd-testbed/commit/b578ee37508a62c02bf85f9dd39e22e656658cb0))
+
 ## [3.10.4](https://github.com/open-feature/flagd-testbed/compare/v3.10.3...v3.10.4) (2026-10-15)
 
 > [!WARNING]
