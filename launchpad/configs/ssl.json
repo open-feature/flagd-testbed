@@ -13,5 +13,6 @@
   ],
   "context-value": {
     "injectedmetadata": "set"
-  }
+  },
+  "strict-numeric-range": true
 }
