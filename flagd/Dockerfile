@@ -18,7 +18,7 @@ COPY launchpad/ ./
 RUN GOARCH=${TARGETARCH:-$(go env GOARCH)} go build -o launchpad main.go
 
 
-FROM alpine/openssl AS certs
+FROM alpine/openssl@sha256:1c361a204e9791bec6202bccbd1065eafaa65cb5a1a9a06ae000238569fba6a2 AS certs
 
 # Copy the server and CA certificates
 COPY ssl/* ./
