@@ -12,5 +12,6 @@
   "context-value": {
     "injectedmetadata": "set"
   },
-  "disable-sync-metadata" : true
+  "disable-sync-metadata": true,
+  "strict-numeric-range": true
 }
