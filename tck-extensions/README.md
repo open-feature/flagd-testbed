@@ -13,5 +13,9 @@ keys:`), plus flagd-specific steps an adopter supplies as extension glue: provid
 (`an option "<name>" of type "<type>" with value "<value>"`) and connection control. Feature tags
 name the resolvers a scenario applies to (`@rpc`, `@in-process`, `@file`), as in `gherkin/`.
 
+Java, JavaScript, Python and .NET read this directory through the `test-harness` submodule. Go
+depends on it as a module, `github.com/open-feature/flagd-testbed/tck-extensions`, whose `FS`
+embeds the feature files, because a Go module zip carries a submodule without its files.
+
 `gherkin/` stays as it is for SDKs that still run it directly. A scenario added there should be
 added here too, or listed as not ported in the matching file's header.
