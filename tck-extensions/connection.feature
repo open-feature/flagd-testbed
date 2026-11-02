@@ -13,13 +13,13 @@ Feature: TCK extension: flagd provider disconnect and reconnect
   # here is a set of steps rather than a value. Reconnect timing is the testbed's "stable flagd
   # provider", as in events.feature.
   #
-  # @targetURI and @forbidden connect through the envoy sidecar in the testbed's
-  # test-harness/docker-compose.yaml.
+  # @targetURI and @forbidden connect through the envoy sidecar in the testbed's docker-compose.yaml.
+  # certPath is relative to the testbed root; an adopter resolves it against its own checkout.
 
   @rpc @in-process @file @customCert
   Scenario: Connection with a custom certificate
     Given an option "tls" of type "Boolean" with value "true"
-    And an option "certPath" of type "String" with value "test-harness/ssl/custom-root-cert.crt"
+    And an option "certPath" of type "String" with value "ssl/custom-root-cert.crt"
     And a stable provider with "ssl" configuration
     And a Boolean-flag with key "boolean-flag" and a default value "false"
     When the flag was evaluated with details
@@ -41,7 +41,7 @@ Feature: TCK extension: flagd provider disconnect and reconnect
   @rpc @in-process @file @reconnect @customCert
   Scenario: Provider reconnection with a custom certificate
     Given an option "tls" of type "Boolean" with value "true"
-    And an option "certPath" of type "String" with value "test-harness/ssl/custom-root-cert.crt"
+    And an option "certPath" of type "String" with value "ssl/custom-root-cert.crt"
     And an option "retryGracePeriod" of type "Integer" with value "5"
     And an option "retryBackoffMaxMs" of type "Integer" with value "500"
     And a stable provider with "ssl" configuration

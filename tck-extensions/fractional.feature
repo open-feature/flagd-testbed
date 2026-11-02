@@ -5,8 +5,8 @@ Feature: TCK extension: Fractional targeting
   # fractional @operator-errors ones. The TCK's own @targeting scenarios do not cover the
   # fractional operator.
   #
-  # @fractional-vN tags select the bucketing version. The suites run v3, which the Java in-process
-  # evaluator and the testbed's flagd implement, and exclude @fractional-v2 with @TckExcludeTags.
+  # @fractional-vN tags select the bucketing version. The testbed's flagd implements v3, so an
+  # adopter whose evaluator does too excludes @fractional-v2.
   # Untagged scenarios must hold for every version.
   # The @fractional-v1 blocks are left out: no backend here implements v1 bucketing.
   #

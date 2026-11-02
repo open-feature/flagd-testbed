@@ -25,12 +25,24 @@ Feature: TCK extension: Flag evaluation with caching
     And the reason should be "CACHED"
 
     Examples:
-      | key          | type    | default | resolved_variant | resolved_value                                                                |
-      | boolean-flag | Boolean | false   | on               | true                                                                          |
-      | string-flag  | String  | bye     | greeting         | hi                                                                            |
-      | integer-flag | Integer | 1       | ten              | 10                                                                            |
-      | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
-      | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100.0 } |
+      | key          | type    | default | resolved_variant | resolved_value |
+      | boolean-flag | Boolean | false   | on               | true           |
+      | string-flag  | String  | bye     | greeting         | hi             |
+      | integer-flag | Integer | 1       | ten              | 10             |
+      | float-flag   | Float   | 0.1     | half             | 0.5            |
+
+  Scenario: Resolves Object details with caching
+    Given a Object-flag with key "object-flag" and a default value "{}"
+    When the flag was evaluated with details
+    Then the resolved object value should contain
+      | key           | type    | value                 |
+      | showImages    | Boolean | true                  |
+      | title         | String  | Check out these pics! |
+      | imagesPerPage | Integer | 100                   |
+    And the variant should be "template"
+    And the reason should be "STATIC"
+    When the flag was evaluated with details
+    Then the reason should be "CACHED"
 
   Scenario: Flag change event with caching
     Given a String-flag with key "changing-flag" and a default value "false"
