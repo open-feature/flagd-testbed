@@ -10,6 +10,9 @@ Feature: TCK extension: Fractional targeting
   # Untagged scenarios must hold for every version.
   # The @fractional-v1 blocks are left out: no backend here implements v1 bucketing.
   #
+  # The \u sequences in the UTF-8 outline are literal text, as Gherkin parses a table cell:
+  # the expected buckets hash the backslash and the hex digits, not the character they name.
+  #
   # Where the testbed's context values are Objects or integers outside 32 bits, the TCK's context
   # step cannot convert them, so those outlines use the table step with the testbed's conversion.
 
