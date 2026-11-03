@@ -14,9 +14,9 @@ Feature: TCK extension: flagd provider state changes
   # assertion waits for a newer event of its own kind while an event of another kind stays visible
   # to whatever asks about it later.
   #
-  # Timing is the testbed's "stable flagd provider" except for the deadline, which stays at the
-  # adoption's 15000ms for the in-process sync (see AbstractResolverTest): a 5s grace period, and a
-  # retry backoff capped at 500ms so reconnecting does not wait out an exponential backoff.
+  # Timing is the testbed's "stable flagd provider" apart from the deadline, which the adoption
+  # chooses: a 5s grace period, and a retry backoff capped at 500ms so reconnecting does not wait
+  # out an exponential backoff.
 
   Background:
     Given an option "retryGracePeriod" of type "Integer" with value "5"

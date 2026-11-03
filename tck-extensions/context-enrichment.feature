@@ -5,11 +5,10 @@ Feature: TCK extension: Context Enrichment
   # flagd provider" moves into each scenario as the TCK's "a stable provider", because the @grace
   # scenarios record options that have to come before it.
   #
-  # The @grace scenarios restore the testbed provider's retry timing (grace period 5s, backoff
-  # 500ms capped at 500ms) over the adoption's (grace 2s, backoff capped at the 5000ms default), so
-  # the provider is back within the event timeout once the connection is restored. The RPC one also
-  # restores the testbed's 1000ms deadline: at the adoption's 15000ms an evaluation issued while
-  # flagd is down could outlast the outage and succeed, which is not what it asks.
+  # The @grace scenarios set the testbed's retry timing (grace period 5s, backoff 500ms capped at
+  # 500ms) whatever the adoption's defaults, so the provider is back within the event timeout once
+  # the connection is restored. The RPC one also sets a 1000ms deadline, so an evaluation issued
+  # while flagd is down fails rather than outlasting the outage.
   #
   # The testbed's @caching is renamed @flagd-caching: the TCK reserves @caching and refuses a
   # scenario that carries it.

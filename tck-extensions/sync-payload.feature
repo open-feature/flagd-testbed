@@ -5,9 +5,9 @@ Feature: TCK extension: Disabled Sync Metadata
   # provider" becomes "a stable provider with "sync-payload" configuration", moved from the
   # Background into each scenario so the @grace one can record options first.
   #
-  # The @grace scenario restores the testbed provider's retry timing (grace period 5s, backoff
-  # 500ms capped at 500ms) over the adoption's (grace 2s, backoff capped at the 5000ms default), so
-  # the provider is back within the event timeout once the connection is restored.
+  # The @grace scenario sets the testbed's retry timing (grace period 5s, backoff 500ms capped at
+  # 500ms) whatever the adoption's defaults, so the provider is back within the event timeout once
+  # the connection is restored.
 
   Scenario: Use enriched context
     Given a stable provider with "sync-payload" configuration
