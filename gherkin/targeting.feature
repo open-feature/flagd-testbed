@@ -475,6 +475,13 @@ Feature: Targeting rules
     Then the resolved details value should be "fallback"
     And the reason should be "DEFAULT"
 
+  @operator-errors
+  Scenario: fractional shorthand with missing targeting key falls back to default variant
+    Given a String-flag with key "fractional-flag-shorthand" and a default value "wrong"
+    When the flag was evaluated with details
+    Then the resolved details value should be "draw"
+    And the reason should be "DEFAULT"
+
   # Follow-up error scenarios from https://github.com/open-feature/flagd/issues/1874
   # Operators must return null (not false) on error so the default variant is selected.
 
