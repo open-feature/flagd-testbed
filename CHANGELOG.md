@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.12.0](https://github.com/open-feature/flagd-testbed/compare/v3.11.0...v3.12.0) (2026-11-06)
+
+
+### ✨ New Features
+
+* fractional shorthand with missing targeting key ([#446](https://github.com/open-feature/flagd-testbed/issues/446)) ([f371b63](https://github.com/open-feature/flagd-testbed/commit/f371b63b79e73528c7c9065f5b6f337b0022ec65))
+
+
+### 🧹 Chore
+
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.18.2 ([#443](https://github.com/open-feature/flagd-testbed/issues/443)) ([6fe469d](https://github.com/open-feature/flagd-testbed/commit/6fe469d983b46dff17364a4ec691fa5af2631e5f))
+
 ## [3.11.0](https://github.com/open-feature/flagd-testbed/compare/v3.10.4...v3.11.0) (2026-10-28)
 
 
