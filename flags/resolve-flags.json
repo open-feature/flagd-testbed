@@ -1,0 +1,506 @@
+{
+  "flags": {
+    "resolve-whole-rule-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on"
+        ]
+      }
+    },
+    "resolve-custom-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "ALLOWLIST"
+        ]
+      }
+    },
+    "resolve-null-reason-metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            [
+              "details",
+              "pilot cohort"
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-metadata-precedence-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "ALLOWLIST",
+          [
+            [
+              "details",
+              "rule"
+            ]
+          ]
+        ]
+      },
+      "metadata": {
+        "details": "flag",
+        "owner": "flag"
+      }
+    },
+    "resolve-nested-branches-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          {
+            "==": [
+              {
+                "var": "customerId"
+              },
+              "customer-a"
+            ]
+          },
+          {
+            "resolve": [
+              "on",
+              "ALLOWLIST",
+              [
+                [
+                  "details",
+                  "customer-a allowlist"
+                ]
+              ]
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "customerId"
+              },
+              "customer-b"
+            ]
+          },
+          {
+            "resolve": [
+              "on",
+              "SPLIT",
+              [
+                [
+                  "details",
+                  "customer-b split"
+                ]
+              ]
+            ]
+          },
+          {
+            "resolve": [
+              "off",
+              "FALLTHROUGH",
+              [
+                [
+                  "details",
+                  "everyone else"
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "resolve-ternary-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "?:": [
+          {
+            "==": [
+              {
+                "var": "customerId"
+              },
+              "customer-a"
+            ]
+          },
+          {
+            "resolve": [
+              "on",
+              "ALLOWLIST"
+            ]
+          },
+          {
+            "resolve": [
+              "off",
+              "FALLTHROUGH"
+            ]
+          }
+        ]
+      }
+    },
+    "resolve-computed-arguments-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          {
+            "if": [
+              {
+                "==": [
+                  {
+                    "var": "cohort"
+                  },
+                  "beta"
+                ]
+              },
+              "on",
+              "off"
+            ]
+          },
+          {
+            "cat": [
+              "COHORT_",
+              {
+                "var": "cohort"
+              }
+            ]
+          },
+          [
+            [
+              "details",
+              {
+                "cat": [
+                  "cohort ",
+                  {
+                    "var": "cohort"
+                  }
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-ref-terminal-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "$ref": "resolve-allowlist"
+      }
+    },
+    "resolve-fallback-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "FALLBACK"
+        ]
+      }
+    },
+    "resolve-disabled-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "DISABLED"
+        ]
+      }
+    },
+    "resolve-error-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "ERROR"
+        ]
+      }
+    },
+    "resolve-computed-number-metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "SPLIT",
+          [
+            [
+              "share",
+              {
+                "/": [
+                  {
+                    "var": "hits"
+                  },
+                  {
+                    "var": "total"
+                  }
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-missing-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "missing"
+        ]
+      }
+    },
+    "resolve-computed-null-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          {
+            "var": "variant"
+          }
+        ]
+      }
+    },
+    "resolve-in-equality-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          {
+            "==": [
+              {
+                "resolve": [
+                  "on"
+                ]
+              },
+              "on"
+            ]
+          },
+          "on",
+          "off"
+        ]
+      }
+    },
+    "resolve-in-cat-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "cat": [
+          {
+            "resolve": [
+              "on"
+            ]
+          },
+          "x"
+        ]
+      }
+    },
+    "resolve-as-condition-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          {
+            "resolve": [
+              "on"
+            ]
+          },
+          "on",
+          "off"
+        ]
+      }
+    },
+    "resolve-ref-consumed-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "==": [
+          {
+            "$ref": "resolve-allowlist"
+          },
+          "on"
+        ]
+      }
+    },
+    "resolve-no-arguments-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": []
+      }
+    },
+    "resolve-non-string-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          true
+        ]
+      }
+    },
+    "resolve-empty-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          ""
+        ]
+      }
+    },
+    "resolve-non-string-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          1
+        ]
+      }
+    },
+    "resolve-short-pair-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            [
+              "details"
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-non-primitive-value-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            [
+              "details",
+              {
+                "a": 1,
+                "b": 2
+              }
+            ]
+          ]
+        ]
+      }
+    }
+  },
+  "$evaluators": {
+    "resolve-allowlist": {
+      "resolve": [
+        "on",
+        "ALLOWLIST"
+      ]
+    }
+  }
+}
