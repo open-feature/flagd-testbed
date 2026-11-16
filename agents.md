@@ -10,7 +10,7 @@ This file provides guidance for AI agents (such as GitHub Copilot) working in th
 
 It ships:
 - A Docker image (`flagd-testbed`) bundling [flagd](https://flagd.dev/) and a control server called **Launchpad**.
-- [Gherkin](https://cucumber.io/docs/gherkin/) feature files (in `gherkin/`) that define the expected behaviour of flagd providers.
+- [Gherkin](https://cucumber.io/docs/gherkin/) feature files (in `tck-extensions/`) that define the expected behaviour of flagd providers, as Provider TCK extensions. The legacy `gherkin/` suite lives on the `release/v3` branch only.
 - Flag definition JSON files (in `flags/`) that back the test scenarios.
 
 SDK teams include this repo as a **git submodule**, spin up the Docker image via [Testcontainers](https://testcontainers.com/) or Docker Compose, then run the Gherkin scenarios against their provider implementation.
@@ -23,7 +23,8 @@ SDK teams include this repo as a **git submodule**, spin up the Docker image via
 
 | Path | Description |
 |------|-------------|
-| `gherkin/` | Cucumber/Gherkin `.feature` files — the primary test contracts |
+| `tck-extensions/` | Provider TCK extension `.feature` files — the primary test contracts; also a Go module |
+| `evaluator/` | Evaluator testkit features and flags for flagd's in-process evaluators |
 | `flags/` | flagd flag definition JSON files backing the scenarios |
 | `flagd/` | Dockerfile and build assets for the `flagd-testbed` Docker image |
 | `launchpad/` | Go HTTP server that controls flagd lifecycle during tests (start/stop/restart/change) |
@@ -37,7 +38,7 @@ This repo uses [Conventional Commits](https://www.conventionalcommits.org/) enfo
 
 ### ⚠️ Important: Gherkin and Flag Changes Are `feat:`
 
-Changes to `gherkin/` feature files and `flags/` JSON files **must** use the `feat:` prefix (not `test:` or `chore:`).
+Changes to `tck-extensions/` feature files and `flags/` JSON files **must** use the `feat:` prefix (not `test:` or `chore:`).
 
 **Why:** The Gherkin scenarios and flag definitions are **the product** of this repository. They define the test contract behaviour that every provider SDK must implement. Adding or changing a scenario or flag definition is adding or changing a feature of the contract — it has downstream impact on SDK teams and triggers a version bump.
 
@@ -209,7 +210,7 @@ This applies to fixup commits, merge-conflict resolutions, and co-authored commi
 When adding a new test scenario, **always provide both artefacts together**:
 
 1. **Flag definition** — add the flag key and its variants/targeting to the appropriate `flags/*.json` file (or create a new one if it belongs to a new category).
-2. **Gherkin scenario** — add the scenario to the appropriate `gherkin/*.feature` file (or create a new one).
+2. **Gherkin scenario** — add the scenario to the appropriate `tck-extensions/*.feature` file (or create a new one).
 
 A PR that adds only one of the two will be incomplete — the scenario will fail in all SDK test suites because either the flag or the step is missing.
 

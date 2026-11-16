@@ -1,6 +1,6 @@
 # Flagd Test Harness
 
-This repository contains a Docker image to support the [Gherkin test suites](https://github.com/open-feature/spec/blob/main/specification/appendix-b-gherkin-suites.md) defined in the OpenFeature specification.
+This repository contains a Docker image and flagd's [Provider TCK](https://github.com/open-feature/spec/issues/417) extension scenarios, which flagd providers run to check their behaviour.
 
 ## `flagd-testbed` Container
 
@@ -40,24 +40,16 @@ This file is generated when flagd is started and can be used to test all flags i
 
 ---
 
-## Gherkin Test Suite
+## TCK Extensions
 
-The [`gherkin`](./gherkin) directory contains [*Gherkin*](https://cucumber.io/docs/gherkin/) tests that validate behavior for the configurations defined in the flagd-testbed (see [Flag Files](#flag-files)).
-Combined with the appropriate SDK and provider, these tests form a complete integration suite.
+The [`tck-extensions`](./tck-extensions) directory holds flagd's scenarios as extensions for the
+[OpenFeature Provider TCK](https://github.com/open-feature/spec/issues/417): a flagd provider runs
+them alongside the TCK's own scenarios, against the image above. Its
+[README](./tck-extensions/README.md) covers the tags, the extension steps and how to consume it.
 
-### Tagging
-
-Tests are tagged to support selective execution, as not all providers or SDKs support all features. Tags can be applied at both the suite and individual test case level.
-
-Currently supported "provider-tags":
-
-* `@file`
-* `@rpc`
-* `@in-process`
-
-For example, to run a test in RPC mode, tag the suite or test case with `@rpc`.
-
-Tag-based filtering enables incremental migration and test execution, allowing individual features to be validated progressively rather than all at once.
+The legacy `gherkin/` suite was removed in 4.0. SDKs that still run it pin a 3.x release, which
+keeps being cut from the [`release/v3`](https://github.com/open-feature/flagd-testbed/tree/release/v3)
+branch.
 
 ---
 
@@ -67,7 +59,7 @@ This repository should be included as a submodule within your sdk which should b
 
 We recommend:
 - to setup renovate to automatically update your submodule, always pointing to version tags and not branches
-- to load all gherkin files, and eliminate tests via tag exclusions
+- to load all extension feature files, and eliminate tests via tag exclusions
 - to utilize testcontainers for easier test setup
 - to use the version.txt within this repository to load the appropriate docker image
 
