@@ -3,7 +3,7 @@ name: Run Release Please
 on:
   push:
     branches:
-      - main
+      - release/v3
 
 concurrency:
   group: release-please-${{ github.ref }}
@@ -30,6 +30,7 @@ jobs:
         with:
           config-file: .release-please-config.json
           manifest-file: .release-please-manifest.json
+          target-branch: release/v3
           token: ${{secrets.RELEASE_PLEASE_ACTION_TOKEN}}
     outputs:
       release_created: ${{ steps.release.outputs.releases_created }}
@@ -68,6 +69,6 @@ jobs:
           target: testbed
           push: true
           platforms: linux/amd64,linux/arm64
+          # No :latest from the 3.x line; main's releases own it.
           tags: |
             ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:${{ needs.release-please.outputs.release_tag_name }}
-            ${{ env.REGISTRY }}/open-feature/${{ env.FLAGD_IMAGE_NAME }}:latest
