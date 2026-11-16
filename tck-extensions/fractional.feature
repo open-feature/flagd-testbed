@@ -275,6 +275,13 @@ Feature: TCK extension: Fractional targeting
     Then the resolved details value should be "fallback"
     And the reason should be "DEFAULT"
 
+  @operator-errors
+  Scenario: fractional shorthand with missing targeting key falls back to default variant
+    Given a String-flag with key "fractional-flag-shorthand" and a default value "wrong"
+    When the flag was evaluated with details
+    Then the resolved details value should be "draw"
+    And the reason should be "DEFAULT"
+
   @operator-errors @fractional
   Scenario: fractional with all-zero bucket weights falls back to default variant
     Given a String-flag with key "fractional-zero-weights-flag" and a default value "wrong"
