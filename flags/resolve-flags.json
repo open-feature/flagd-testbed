@@ -167,6 +167,93 @@
         ]
       }
     },
+    "resolve-single-clause-if-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          {
+            "resolve": [
+              "on",
+              "ALLOWLIST"
+            ]
+          }
+        ]
+      }
+    },
+    "resolve-fractional-buckets-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "fractional": [
+          "resolve-fractional",
+          [
+            {
+              "resolve": [
+                "on",
+                "SPLIT",
+                [
+                  [
+                    "details",
+                    "treatment"
+                  ]
+                ]
+              ]
+            },
+            {
+              "if": [
+                {
+                  "==": [
+                    {
+                      "var": "cohort"
+                    },
+                    "treatment"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "resolve": [
+                "off",
+                "SPLIT",
+                [
+                  [
+                    "details",
+                    "holdback"
+                  ]
+                ]
+              ]
+            },
+            {
+              "if": [
+                {
+                  "==": [
+                    {
+                      "var": "cohort"
+                    },
+                    "treatment"
+                  ]
+                },
+                0,
+                1
+              ]
+            }
+          ]
+        ]
+      }
+    },
     "resolve-computed-arguments-flag": {
       "state": "ENABLED",
       "variants": {
@@ -396,6 +483,53 @@
         "==": [
           {
             "$ref": "resolve-allowlist"
+          },
+          "on"
+        ]
+      }
+    },
+    "resolve-fractional-bucketing-value-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "fractional": [
+          {
+            "resolve": [
+              "on"
+            ]
+          },
+          [
+            "on",
+            1
+          ]
+        ]
+      }
+    },
+    "resolve-fractional-consumed-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "==": [
+          {
+            "fractional": [
+              "resolve-fractional",
+              [
+                {
+                  "resolve": [
+                    "on"
+                  ]
+                },
+                1
+              ]
+            ]
           },
           "on"
         ]

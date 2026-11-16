@@ -5,8 +5,8 @@ Feature: Terminal resolve operator
   # and optionally a custom reason and rule-level flag metadata.
   # See https://github.com/open-feature/flagd/blob/main/docs/architecture-decisions/targeting-variant-metadata.md
   # It's associated with the flags configured in flags/resolve-flags.json.
-  # Position, not operator, is terminal: the same `resolve` is valid as the whole rule or an `if` / `?:` result,
-  # and makes the flag invalid anywhere its result would be consumed.
+  # Position, not operator, is terminal: the same `resolve` is valid as the whole rule, an `if` / `?:` result,
+  # or a `fractional` bucket variant, and makes the flag invalid anywhere its result would be consumed.
 
   Background:
     Given an option "cache" of type "CacheType" with value "disabled"
@@ -19,10 +19,11 @@ Feature: Terminal resolve operator
     And the variant should be "on"
     And the reason should be "<reason>"
     Examples:
-      | key                        | reason          |
-      | resolve-whole-rule-flag    | TARGETING_MATCH |
-      | resolve-custom-reason-flag | ALLOWLIST       |
-      | resolve-ref-terminal-flag  | ALLOWLIST       |
+      | key                           | reason          |
+      | resolve-whole-rule-flag       | TARGETING_MATCH |
+      | resolve-custom-reason-flag    | ALLOWLIST       |
+      | resolve-ref-terminal-flag     | ALLOWLIST       |
+      | resolve-single-clause-if-flag | ALLOWLIST       |
 
   # the reason is free-form, so flagd's own reason names must not change the value or variant
   Scenario Outline: Resolve reason is free-form
@@ -95,6 +96,32 @@ Feature: Terminal resolve operator
       | customerId | variant | reason      |
       | customer-a | on      | ALLOWLIST   |
       | customer-z | off     | FALLTHROUGH |
+
+  # the weights depend on the cohort, so the bucket is picked deterministically
+  Scenario Outline: Resolve in fractional buckets
+    Given a String-flag with key "resolve-fractional-buckets-flag" and a default value "fallback"
+    And a context containing a key "cohort", with type "String" and with value "<cohort>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "<variant>"
+    And the variant should be "<variant>"
+    And the reason should be "SPLIT"
+    Examples:
+      | cohort    | variant |
+      | treatment | on      |
+      | control   | off     |
+
+  @metadata
+  Scenario Outline: Resolve in fractional buckets adds the bucket details
+    Given a String-flag with key "resolve-fractional-buckets-flag" and a default value "fallback"
+    And a context containing a key "cohort", with type "String" and with value "<cohort>"
+    When the flag was evaluated with details
+    Then the resolved metadata should contain
+      | key     | metadata_type | value     |
+      | details | String        | <details> |
+    Examples:
+      | cohort    | details   |
+      | treatment | treatment |
+      | control   | holdback  |
 
   Scenario Outline: Resolve with computed arguments
     Given a String-flag with key "resolve-computed-arguments-flag" and a default value "fallback"
@@ -172,13 +199,15 @@ Feature: Terminal resolve operator
     Then the resolved details value should be "fallback"
     And the error-code should be "PARSE_ERROR"
     Examples:
-      | key                              |
-      | resolve-in-equality-flag         |
-      | resolve-in-cat-flag              |
-      | resolve-as-condition-flag        |
-      | resolve-ref-consumed-flag        |
-      | resolve-no-arguments-flag        |
-      | resolve-non-string-variant-flag  |
-      | resolve-non-string-reason-flag   |
-      | resolve-short-pair-flag          |
-      | resolve-non-primitive-value-flag |
+      | key                                     |
+      | resolve-in-equality-flag                |
+      | resolve-in-cat-flag                     |
+      | resolve-as-condition-flag               |
+      | resolve-ref-consumed-flag               |
+      | resolve-fractional-bucketing-value-flag |
+      | resolve-fractional-consumed-flag        |
+      | resolve-no-arguments-flag               |
+      | resolve-non-string-variant-flag         |
+      | resolve-non-string-reason-flag          |
+      | resolve-short-pair-flag                 |
+      | resolve-non-primitive-value-flag        |
