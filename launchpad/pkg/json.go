@@ -53,6 +53,19 @@ var (
 	OutputFile = filepath.Join(outputDir, "allFlags.json")
 )
 
+// excludedPrefixes marks flag files that are only loaded through their own launchpad config,
+// so providers that can't parse them still accept allFlags.json.
+var excludedPrefixes = []string{"selector-", "resolve-"}
+
+func isExcludedFromCombined(name string) bool {
+	for _, prefix := range excludedPrefixes {
+		if strings.HasPrefix(name, prefix) {
+			return true
+		}
+	}
+	return false
+}
+
 func CombineJSONFiles(inputDir string) error {
 	fileLock.Lock()
 	defer fileLock.Unlock()
@@ -65,7 +78,7 @@ func CombineJSONFiles(inputDir string) error {
 	combinedData := make(map[string]interface{})
 
 	for _, file := range files {
-		if filepath.Ext(file.Name()) == ".json" && !strings.HasPrefix(file.Name(), "selector-") {
+		if filepath.Ext(file.Name()) == ".json" && !isExcludedFromCombined(file.Name()) {
 			filePath := filepath.Join(inputDir, file.Name())
 			content, err := ioutil.ReadFile(filePath)
 			if err != nil {

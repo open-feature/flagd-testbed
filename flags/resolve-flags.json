@@ -135,38 +135,6 @@
         ]
       }
     },
-    "resolve-ternary-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "?:": [
-          {
-            "==": [
-              {
-                "var": "customerId"
-              },
-              "customer-a"
-            ]
-          },
-          {
-            "resolve": [
-              "on",
-              "ALLOWLIST"
-            ]
-          },
-          {
-            "resolve": [
-              "off",
-              "FALLTHROUGH"
-            ]
-          }
-        ]
-      }
-    },
     "resolve-single-clause-if-flag": {
       "state": "ENABLED",
       "variants": {
@@ -296,6 +264,17 @@
                   }
                 ]
               }
+            ],
+            [
+              {
+                "cat": [
+                  "cohort_",
+                  {
+                    "var": "cohort"
+                  }
+                ]
+              },
+              true
             ]
           ]
         ]
@@ -411,154 +390,6 @@
         ]
       }
     },
-    "resolve-in-equality-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "if": [
-          {
-            "==": [
-              {
-                "resolve": [
-                  "on"
-                ]
-              },
-              "on"
-            ]
-          },
-          "on",
-          "off"
-        ]
-      }
-    },
-    "resolve-in-cat-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "cat": [
-          {
-            "resolve": [
-              "on"
-            ]
-          },
-          "x"
-        ]
-      }
-    },
-    "resolve-as-condition-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "if": [
-          {
-            "resolve": [
-              "on"
-            ]
-          },
-          "on",
-          "off"
-        ]
-      }
-    },
-    "resolve-ref-consumed-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "==": [
-          {
-            "$ref": "resolve-allowlist"
-          },
-          "on"
-        ]
-      }
-    },
-    "resolve-fractional-bucketing-value-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "fractional": [
-          {
-            "resolve": [
-              "on"
-            ]
-          },
-          [
-            "on",
-            1
-          ]
-        ]
-      }
-    },
-    "resolve-fractional-consumed-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "==": [
-          {
-            "fractional": [
-              "resolve-fractional",
-              [
-                {
-                  "resolve": [
-                    "on"
-                  ]
-                },
-                1
-              ]
-            ]
-          },
-          "on"
-        ]
-      }
-    },
-    "resolve-no-arguments-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "resolve": []
-      }
-    },
-    "resolve-non-string-variant-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "resolve": [
-          true
-        ]
-      }
-    },
     "resolve-empty-variant-flag": {
       "state": "ENABLED",
       "variants": {
@@ -572,59 +403,36 @@
         ]
       }
     },
-    "resolve-non-string-reason-flag": {
+    "resolve-boolean-variant-flag": {
       "state": "ENABLED",
       "variants": {
-        "on": "on",
-        "off": "off"
+        "true": "on",
+        "false": "off"
       },
-      "defaultVariant": "off",
+      "defaultVariant": "false",
       "targeting": {
         "resolve": [
-          "on",
-          1
+          true
         ]
       }
     },
-    "resolve-short-pair-flag": {
+    "resolve-computed-boolean-variant-flag": {
       "state": "ENABLED",
       "variants": {
-        "on": "on",
-        "off": "off"
+        "true": "on",
+        "false": "off"
       },
-      "defaultVariant": "off",
+      "defaultVariant": "false",
       "targeting": {
         "resolve": [
-          "on",
-          null,
-          [
-            [
-              "details"
-            ]
-          ]
-        ]
-      }
-    },
-    "resolve-non-primitive-value-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "resolve": [
-          "on",
-          null,
-          [
-            [
-              "details",
+          {
+            "==": [
               {
-                "a": 1,
-                "b": 2
-              }
+                "var": "cohort"
+              },
+              "beta"
             ]
-          ]
+          }
         ]
       }
     }

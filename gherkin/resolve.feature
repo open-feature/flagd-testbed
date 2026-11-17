@@ -4,13 +4,16 @@ Feature: Terminal resolve operator
   # This test suite contains scenarios for the terminal `resolve` operator, which ends a targeting rule with a variant,
   # and optionally a custom reason and rule-level flag metadata.
   # See https://github.com/open-feature/flagd/blob/main/docs/architecture-decisions/targeting-variant-metadata.md
-  # It's associated with the flags configured in flags/resolve-flags.json.
-  # Position, not operator, is terminal: the same `resolve` is valid as the whole rule, an `if` / `?:` result,
-  # or a `fractional` bucket variant, and makes the flag invalid anywhere its result would be consumed.
+  # It's associated with the flags configured in flags/resolve-flags.json, which is kept out of allFlags.json
+  # and served by the dedicated "resolve" launchpad config, so SDKs without `resolve` support are unaffected.
+  # Position, not operator, is terminal: the same `resolve` is valid as the whole rule, an `if` result,
+  # or a `fractional` bucket variant. Misplaced `resolve` and malformed literal arguments are rejected by the
+  # schema, so their behavior is undefined and not covered here.
 
   Background:
     Given an option "cache" of type "CacheType" with value "disabled"
-    And a stable flagd provider
+    And an option "selector" of type "String" with value "rawflags/resolve-flags.json"
+    And a resolve flagd provider
 
   Scenario Outline: Resolve selects a variant with an optional reason
     Given a String-flag with key "<key>" and a default value "fallback"
@@ -86,16 +89,19 @@ Feature: Terminal resolve operator
       | customer-b | customer-b split     |
       | customer-z | everyone else        |
 
-  Scenario Outline: Resolve in ternary results
-    Given a String-flag with key "resolve-ternary-flag" and a default value "fallback"
-    And a context containing a key "customerId", with type "String" and with value "<customerId>"
+  # boolean variants coerce to their "true" / "false" keys, like a plain boolean targeting result
+  Scenario Outline: Resolve coerces a boolean variant to its string key
+    Given a String-flag with key "<key>" and a default value "fallback"
+    And a context containing a key "cohort", with type "String" and with value "<cohort>"
     When the flag was evaluated with details
-    Then the resolved details value should be "<variant>"
-    And the reason should be "<reason>"
+    Then the resolved details value should be "<value>"
+    And the variant should be "<variant>"
+    And the reason should be "TARGETING_MATCH"
     Examples:
-      | customerId | variant | reason      |
-      | customer-a | on      | ALLOWLIST   |
-      | customer-z | off     | FALLTHROUGH |
+      | key                                   | cohort | variant | value |
+      | resolve-boolean-variant-flag          | beta   | true    | on    |
+      | resolve-computed-boolean-variant-flag | beta   | true    | on    |
+      | resolve-computed-boolean-variant-flag | alpha  | false   | off   |
 
   # the weights depend on the cohort, so the bucket is picked deterministically
   Scenario Outline: Resolve in fractional buckets
@@ -134,18 +140,20 @@ Feature: Terminal resolve operator
       | beta   | on      | COHORT_beta  |
       | alpha  | off     | COHORT_alpha |
 
+  # every argument may be computed, including metadata keys
   @metadata
   Scenario Outline: Resolve with computed metadata
     Given a String-flag with key "resolve-computed-arguments-flag" and a default value "fallback"
     And a context containing a key "cohort", with type "String" and with value "<cohort>"
     When the flag was evaluated with details
     Then the resolved metadata should contain
-      | key     | metadata_type | value     |
-      | details | String        | <details> |
+      | key         | metadata_type | value     |
+      | details     | String        | <details> |
+      | <cohortKey> | Boolean       | true      |
     Examples:
-      | cohort | details      |
-      | beta   | cohort beta  |
-      | alpha  | cohort alpha |
+      | cohort | details      | cohortKey    |
+      | beta   | cohort beta  | cohort_beta  |
+      | alpha  | cohort alpha | cohort_alpha |
 
   @metadata
   Scenario: Resolve with a computed number in metadata
@@ -191,23 +199,3 @@ Feature: Terminal resolve operator
       | key                          |
       | resolve-missing-variant-flag |
       | resolve-empty-variant-flag   |
-
-  # only the offending flag is invalid; every other flag in the same configuration still evaluates
-  Scenario Outline: Resolve outside a terminal position or with malformed arguments makes the flag invalid
-    Given a String-flag with key "<key>" and a default value "fallback"
-    When the flag was evaluated with details
-    Then the resolved details value should be "fallback"
-    And the error-code should be "PARSE_ERROR"
-    Examples:
-      | key                                     |
-      | resolve-in-equality-flag                |
-      | resolve-in-cat-flag                     |
-      | resolve-as-condition-flag               |
-      | resolve-ref-consumed-flag               |
-      | resolve-fractional-bucketing-value-flag |
-      | resolve-fractional-consumed-flag        |
-      | resolve-no-arguments-flag               |
-      | resolve-non-string-variant-flag         |
-      | resolve-non-string-reason-flag          |
-      | resolve-short-pair-flag                 |
-      | resolve-non-primitive-value-flag        |

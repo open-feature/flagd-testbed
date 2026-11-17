@@ -82,7 +82,7 @@ Most feature files open with `@rpc @in-process @file` to indicate universal appl
 | `@fractional-nested` | Scenarios testing nested fractional expressions |
 | `@string` | Scenarios testing the `string` custom operator |
 | `@semver` | Scenarios testing the `sem_ver` (semantic versioning) custom operator |
-| `@resolve` | Scenarios testing the terminal `resolve` operator (variant, reason, and rule metadata); exclude until the provider and flagd support it |
+| `@resolve` | Scenarios testing the terminal `resolve` operator (variant, reason, and rule metadata); they use the `resolve` provider (launchpad config `resolve`, selector `rawflags/resolve-flags.json`); exclude until the provider and flagd support it |
 | `@caching` | Scenarios testing RPC response caching behaviour |
 | `@events` | Scenarios testing provider state-change event emission |
 | `@metadata` | Scenarios testing flag/flag-set metadata |
@@ -131,7 +131,7 @@ Flag definitions live in `flags/*.json`. Each file corresponds to a category of 
 | `testing-flags.json` | Core flag types: boolean, string, integer, float, object, context-aware, error cases |
 | `zero-flags.json` | Falsy/zero-value variants for all types |
 | `custom-ops.json` | Custom operators: `fractional`, `sem_ver`, `string` |
-| `resolve-flags.json` | The terminal `resolve` operator, including flags that misuse it and must evaluate as invalid |
+| `resolve-flags.json` | The terminal `resolve` operator; kept out of `allFlags.json` and loaded only by the `resolve` launchpad config |
 | `evaluator-refs.json` | Shared evaluator definitions via `$ref` |
 | `changing-flag.json` | A single flag whose variant toggles (used to test real-time changes via Launchpad) |
 | `metadata-flags.json` | Flag and flag-set metadata fields |
@@ -272,7 +272,7 @@ Launchpad (`launchpad/`) is a Go HTTP server that controls flagd during test run
 | `/change` | POST | Toggle `changing-flag` between variants |
 | `/restart?seconds=<n>` | POST | Restart flagd after `n` seconds |
 
-Named configs live in `launchpad/configs/`. Each config specifies which flag files to load and how to start flagd. On start, Launchpad generates `/flags/allFlags.json` (aggregates all non-`selector` flag files) for use in full-suite runs.
+Named configs live in `launchpad/configs/`. Each config specifies which flag files to load and how to start flagd. On start, Launchpad generates `/flags/allFlags.json` (aggregates all flag files not prefixed with `selector-` or `resolve-`) for use in full-suite runs.
 
 ---
 
