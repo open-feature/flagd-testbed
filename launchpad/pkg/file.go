@@ -21,6 +21,14 @@ type FlagConfig struct {
 	} `json:"flags"`
 }
 
+const (
+	// ChangingFlagFile is the only definition /change writes; RestoreChangingFlag relies on that.
+	ChangingFlagFile        = "rawflags/changing-flag.json"
+	ChangingFlagKey         = "changing-flag"
+	BaselineChangingVariant = "foo"
+	toggledChangingVariant  = "bar"
+)
+
 var (
 	fileLock                  sync.Mutex // lock for file operations
 	changeLock                sync.Mutex // lock for change requests (so that multiple requests don't overlap)
@@ -32,40 +40,84 @@ func ToggleChangingFlag() (string, error) {
 	changeLock.Lock()
 	defer changeLock.Unlock()
 
-	// Path to the configuration file
-	configFile := "rawflags/changing-flag.json"
-
-	// Read the existing file
-	data, err := os.ReadFile(configFile)
+	current, err := readChangingVariant()
 	if err != nil {
 		return "", err
 	}
 
-	// Parse the JSON into the FlagConfig struct
+	next := BaselineChangingVariant
+	if current == BaselineChangingVariant {
+		next = toggledChangingVariant
+	}
+
+	return next, writeChangingVariant(next)
+}
+
+// RestoreChangingFlag flips changing-flag back to its shipped variant and reports
+// whether it had to. The file is read, not remembered, so a restarted launchpad
+// in a dirty container still restores; this is sound because writes wait for
+// flagd to serve them.
+func RestoreChangingFlag() (bool, error) {
+	changeLock.Lock()
+	defer changeLock.Unlock()
+
+	current, err := readChangingVariant()
+	if err != nil {
+		return false, err
+	}
+	if current == BaselineChangingVariant {
+		return false, nil
+	}
+
+	return true, writeChangingVariant(BaselineChangingVariant)
+}
+
+func readChangingVariant() (string, error) {
+	data, err := os.ReadFile(ChangingFlagFile)
+	if err != nil {
+		return "", err
+	}
+
 	var config FlagConfig
 	if err := json.Unmarshal(data, &config); err != nil {
 		return "", err
 	}
 
-	// Find the "changing-flag" and toggle the default variant
-	flag, exists := config.Flags["changing-flag"]
+	flag, exists := config.Flags[ChangingFlagKey]
 	if !exists {
 		return "", errors.New("changing-flag not found in configuration")
 	}
+	return flag.DefaultVariant, nil
+}
 
-	// Toggle the defaultVariant between "foo" and "bar"
-	if flag.DefaultVariant == "foo" {
-		flag.DefaultVariant = "bar"
-	} else {
-		flag.DefaultVariant = "foo"
+// writeChangingVariant returns once flagd serves the new variant, not just once
+// our watcher has regenerated the merged file.
+func writeChangingVariant(variant string) error {
+	// Read the existing file
+	data, err := os.ReadFile(ChangingFlagFile)
+	if err != nil {
+		return err
 	}
 
+	// Parse the JSON into the FlagConfig struct
+	var config FlagConfig
+	if err := json.Unmarshal(data, &config); err != nil {
+		return err
+	}
+
+	// Find the "changing-flag" and set the default variant
+	flag, exists := config.Flags[ChangingFlagKey]
+	if !exists {
+		return errors.New("changing-flag not found in configuration")
+	}
+	flag.DefaultVariant = variant
+
 	// Save the updated flag back to the configuration
-	config.Flags["changing-flag"] = flag
+	config.Flags[ChangingFlagKey] = flag
 	// Serialize the updated configuration back to JSON
 	updatedData, err := json.MarshalIndent(config, "", "  ")
 	if err != nil {
-		return "", err
+		return err
 	}
 
 	// the file watcher should be triggered instantly. If not, we add a timeout to prevent a hanging test
@@ -86,20 +138,18 @@ func ToggleChangingFlag() (string, error) {
 
 	// Write the updated JSON back to the file
 	fileLock.Lock()
-	if err := atomicWriteFile(configFile, updatedData); err != nil {
+	if err := atomicWriteFile(ChangingFlagFile, updatedData); err != nil {
 		fileLock.Unlock()
-		return "", err
+		return err
 	}
 	fileLock.Unlock()
 
-	select {
-	case <-ctx.Done():
-		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
-			return "", fmt.Errorf("Flags were not updated in time: %v", ctx.Err())
-		} else {
-			return flag.DefaultVariant, nil
-		}
+	<-ctx.Done()
+	if errors.Is(ctx.Err(), context.DeadlineExceeded) {
+		return fmt.Errorf("flags were not updated in time: %v", ctx.Err())
 	}
+
+	return awaitVariantInFlagd(variant)
 }
 
 func RestartFileWatcher() error {
@@ -133,7 +183,7 @@ func RestartFileWatcher() error {
 					fmt.Printf("%v config changed, regenerating JSON...\n", event.Name)
 					if err := CombineJSONFiles(InputDir); err != nil {
 						fmt.Printf("Error combining JSON files: %v\n", err)
-						return
+						continue
 					}
 					if strings.HasSuffix(event.Name, "changing-flag.json") {
 						for _, v := range changeFlagUpdateListeners {
