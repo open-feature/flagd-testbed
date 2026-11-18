@@ -1,0 +1,5 @@
+# Every language reads these files byte for byte, and the Go module zip is checksummed, so
+# normalise to LF whichever platform they are committed from.
+*.feature text eol=lf
+*.go      text eol=lf
+go.mod    text eol=lf

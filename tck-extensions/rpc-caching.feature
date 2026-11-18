@@ -1,10 +1,17 @@
-@rpc @caching
-Feature: Flag evaluation with Caching
+@ext-connection @rpc @flagd-caching
+Feature: TCK extension: Flag evaluation with caching
 
-  # This test suite contains scenarios to test the flag evaluation API with caching (RPC only)
+  # Ported from gherkin/rpc-caching.feature (RPC only). The testbed's @caching tag is
+  # a reserved TCK capability, which the TCK refuses on any scenario, so this feature carries
+  # @flagd-caching instead.
+  #
+  # Reconnect timing is the testbed's "stable flagd provider", as in events.feature.
+
   Background:
     Given an option "cache" of type "CacheType" with value "lru"
-    And a stable flagd provider
+    And an option "retryGracePeriod" of type "Integer" with value "5"
+    And an option "retryBackoffMaxMs" of type "Integer" with value "500"
+    And a stable provider
 
   Scenario Outline: Resolves <type> details with caching
     Given a <type>-flag with key "<key>" and a default value "<default>"
@@ -18,12 +25,24 @@ Feature: Flag evaluation with Caching
     And the reason should be "CACHED"
 
     Examples:
-      | key          | type    | default | resolved_variant | resolved_value                                                                |
-      | boolean-flag | Boolean | false   | on               | true                                                                          |
-      | string-flag  | String  | bye     | greeting         | hi                                                                            |
-      | integer-flag | Integer | 1       | ten              | 10                                                                            |
-      | float-flag   | Float   | 0.1     | half             | 0.5                                                                           |
-      | object-flag  | Object  | {}      | template         | {"showImages": true, "title": "Check out these pics!", "imagesPerPage": 100.0 } |
+      | key          | type    | default | resolved_variant | resolved_value |
+      | boolean-flag | Boolean | false   | on               | true           |
+      | string-flag  | String  | bye     | greeting         | hi             |
+      | integer-flag | Integer | 1       | ten              | 10             |
+      | float-flag   | Float   | 0.1     | half             | 0.5            |
+
+  Scenario: Resolves Object details with caching
+    Given a Object-flag with key "object-flag" and a default value "{}"
+    When the flag was evaluated with details
+    Then the resolved object value should contain
+      | key           | type    | value                 |
+      | showImages    | Boolean | true                  |
+      | title         | String  | Check out these pics! |
+      | imagesPerPage | Integer | 100                   |
+    And the variant should be "template"
+    And the reason should be "STATIC"
+    When the flag was evaluated with details
+    Then the reason should be "CACHED"
 
   Scenario: Flag change event with caching
     Given a String-flag with key "changing-flag" and a default value "false"
@@ -50,11 +69,12 @@ Feature: Flag evaluation with Caching
     Then the reason should be "STATIC"
     When the flag was evaluated with details
     Then the reason should be "CACHED"
-    When the connection is lost for 6s
+    When the connection is lost
     And a stale event was fired
     And the flag was evaluated with details
     Then the reason should be "CACHED"
     When a error event was fired
+    And the connection is restored
     And a ready event was fired
     And the flag was evaluated with details
     Then the reason should be "STATIC"

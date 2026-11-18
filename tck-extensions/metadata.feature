@@ -1,12 +1,13 @@
-@in-process @metadata @file
-Feature: flag and flag set metadata
+@ext-metadata @in-process @file @metadata
+Feature: TCK extension: flag and flag set metadata
 
-  # This test suite contains scenarios to test flagd providers.
-  # It's associated with the flags configured in flags.
-  # It should be used in conjunction with the suites supplied by the OpenFeature specification.
+  # Ported from gherkin/metadata.feature. The testbed's "a stable flagd provider"
+  # becomes the TCK's "a stable provider", and its "a metadata flagd provider" becomes "a stable
+  # provider with "metadata" configuration". The two scenarios a file resolver cannot serve name a
+  # selector flag file and carry @metadata-provider.
 
   Scenario: Returns metadata
-    Given a stable flagd provider
+    Given a stable provider
     And a Boolean-flag with key "metadata-flag" and a default value "true"
     When the flag was evaluated with details
     Then the resolved metadata should contain
@@ -19,7 +20,7 @@ Feature: flag and flag set metadata
   @metadata-provider
   Scenario: Returns flag set metadata
     Given an option "selector" of type "String" with value "rawflags/selector-flag-combined-metadata.json"
-    And a metadata flagd provider
+    And a stable provider with "metadata" configuration
     And a Boolean-flag with key "only-set-metadata-flag" and a default value "true"
     When the flag was evaluated with details
     Then the resolved metadata should contain
@@ -36,7 +37,7 @@ Feature: flag and flag set metadata
   @metadata-provider
   Scenario: Flag metadata overwrites flag set metadata
     Given an option "selector" of type "String" with value "rawflags/selector-flag-combined-metadata.json"
-    And a metadata flagd provider
+    And a stable provider with "metadata" configuration
     And a Boolean-flag with key "combined-metadata-flag" and a default value "true"
     When the flag was evaluated with details
     Then the resolved metadata should contain
@@ -52,6 +53,6 @@ Feature: flag and flag set metadata
 
   Scenario: Returns no metadata
     Given a Boolean-flag with key "boolean-flag" and a default value "true"
-    And a stable flagd provider
+    And a stable provider
     When the flag was evaluated with details
     Then the resolved metadata is empty

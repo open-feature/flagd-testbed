@@ -49,8 +49,8 @@
     "on",
     {
       "steps-length": {
-        "Background": 3,
-        "Scenario": 16
+        "Background": 4,
+        "Scenario": 17
       }
     }
   ]

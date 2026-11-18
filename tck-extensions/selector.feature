@@ -1,9 +1,13 @@
-@in-process
-Feature: flagd selector
+@ext-evaluation @in-process
+Feature: TCK extension: flagd selector
+
+  # Ported from gherkin/selector.feature. The launchpad's default configuration
+  # serves both flags/allFlags.json and rawflags/selector-flags.json, so the selector narrows the
+  # sync to the second source.
 
   Background:
     Given an option "selector" of type "String" with value "rawflags/selector-flags.json"
-    And a stable flagd provider
+    And a stable provider
 
   Scenario Outline: Flags not found
     Given a <type>-flag with key "<key>" and a default value "<default>"
