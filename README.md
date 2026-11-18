@@ -71,6 +71,35 @@ We recommend:
 - to utilize testcontainers for easier test setup
 - to use the version.txt within this repository to load the appropriate docker image
 
+### Go module
+
+Go suites can skip the submodule entirely: this repository is also a Go module that
+embeds the compose stack, the Gherkin suites, the flag definitions and the test root
+certificate.
+
+```shell
+go get github.com/open-feature/flagd-testbed/v3
+```
+
+The module has no dependencies of its own, so it does not constrain the testcontainers
+or Cucumber versions of the suite consuming it.
+
+```go
+// Compose runners need the stack on disk.
+dir := t.TempDir()
+composePath, err := testbed.Materialize(dir)
+
+// Gherkin suites do not - godog reads them straight from the embedded FS.
+godog.TestSuite{Options: &godog.Options{FS: testbed.Gherkin(), Paths: []string{"."}}}
+```
+
+The compose file defaults to the `flagd-testbed` image of the release it was taken from,
+so the assets and the image are pinned by the single `go.mod` entry, and renovate updates
+them like any other Go dependency.
+
+Note that the module path carries the `/v3` major suffix, as required for Go modules at
+major version 2 and above; it changes with every major release of this repository.
+
 ---
 
 ## Building the Docker Image
