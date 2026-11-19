@@ -162,7 +162,9 @@
       "defaultVariant": "off",
       "targeting": {
         "fractional": [
-          "resolve-fractional",
+          {
+            "var": "cohort"
+          },
           [
             {
               "resolve": [
@@ -288,7 +290,13 @@
       },
       "defaultVariant": "off",
       "targeting": {
-        "$ref": "resolve-allowlist"
+        "if": [
+          true,
+          {
+            "$ref": "resolve-allowlist"
+          },
+          "off"
+        ]
       }
     },
     "resolve-fallback-reason-flag": {
