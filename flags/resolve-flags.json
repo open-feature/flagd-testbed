@@ -452,5 +452,10 @@
         "ALLOWLIST"
       ]
     }
+  },
+  "metadata": {
+    "details": "flag set",
+    "owner": "flag set",
+    "team": "flag set"
   }
 }

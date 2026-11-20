@@ -52,15 +52,16 @@ Feature: Terminal resolve operator
       | details | String        | pilot cohort |
 
   @metadata
-  Scenario: Rule metadata overwrites flag metadata
+  Scenario: Rule metadata overwrites flag metadata, which overwrites flag set metadata
     Given a String-flag with key "resolve-metadata-precedence-flag" and a default value "fallback"
     When the flag was evaluated with details
     Then the resolved details value should be "on"
     And the reason should be "ALLOWLIST"
     And the resolved metadata should contain
-      | key     | metadata_type | value |
-      | details | String        | rule  |
-      | owner   | String        | flag  |
+      | key     | metadata_type | value    |
+      | details | String        | rule     |
+      | owner   | String        | flag     |
+      | team    | String        | flag set |
 
   # branches that serve the same variant stay distinguishable by reason and details
   Scenario Outline: Resolve in nested if branches
