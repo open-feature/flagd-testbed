@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "uri": "rawflags/resolve-flags.json",
+      "provider": "file"
+    }
+  ],
+  "strict-numeric-range": true
+}

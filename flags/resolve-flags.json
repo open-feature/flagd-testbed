@@ -1,0 +1,501 @@
+{
+  "flags": {
+    "resolve-whole-rule-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on"
+        ]
+      }
+    },
+    "resolve-custom-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "ALLOWLIST"
+        ]
+      }
+    },
+    "resolve-null-reason-metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            [
+              "details",
+              "pilot cohort"
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-metadata-precedence-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "ALLOWLIST",
+          [
+            [
+              "details",
+              "rule"
+            ]
+          ]
+        ]
+      },
+      "metadata": {
+        "details": "flag",
+        "owner": "flag"
+      }
+    },
+    "resolve-reserved-metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            [
+              {
+                "cat": [
+                  "flagSet",
+                  "Id"
+                ]
+              },
+              "rule"
+            ],
+            [
+              {
+                "cat": [
+                  "ver",
+                  "sion"
+                ]
+              },
+              "rule"
+            ],
+            [
+              "details",
+              "rule"
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-nested-branches-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          {
+            "==": [
+              {
+                "var": "customerId"
+              },
+              "customer-a"
+            ]
+          },
+          {
+            "resolve": [
+              "on",
+              "ALLOWLIST",
+              [
+                [
+                  "details",
+                  "customer-a allowlist"
+                ]
+              ]
+            ]
+          },
+          {
+            "==": [
+              {
+                "var": "customerId"
+              },
+              "customer-b"
+            ]
+          },
+          {
+            "resolve": [
+              "on",
+              "SPLIT",
+              [
+                [
+                  "details",
+                  "customer-b split"
+                ]
+              ]
+            ]
+          },
+          {
+            "resolve": [
+              "off",
+              "FALLTHROUGH",
+              [
+                [
+                  "details",
+                  "everyone else"
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "resolve-single-clause-if-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          {
+            "resolve": [
+              "on",
+              "ALLOWLIST"
+            ]
+          }
+        ]
+      }
+    },
+    "resolve-fractional-buckets-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "fractional": [
+          {
+            "var": "cohort"
+          },
+          [
+            {
+              "resolve": [
+                "on",
+                "SPLIT",
+                [
+                  [
+                    "details",
+                    "treatment"
+                  ]
+                ]
+              ]
+            },
+            {
+              "if": [
+                {
+                  "==": [
+                    {
+                      "var": "cohort"
+                    },
+                    "treatment"
+                  ]
+                },
+                1,
+                0
+              ]
+            }
+          ],
+          [
+            {
+              "resolve": [
+                "off",
+                "SPLIT",
+                [
+                  [
+                    "details",
+                    "holdback"
+                  ]
+                ]
+              ]
+            },
+            {
+              "if": [
+                {
+                  "==": [
+                    {
+                      "var": "cohort"
+                    },
+                    "treatment"
+                  ]
+                },
+                0,
+                1
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    "resolve-computed-arguments-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          {
+            "if": [
+              {
+                "==": [
+                  {
+                    "var": "cohort"
+                  },
+                  "beta"
+                ]
+              },
+              "on",
+              "off"
+            ]
+          },
+          {
+            "cat": [
+              "COHORT_",
+              {
+                "var": "cohort"
+              }
+            ]
+          },
+          [
+            [
+              "details",
+              {
+                "cat": [
+                  "cohort ",
+                  {
+                    "var": "cohort"
+                  }
+                ]
+              }
+            ],
+            [
+              {
+                "cat": [
+                  "cohort_",
+                  {
+                    "var": "cohort"
+                  }
+                ]
+              },
+              true
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-ref-terminal-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          true,
+          {
+            "$ref": "resolve-allowlist"
+          },
+          "off"
+        ]
+      }
+    },
+    "resolve-fallback-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "FALLBACK"
+        ]
+      }
+    },
+    "resolve-disabled-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "DISABLED"
+        ]
+      }
+    },
+    "resolve-error-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "ERROR"
+        ]
+      }
+    },
+    "resolve-computed-number-metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "SPLIT",
+          [
+            [
+              "share",
+              {
+                "/": [
+                  {
+                    "var": "hits"
+                  },
+                  {
+                    "var": "total"
+                  }
+                ]
+              }
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-missing-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "missing"
+        ]
+      }
+    },
+    "resolve-computed-null-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          {
+            "var": "variant"
+          }
+        ]
+      }
+    },
+    "resolve-empty-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          ""
+        ]
+      }
+    },
+    "resolve-boolean-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "true": "on",
+        "false": "off"
+      },
+      "defaultVariant": "false",
+      "targeting": {
+        "resolve": [
+          true
+        ]
+      }
+    },
+    "resolve-computed-boolean-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "true": "on",
+        "false": "off"
+      },
+      "defaultVariant": "false",
+      "targeting": {
+        "resolve": [
+          {
+            "==": [
+              {
+                "var": "cohort"
+              },
+              "beta"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "$evaluators": {
+    "resolve-allowlist": {
+      "resolve": [
+        "on",
+        "ALLOWLIST"
+      ]
+    }
+  },
+  "metadata": {
+    "flagSetId": "resolve-set",
+    "version": "1",
+    "details": "flag set",
+    "owner": "flag set",
+    "team": "flag set"
+  }
+}
