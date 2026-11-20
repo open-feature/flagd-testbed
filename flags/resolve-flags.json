@@ -71,6 +71,44 @@
         "owner": "flag"
       }
     },
+    "resolve-reserved-metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            [
+              {
+                "cat": [
+                  "flagSet",
+                  "Id"
+                ]
+              },
+              "rule"
+            ],
+            [
+              {
+                "cat": [
+                  "ver",
+                  "sion"
+                ]
+              },
+              "rule"
+            ],
+            [
+              "details",
+              "rule"
+            ]
+          ]
+        ]
+      }
+    },
     "resolve-nested-branches-flag": {
       "state": "ENABLED",
       "variants": {
@@ -454,6 +492,8 @@
     }
   },
   "metadata": {
+    "flagSetId": "resolve-set",
+    "version": "1",
     "details": "flag set",
     "owner": "flag set",
     "team": "flag set"

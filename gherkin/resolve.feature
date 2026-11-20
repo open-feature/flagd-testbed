@@ -7,8 +7,8 @@ Feature: Terminal resolve operator
   # It's associated with the flags configured in flags/resolve-flags.json, which is kept out of allFlags.json
   # and served by the dedicated "resolve" launchpad config, so SDKs without `resolve` support are unaffected.
   # Position, not operator, is terminal: the same `resolve` is valid as the whole rule, an `if` result,
-  # or a `fractional` bucket variant. Misplaced `resolve` and malformed literal arguments are rejected by the
-  # schema, so their behavior is undefined and not covered here.
+  # or a `fractional` bucket variant. Misplaced `resolve`, malformed literal arguments, and literal reserved metadata
+  # keys (`flagSetId`, `version`) are rejected by the schema, so their behavior is undefined and not covered here.
 
   Background:
     Given an option "cache" of type "CacheType" with value "disabled"
@@ -62,6 +62,19 @@ Feature: Terminal resolve operator
       | details | String        | rule     |
       | owner   | String        | flag     |
       | team    | String        | flag set |
+
+  # flagSetId and version are reserved for flag set metadata; the computed keys are skipped, the other pairs still apply
+  @metadata
+  Scenario: Resolve metadata can't override reserved flag set metadata keys
+    Given a String-flag with key "resolve-reserved-metadata-flag" and a default value "fallback"
+    When the flag was evaluated with details
+    Then the resolved details value should be "on"
+    And the reason should be "TARGETING_MATCH"
+    And the resolved metadata should contain
+      | key       | metadata_type | value       |
+      | flagSetId | String        | resolve-set |
+      | version   | String        | 1           |
+      | details   | String        | rule        |
 
   # branches that serve the same variant stay distinguishable by reason and details
   Scenario Outline: Resolve in nested if branches
