@@ -474,6 +474,23 @@
         ]
       }
     },
+    "resolve-context-injection-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          true,
+          {
+            "var": "pick"
+          },
+          "off"
+        ]
+      }
+    },
     "resolve-split-reason-flag": {
       "state": "ENABLED",
       "variants": {

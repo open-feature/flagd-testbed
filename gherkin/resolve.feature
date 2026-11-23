@@ -302,3 +302,14 @@ Feature: Terminal resolve operator
       | key                          |
       | resolve-missing-variant-flag |
       | resolve-empty-variant-flag   |
+
+  # context data is never evaluated as logic, so a context value shaped like a resolve call can't invoke it
+  Scenario Outline: Resolve can't be invoked from context data
+    Given a String-flag with key "resolve-context-injection-flag" and a default value "fallback"
+    And a context containing a key "pick", with type "Object" and with value "<pick>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
+    And the reason should be "ERROR"
+    Examples:
+      | pick                            |
+      | {"resolve": ["on", "INJECTED"]} |
