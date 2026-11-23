@@ -7,8 +7,9 @@ Feature: Terminal resolve operator
   # It's associated with the flags configured in flags/resolve-flags.json, which is kept out of allFlags.json
   # and served by the dedicated "resolve" launchpad config, so SDKs without `resolve` support are unaffected.
   # Position, not operator, is terminal: the same `resolve` is valid as the whole rule, an `if` result,
-  # or a `fractional` bucket variant. Misplaced `resolve`, malformed literal arguments, and literal reserved metadata
-  # keys (`flagSetId`, `version`) are rejected by the schema, so their behavior is undefined and not covered here.
+  # or a `fractional` bucket variant. Misplaced `resolve`, malformed literal arguments, literal reserved reasons
+  # (`ERROR`, `DISABLED`, `DEFAULT`), and literal reserved metadata keys (`flagSetId`, `version`) are rejected by the
+  # schema, so their behavior is undefined and not covered here.
 
   Background:
     Given an option "cache" of type "CacheType" with value "disabled"
@@ -28,7 +29,7 @@ Feature: Terminal resolve operator
       | resolve-ref-terminal-flag     | ALLOWLIST       |
       | resolve-single-clause-if-flag | ALLOWLIST       |
 
-  # the reason is free-form, so flagd's own reason names must not change the value or variant
+  # the reason is free-form, so other reason names must not change the value or variant
   Scenario Outline: Resolve reason is free-form
     Given a String-flag with key "<key>" and a default value "fallback"
     When the flag was evaluated with details
@@ -38,8 +39,36 @@ Feature: Terminal resolve operator
     Examples:
       | key                          | reason   |
       | resolve-fallback-reason-flag | FALLBACK |
-      | resolve-disabled-reason-flag | DISABLED |
-      | resolve-error-reason-flag    | ERROR    |
+      | resolve-static-reason-flag   | STATIC   |
+      | resolve-cached-reason-flag   | CACHED   |
+
+  # ERROR, DISABLED and DEFAULT are reserved; a computed one is ignored, so the rule still matches
+  Scenario Outline: Resolve ignores a computed reserved reason
+    Given a String-flag with key "resolve-computed-reserved-reason-flag" and a default value "fallback"
+    And a context containing a key "reason", with type "String" and with value "<reason>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "on"
+    And the variant should be "on"
+    And the reason should be "TARGETING_MATCH"
+    Examples:
+      | reason   |
+      | ERROR    |
+      | DISABLED |
+      | DEFAULT  |
+
+  @metadata
+  Scenario Outline: Resolve with a computed reserved reason keeps its metadata
+    Given a String-flag with key "resolve-computed-reserved-reason-flag" and a default value "fallback"
+    And a context containing a key "reason", with type "String" and with value "<reason>"
+    When the flag was evaluated with details
+    Then the resolved metadata should contain
+      | key     | metadata_type | value |
+      | details | String        | rule  |
+    Examples:
+      | reason   |
+      | ERROR    |
+      | DISABLED |
+      | DEFAULT  |
 
   @metadata
   Scenario: Resolve with a null reason keeps the targeting match reason and adds metadata
