@@ -262,6 +262,69 @@
         ]
       }
     },
+    "resolve-fractional-shorthand-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "fractional": [
+          [
+            {
+              "resolve": [
+                "on",
+                "SPLIT",
+                [
+                  [
+                    "details",
+                    "on bucket"
+                  ]
+                ]
+              ]
+            },
+            1
+          ],
+          [
+            {
+              "resolve": [
+                "off",
+                "SPLIT"
+              ]
+            },
+            0
+          ]
+        ]
+      }
+    },
+    "resolve-fractional-single-entry-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "fractional": [
+          [
+            {
+              "resolve": [
+                "on",
+                "SPLIT",
+                [
+                  [
+                    "details",
+                    "only"
+                  ]
+                ]
+              ]
+            },
+            1
+          ]
+        ]
+      }
+    },
     "resolve-computed-arguments-flag": {
       "state": "ENABLED",
       "variants": {
@@ -316,6 +379,80 @@
               },
               true
             ]
+          ]
+        ]
+      }
+    },
+    "resolve-computed-metadata-list-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          {
+            "if": [
+              {
+                "==": [
+                  {
+                    "var": "cohort"
+                  },
+                  "beta"
+                ]
+              },
+              [
+                [
+                  "details",
+                  "beta list"
+                ]
+              ],
+              [
+                [
+                  "details",
+                  "other list"
+                ]
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    "resolve-computed-metadata-pair-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            {
+              "if": [
+                {
+                  "==": [
+                    {
+                      "var": "cohort"
+                    },
+                    "beta"
+                  ]
+                },
+                [
+                  "details",
+                  "beta pair"
+                ],
+                [
+                  "details",
+                  "other pair"
+                ]
+              ]
+            }
           ]
         ]
       }

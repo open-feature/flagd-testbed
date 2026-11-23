@@ -172,6 +172,40 @@ Feature: Terminal resolve operator
       | treatment | treatment |
       | control   | holdback  |
 
+  # the shorthand form buckets by flag key and targeting key; the weights put every key in the "on" bucket
+  Scenario Outline: Resolve in shorthand fractional buckets
+    Given a String-flag with key "<key>" and a default value "fallback"
+    And a context containing a targeting key with value "some-targeting-key"
+    When the flag was evaluated with details
+    Then the resolved details value should be "on"
+    And the variant should be "on"
+    And the reason should be "SPLIT"
+    Examples:
+      | key                               |
+      | resolve-fractional-shorthand-flag |
+
+    @fractional-single-entry
+    Examples:
+      | key                                  |
+      | resolve-fractional-single-entry-flag |
+
+  @metadata
+  Scenario Outline: Resolve in shorthand fractional buckets adds the bucket details
+    Given a String-flag with key "<key>" and a default value "fallback"
+    And a context containing a targeting key with value "some-targeting-key"
+    When the flag was evaluated with details
+    Then the resolved metadata should contain
+      | key     | metadata_type | value     |
+      | details | String        | <details> |
+    Examples:
+      | key                               | details   |
+      | resolve-fractional-shorthand-flag | on bucket |
+
+    @fractional-single-entry
+    Examples:
+      | key                                  | details |
+      | resolve-fractional-single-entry-flag | only    |
+
   Scenario Outline: Resolve with computed arguments
     Given a String-flag with key "resolve-computed-arguments-flag" and a default value "fallback"
     And a context containing a key "cohort", with type "String" and with value "<cohort>"
@@ -197,6 +231,23 @@ Feature: Terminal resolve operator
       | cohort | details      | cohortKey    |
       | beta   | cohort beta  | cohort_beta  |
       | alpha  | cohort alpha | cohort_alpha |
+
+  # the whole metadata list, or a whole pair, may be computed too
+  @metadata
+  Scenario Outline: Resolve with a computed metadata list or pair
+    Given a String-flag with key "<key>" and a default value "fallback"
+    And a context containing a key "cohort", with type "String" and with value "<cohort>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "on"
+    And the resolved metadata should contain
+      | key     | metadata_type | value     |
+      | details | String        | <details> |
+    Examples:
+      | key                                 | cohort | details    |
+      | resolve-computed-metadata-list-flag | beta   | beta list  |
+      | resolve-computed-metadata-list-flag | alpha  | other list |
+      | resolve-computed-metadata-pair-flag | beta   | beta pair  |
+      | resolve-computed-metadata-pair-flag | alpha  | other pair |
 
   @metadata
   Scenario: Resolve with a computed number in metadata
