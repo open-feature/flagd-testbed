@@ -8,7 +8,8 @@ Feature: Terminal resolve operator
   # and served by the dedicated "resolve" launchpad config, so SDKs without `resolve` support are unaffected.
   # Position, not operator, is terminal: the same `resolve` is valid as the whole rule, an `if` result,
   # or a `fractional` bucket variant. Misplaced `resolve`, malformed literal arguments, literal reserved reasons
-  # (`ERROR`, `DISABLED`, `DEFAULT`), and literal reserved metadata keys (`flagSetId`, `version`) are rejected by the
+  # (`ERROR`, `DISABLED`, `DEFAULT`, `FALLBACK`, `STATIC`, `UNKNOWN`, `CACHED`,
+  # `STALE`), and literal reserved metadata keys (`flagSetId`, `version`) are rejected by the
   # schema, so their behavior is undefined and not covered here.
 
   Background:
@@ -29,7 +30,7 @@ Feature: Terminal resolve operator
       | resolve-ref-terminal-flag     | ALLOWLIST       |
       | resolve-single-clause-if-flag | ALLOWLIST       |
 
-  # the reason is free-form, so other reason names must not change the value or variant
+  # the reason is free-form apart from the reserved ones, so other reason names must not change the value or variant
   Scenario Outline: Resolve reason is free-form
     Given a String-flag with key "<key>" and a default value "fallback"
     When the flag was evaluated with details
@@ -37,12 +38,10 @@ Feature: Terminal resolve operator
     And the variant should be "on"
     And the reason should be "<reason>"
     Examples:
-      | key                          | reason   |
-      | resolve-fallback-reason-flag | FALLBACK |
-      | resolve-static-reason-flag   | STATIC   |
-      | resolve-cached-reason-flag   | CACHED   |
+      | key                       | reason |
+      | resolve-split-reason-flag | SPLIT  |
 
-  # ERROR, DISABLED and DEFAULT are reserved; a computed one is ignored, so the rule still matches
+  # OpenFeature and flagd reasons other than TARGETING_MATCH and SPLIT are reserved; a computed one is ignored
   Scenario Outline: Resolve ignores a computed reserved reason
     Given a String-flag with key "resolve-computed-reserved-reason-flag" and a default value "fallback"
     And a context containing a key "reason", with type "String" and with value "<reason>"
@@ -55,6 +54,11 @@ Feature: Terminal resolve operator
       | ERROR    |
       | DISABLED |
       | DEFAULT  |
+      | FALLBACK |
+      | STATIC   |
+      | UNKNOWN  |
+      | CACHED   |
+      | STALE    |
 
   @metadata
   Scenario Outline: Resolve with a computed reserved reason keeps its metadata
@@ -69,6 +73,11 @@ Feature: Terminal resolve operator
       | ERROR    |
       | DISABLED |
       | DEFAULT  |
+      | FALLBACK |
+      | STATIC   |
+      | UNKNOWN  |
+      | CACHED   |
+      | STALE    |
 
   @metadata
   Scenario: Resolve with a null reason keeps the targeting match reason and adds metadata

@@ -474,7 +474,7 @@
         ]
       }
     },
-    "resolve-fallback-reason-flag": {
+    "resolve-split-reason-flag": {
       "state": "ENABLED",
       "variants": {
         "on": "on",
@@ -484,35 +484,7 @@
       "targeting": {
         "resolve": [
           "on",
-          "FALLBACK"
-        ]
-      }
-    },
-    "resolve-static-reason-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "resolve": [
-          "on",
-          "STATIC"
-        ]
-      }
-    },
-    "resolve-cached-reason-flag": {
-      "state": "ENABLED",
-      "variants": {
-        "on": "on",
-        "off": "off"
-      },
-      "defaultVariant": "off",
-      "targeting": {
-        "resolve": [
-          "on",
-          "CACHED"
+          "SPLIT"
         ]
       }
     },
