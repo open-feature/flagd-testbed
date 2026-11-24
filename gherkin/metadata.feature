@@ -55,3 +55,34 @@ Feature: flag and flag set metadata
     And a stable flagd provider
     When the flag was evaluated with details
     Then the resolved metadata is empty
+
+  # resolve rule metadata over flag set metadata; a selector file keeps that flag set metadata off other flags.
+  # The other resolve scenarios are in targeting.feature.
+  @resolve @metadata-provider
+  Scenario: Rule metadata overwrites flag metadata, which overwrites flag set metadata
+    Given an option "selector" of type "String" with value "rawflags/selector-resolve-metadata.json"
+    And a metadata flagd provider
+    And a String-flag with key "resolve-metadata-precedence-flag" and a default value "fallback"
+    When the flag was evaluated with details
+    Then the resolved details value should be "on"
+    And the reason should be "ALLOWLIST"
+    And the resolved metadata should contain
+      | key     | metadata_type | value    |
+      | details | String        | rule     |
+      | owner   | String        | flag     |
+      | team    | String        | flag set |
+
+  # flagSetId and version are reserved for flag set metadata; the computed keys are skipped, the other pairs still apply
+  @resolve @metadata-provider
+  Scenario: Resolve metadata can't override reserved flag set metadata keys
+    Given an option "selector" of type "String" with value "rawflags/selector-resolve-metadata.json"
+    And a metadata flagd provider
+    And a String-flag with key "resolve-reserved-metadata-flag" and a default value "fallback"
+    When the flag was evaluated with details
+    Then the resolved details value should be "on"
+    And the reason should be "TARGETING_MATCH"
+    And the resolved metadata should contain
+      | key       | metadata_type | value       |
+      | flagSetId | String        | resolve-set |
+      | version   | String        | 1           |
+      | details   | String        | rule        |
