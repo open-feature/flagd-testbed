@@ -68,6 +68,67 @@ func ToggleChangingFlag() (string, error) {
 		return "", err
 	}
 
+	if err := writeAndWaitForUpdate(configFile, updatedData); err != nil {
+		return "", err
+	}
+	if err := toggleMetadataChangeFlags(); err != nil {
+		return "", err
+	}
+	return flag.DefaultVariant, nil
+}
+
+// toggleMetadataChangeFlags flips the flag set metadata version and the modified flag (default variant and metadata version);
+// the overriding and inheriting flags are left untouched
+func toggleMetadataChangeFlags() error {
+	configFile := "rawflags/selector-metadata-change-flags.json"
+
+	data, err := os.ReadFile(configFile)
+	if err != nil {
+		return err
+	}
+
+	var config map[string]interface{}
+	if err := json.Unmarshal(data, &config); err != nil {
+		return err
+	}
+
+	setMetadata, ok := config["metadata"].(map[string]interface{})
+	if !ok {
+		return errors.New("flag set metadata not found in configuration")
+	}
+	flags, ok := config["flags"].(map[string]interface{})
+	if !ok {
+		return errors.New("flags not found in configuration")
+	}
+	modifiedFlag, ok := flags["metadata-change-modified-flag"].(map[string]interface{})
+	if !ok {
+		return errors.New("metadata-change-modified-flag not found in configuration")
+	}
+	modifiedFlagMetadata, ok := modifiedFlag["metadata"].(map[string]interface{})
+	if !ok {
+		return errors.New("metadata-change-modified-flag metadata not found in configuration")
+	}
+
+	if setMetadata["version"] == "1" {
+		setMetadata["version"] = "2"
+		modifiedFlag["defaultVariant"] = "bar"
+		modifiedFlagMetadata["version"] = "11"
+	} else {
+		setMetadata["version"] = "1"
+		modifiedFlag["defaultVariant"] = "foo"
+		modifiedFlagMetadata["version"] = "10"
+	}
+
+	updatedData, err := json.MarshalIndent(config, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	return writeAndWaitForUpdate(configFile, updatedData)
+}
+
+// writeAndWaitForUpdate writes the file and blocks until the file watcher has picked it up
+func writeAndWaitForUpdate(configFile string, updatedData []byte) error {
 	// the file watcher should be triggered instantly. If not, we add a timeout to prevent a hanging test
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(DefaultRestartTimeout)*time.Second)
 	defer cancel()
@@ -84,22 +145,18 @@ func ToggleChangingFlag() (string, error) {
 		cancel()
 	}()
 
-	// Write the updated JSON back to the file
 	fileLock.Lock()
 	if err := atomicWriteFile(configFile, updatedData); err != nil {
 		fileLock.Unlock()
-		return "", err
+		return err
 	}
 	fileLock.Unlock()
 
-	select {
-	case <-ctx.Done():
-		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
-			return "", fmt.Errorf("Flags were not updated in time: %v", ctx.Err())
-		} else {
-			return flag.DefaultVariant, nil
-		}
+	<-ctx.Done()
+	if errors.Is(ctx.Err(), context.DeadlineExceeded) {
+		return fmt.Errorf("Flags were not updated in time: %v", ctx.Err())
 	}
+	return nil
 }
 
 func RestartFileWatcher() error {
@@ -135,7 +192,7 @@ func RestartFileWatcher() error {
 						fmt.Printf("Error combining JSON files: %v\n", err)
 						return
 					}
-					if strings.HasSuffix(event.Name, "changing-flag.json") {
+					if strings.HasSuffix(event.Name, "changing-flag.json") || strings.HasSuffix(event.Name, "metadata-change-flags.json") {
 						for _, v := range changeFlagUpdateListeners {
 							v.Done()
 						}
