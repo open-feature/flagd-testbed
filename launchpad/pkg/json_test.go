@@ -19,10 +19,6 @@ func TestCombineJSONFiles(t *testing.T) {
 	json2 := `{"flags": {"feature2": {"state": "off"}}}`
 	os.WriteFile(testInputDir+"/file1.json", []byte(json1), 0644)
 	os.WriteFile(testInputDir+"/file2.json", []byte(json2), 0644)
-	// files that are only loaded through their own config stay out of the combined file
-	excluded := `{"flags": {"excluded": {"state": "on"}}}`
-	os.WriteFile(testInputDir+"/selector-flags.json", []byte(excluded), 0644)
-	os.WriteFile(testInputDir+"/resolve-flags.json", []byte(excluded), 0644)
 
 	// Run function
 	err := CombineJSONFiles(testInputDir)

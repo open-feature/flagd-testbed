@@ -34,7 +34,7 @@ Configured flag definitions reside in the [`flags`](./flags) directory.
 Within the Docker image:
 
 * The contents of this directory are mounted under `/rawflags`
-* A generated file, `/flags/allFlags.json`, aggregates all flag files **excluding** those prefixed with `selector` or `resolve` (these are only loaded through their own launchpad configs)
+* A generated file, `/flags/allFlags.json`, aggregates all flag files **excluding** those prefixed with `selector`
 
 This file is generated when flagd is started and can be used to test all flags in file mode simultaneously.
 
