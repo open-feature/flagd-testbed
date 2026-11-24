@@ -85,6 +85,7 @@ Most feature files open with `@rpc @in-process @file` to indicate universal appl
 | `@caching` | Scenarios testing RPC response caching behaviour |
 | `@events` | Scenarios testing provider state-change event emission |
 | `@metadata` | Scenarios testing flag/flag-set metadata |
+| `@metadata-change` | Change events when flag-set metadata and flags change together |
 | `@contextEnrichment` | Scenarios testing server-side context enrichment |
 
 ### Opt-out Pattern
@@ -133,6 +134,7 @@ Flag definitions live in `flags/*.json`. Each file corresponds to a category of 
 | `edge-case-flags.json` | Null defaults, missing variants, error conditions |
 | `selector-flags.json` | Selector mode (in-process) flag definitions |
 | `selector-flag-combined-metadata.json` | Combined metadata for selector scenarios |
+| `selector-metadata-change-flags.json` | Flags with flag-set metadata; `/change` also toggles the set `version` and `metadata-change-modified-flag` |
 
 ### Flag JSON Structure
 
@@ -264,10 +266,10 @@ Launchpad (`launchpad/`) is a Go HTTP server that controls flagd during test run
 |----------|--------|-------------|
 | `/start?config=<name>` | POST | Start flagd with a named config |
 | `/stop` | POST | Stop flagd |
-| `/change` | POST | Toggle `changing-flag` between variants |
+| `/change` | POST | Toggle `changing-flag` between variants, and the flag-set `version` and `metadata-change-modified-flag` in `selector-metadata-change-flags.json` |
 | `/restart?seconds=<n>` | POST | Restart flagd after `n` seconds |
 
-Named configs live in `launchpad/configs/`. Each config specifies which flag files to load and how to start flagd. On start, Launchpad generates `/flags/allFlags.json` (aggregates all non-`selector` flag files) for use in full-suite runs.
+Named configs live in `launchpad/configs/`. Each config specifies which flag files to load and how to start flagd. On start, Launchpad generates `/flags/allFlags.json` (aggregates all non-`selector` flag files) for use in full-suite runs, and mirrors each `selector-*` file to `/flags` as-is so file-mode providers can watch them.
 
 ---
 

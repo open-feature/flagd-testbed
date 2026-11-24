@@ -1,0 +1,37 @@
+{
+  "flags": {
+    "metadata-change-modified-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "foo": "foo",
+        "bar": "bar"
+      },
+      "defaultVariant": "foo",
+      "metadata": {
+        "version": "10"
+      }
+    },
+    "metadata-change-overriding-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "foo": "foo",
+        "bar": "bar"
+      },
+      "defaultVariant": "foo",
+      "metadata": {
+        "version": "20"
+      }
+    },
+    "metadata-change-inheriting-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "foo": "foo",
+        "bar": "bar"
+      },
+      "defaultVariant": "foo"
+    }
+  },
+  "metadata": {
+    "version": "1"
+  }
+}

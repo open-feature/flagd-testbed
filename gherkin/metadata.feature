@@ -50,6 +50,39 @@ Feature: flag and flag set metadata
       | flag-set-float   | Float         | 3.2   |
       | flag-set-boolean | Boolean       | false |
 
+  # /change bumps the flag set "version" and modifies metadata-change-modified-flag;
+  # metadata-change-overriding-flag overrides "version" with its own value and is never modified;
+  # metadata-change-inheriting-flag inherits "version", so its effective metadata changes
+  @metadata-provider @metadata-change @rpc
+  Scenario: Flag set metadata change reports the modified flag
+    Given an option "selector" of type "String" with value "rawflags/selector-metadata-change-flags.json"
+    And a metadata flagd provider
+    And a String-flag with key "metadata-change-modified-flag" and a default value "foo"
+    And a change event handler
+    When the flag was modified
+    And a change event was fired
+    Then the flag should be part of the event payload
+
+  @metadata-provider @metadata-change @rpc
+  Scenario: Flag set metadata change doesn't report a flag that overrides the changed key
+    Given an option "selector" of type "String" with value "rawflags/selector-metadata-change-flags.json"
+    And a metadata flagd provider
+    And a String-flag with key "metadata-change-overriding-flag" and a default value "foo"
+    And a change event handler
+    When the flag was modified
+    And a change event was fired
+    Then the flag should not be part of the event payload
+
+  @metadata-provider @metadata-change @rpc
+  Scenario: Flag set metadata change reports a flag that inherits the changed key
+    Given an option "selector" of type "String" with value "rawflags/selector-metadata-change-flags.json"
+    And a metadata flagd provider
+    And a String-flag with key "metadata-change-inheriting-flag" and a default value "foo"
+    And a change event handler
+    When the flag was modified
+    And a change event was fired
+    Then the flag should be part of the event payload
+
   Scenario: Returns no metadata
     Given a Boolean-flag with key "boolean-flag" and a default value "true"
     And a stable flagd provider

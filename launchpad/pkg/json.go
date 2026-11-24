@@ -1,6 +1,7 @@
 package flagd
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -64,8 +65,23 @@ func CombineJSONFiles(inputDir string) error {
 
 	combinedData := make(map[string]interface{})
 
+	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
+		return fmt.Errorf("failed to create output directory: %v", err)
+	}
+
 	for _, file := range files {
-		if filepath.Ext(file.Name()) == ".json" && !strings.HasPrefix(file.Name(), "selector-") {
+		// selector files are served as-is rather than combined; mirror them for file-mode providers
+		if filepath.Ext(file.Name()) == ".json" && strings.HasPrefix(file.Name(), "selector-") {
+			content, err := os.ReadFile(filepath.Join(inputDir, file.Name()))
+			if err != nil {
+				return fmt.Errorf("failed to read file %s: %v", file.Name(), err)
+			}
+			if err := writeIfChanged(filepath.Join(outputDir, file.Name()), content); err != nil {
+				return err
+			}
+			continue
+		}
+		if filepath.Ext(file.Name()) == ".json" {
 			filePath := filepath.Join(inputDir, file.Name())
 			content, err := ioutil.ReadFile(filePath)
 			if err != nil {
@@ -81,16 +97,20 @@ func CombineJSONFiles(inputDir string) error {
 		}
 	}
 
-	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
-		return fmt.Errorf("failed to create output directory: %v", err)
-	}
-
 	combinedContent, err := json.MarshalIndent(combinedData, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to serialize combined JSON: %v", err)
 	}
 
-	return atomicWriteFile(OutputFile, combinedContent)
+	return writeIfChanged(OutputFile, combinedContent)
+}
+
+// skips identical rewrites so file-mode providers don't see spurious changes
+func writeIfChanged(filename string, content []byte) error {
+	if existing, err := os.ReadFile(filename); err == nil && bytes.Equal(existing, content) {
+		return nil
+	}
+	return atomicWriteFile(filename, content)
 }
 
 func deepMerge(dst, src map[string]interface{}) map[string]interface{} {

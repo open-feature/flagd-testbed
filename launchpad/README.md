@@ -4,6 +4,7 @@ Launchpad is a lightweight HTTP server built in Go that controls a `flagd` binar
 
 Additionally, launchpad will write the whole configuration as one combined JSON file into the "flags" directory with the name "allFlags.json".
 This file can be utilized for File provider tests, instead of implementing a json manipulation in all languages.
+Files prefixed with `selector-` are not combined; they are copied as-is into the same folder instead.
 Mount the folder of the docker image to a local directory, and it will generate the file into this folder.
 
 ## Features
@@ -36,7 +37,7 @@ Mount the folder of the docker image to a local directory, and it will generate 
 
 ### 3. `/change`
 - **Method:** `POST`
-- **Description:** Toggles the `defaultVariant` for the flag `changing-flag` between `"foo"` and `"bar"` and saves the updated configuration to the file `changing-flag.json`.
+- **Description:** Toggles the `defaultVariant` for the flag `changing-flag` between `"foo"` and `"bar"` and saves the updated configuration to the file `changing-flag.json`. It also toggles the flag-set metadata `version` (`"1"`/`"2"`) and `metadata-change-modified-flag` in `selector-metadata-change-flags.json`; `metadata-change-overriding-flag` and `metadata-change-inheriting-flag` are left untouched.
 - **Example:**
   ```bash
   curl -X POST http://localhost:8080/change
