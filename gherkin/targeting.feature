@@ -547,7 +547,7 @@ Feature: Targeting rules
       | resolve-computed-boolean-variant-flag | alpha  | false   | off   |
 
   # the weights depend on the cohort, so the bucket is picked deterministically
-  @resolve
+  @resolve @fractional
   Scenario Outline: Resolve in fractional buckets
     Given a String-flag with key "resolve-fractional-buckets-flag" and a default value "fallback"
     And a context containing a key "cohort", with type "String" and with value "<cohort>"
@@ -560,7 +560,7 @@ Feature: Targeting rules
       | treatment | on      |
       | control   | off     |
 
-  @resolve @metadata
+  @resolve @fractional @metadata
   Scenario Outline: Resolve in fractional buckets adds the bucket details
     Given a String-flag with key "resolve-fractional-buckets-flag" and a default value "fallback"
     And a context containing a key "cohort", with type "String" and with value "<cohort>"
@@ -574,7 +574,7 @@ Feature: Targeting rules
       | control   | holdback  |
 
   # the shorthand form buckets by flag key and targeting key; the weights put every key in the "on" bucket
-  @resolve
+  @resolve @fractional
   Scenario Outline: Resolve in shorthand fractional buckets
     Given a String-flag with key "<key>" and a default value "fallback"
     And a context containing a targeting key with value "some-targeting-key"
@@ -591,7 +591,7 @@ Feature: Targeting rules
       | key                                  |
       | resolve-fractional-single-entry-flag |
 
-  @resolve @metadata
+  @resolve @fractional @metadata
   Scenario Outline: Resolve in shorthand fractional buckets adds the bucket details
     Given a String-flag with key "<key>" and a default value "fallback"
     And a context containing a targeting key with value "some-targeting-key"
