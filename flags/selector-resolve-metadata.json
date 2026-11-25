@@ -1,0 +1,73 @@
+{
+  "flags": {
+    "resolve-metadata-precedence-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          "ALLOWLIST",
+          [
+            [
+              "details",
+              "rule"
+            ]
+          ]
+        ]
+      },
+      "metadata": {
+        "details": "flag",
+        "owner": "flag"
+      }
+    },
+    "resolve-reserved-metadata-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          "on",
+          null,
+          [
+            [
+              {
+                "cat": [
+                  "flagSet",
+                  "Id"
+                ]
+              },
+              "rule"
+            ],
+            [
+              {
+                "cat": [
+                  "ver",
+                  "sion"
+                ]
+              },
+              "rule"
+            ],
+            [
+              "details",
+              "rule"
+            ]
+          ]
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "flagSetId": "resolve-set",
+    "version": "1",
+    "details": "flag set",
+    "owner": "flag set",
+    "team": "flag set"
+  }
+}
