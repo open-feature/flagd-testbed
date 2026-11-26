@@ -38,4 +38,21 @@ jobs:
           target: testbed
           push: false
 
+  go:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Go
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491 # v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Test embedded assets
+        run: go test ./...
+
+      - name: Test launchpad
+        run: go test ./...
+        working-directory: launchpad
