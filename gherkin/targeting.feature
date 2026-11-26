@@ -2,7 +2,7 @@
 Feature: Targeting rules
 
   # This test suite contains scenarios to test the json-evaluation of flagd and flag-in-process providers.
-  # It's associated with the flags configured in flags/changing-flag.json, flags/zero-flags.json, flags/custom-ops.json and evaluator-refs.json.
+  # It's associated with the flags configured in flags/changing-flag.json, flags/zero-flags.json, flags/custom-ops.json, flags/testing-flags.json and evaluator-refs.json.
   # It should be used in conjunction with the suites supplied by the OpenFeature specification.
 
   Background:
@@ -42,6 +42,13 @@ Feature: Targeting rules
     When the flag was evaluated with details
     Then the resolved details value should be "fallback"
     And the error-code should be "PARSE_ERROR"
+
+  # A single-argument if returns that argument (JSON Logic), so {"if": ["on"]} selects the "on" variant
+  Scenario: Single-argument if returns its argument
+    Given a String-flag with key "single-argument-if-flag" and a default value "fallback"
+    When the flag was evaluated with details
+    Then the resolved details value should be "on"
+    And the reason should be "TARGETING_MATCH"
 
   # custom operators
   # @fractional-v1: legacy float-based bucketing (abs(hash) / i32::MAX * 100)

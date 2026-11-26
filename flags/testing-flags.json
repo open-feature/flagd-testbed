@@ -207,6 +207,19 @@
           "special"
         ]
       }
+    },
+    "single-argument-if-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "if": [
+          "on"
+        ]
+      }
     }
   }
 }
