@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.12.0](https://github.com/open-feature/flagd-testbed/compare/v3.11.0...v3.12.0) (2026-11-26)
+
+
+### ✨ New Features
+
+* add fractional float cases at the int64/uint64 boundaries ([#456](https://github.com/open-feature/flagd-testbed/issues/456)) ([86f92f2](https://github.com/open-feature/flagd-testbed/commit/86f92f2d07a9b50b79746cb457b92b26234a6d11))
+* add resolve operator scenarios ([#448](https://github.com/open-feature/flagd-testbed/issues/448)) ([36c7e72](https://github.com/open-feature/flagd-testbed/commit/36c7e72ce322af824374ae202be4cab5df169a97))
+* assert unchanged flags are not part of the change event payload ([#455](https://github.com/open-feature/flagd-testbed/issues/455)) ([1ad32ee](https://github.com/open-feature/flagd-testbed/commit/1ad32ee2a1739cde19dc1cc2e949314a62f2c36e))
+* fractional shorthand with missing targeting key ([#446](https://github.com/open-feature/flagd-testbed/issues/446)) ([f371b63](https://github.com/open-feature/flagd-testbed/commit/f371b63b79e73528c7c9065f5b6f337b0022ec65))
+* **targeting:** add single-clause if scenario ([#453](https://github.com/open-feature/flagd-testbed/issues/453)) ([94810ef](https://github.com/open-feature/flagd-testbed/commit/94810ef31c138d2afbf599473279c9cd58c99cd7))
+
+
+### 🧹 Chore
+
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.18.2 ([#443](https://github.com/open-feature/flagd-testbed/issues/443)) ([6fe469d](https://github.com/open-feature/flagd-testbed/commit/6fe469d983b46dff17364a4ec691fa5af2631e5f))
+* **deps:** update ghcr.io/open-feature/flagd docker tag to v0.19.0 ([#451](https://github.com/open-feature/flagd-testbed/issues/451)) ([7690b54](https://github.com/open-feature/flagd-testbed/commit/7690b5485760314d33b0e505754c1d1788fc3dd6))
+
 ## [3.11.0](https://github.com/open-feature/flagd-testbed/compare/v3.10.4...v3.11.0) (2026-10-28)
 
 
