@@ -40,3 +40,11 @@ Feature: Flagd Provider State Changes
     When the flag was modified
     And a change event was fired
     Then the flag should be part of the event payload
+
+  @change-event-excludes-unchanged
+  Scenario: Unchanged flag is not part of the change event payload
+    Given a String-flag with key "unchanging-flag" and a default value "false"
+    And a change event handler
+    When the flag was modified
+    And a change event was fired
+    Then the flag with key "unchanging-flag" should not be part of the event payload
