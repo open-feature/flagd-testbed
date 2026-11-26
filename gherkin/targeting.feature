@@ -933,6 +933,11 @@ Feature: Targeting rules
       | -1.7976931348623157e+308   | bucket9  |
       | 2.2250738585072014e-308    | bucket11 |
       | 4.9406564584124654e-324    | bucket2  |
+      | -9223372036854775808.0     | bucket3  |
+      | 9223372036854775808.0      | bucket16 |
+      | 1e19                       | bucket14 |
+      | 18446744073709549568.0     | bucket16 |
+      | 18446744073709551616.0     | bucket15 |
 
   @fractional @fractional-v3
   Scenario Outline: Fractional operator with map key ordering
