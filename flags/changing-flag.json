@@ -7,6 +7,14 @@
         "bar": "bar"
       },
       "defaultVariant": "foo"
+    },
+    "unchanging-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "foo": "foo",
+        "bar": "bar"
+      },
+      "defaultVariant": "foo"
     }
   }
 }
