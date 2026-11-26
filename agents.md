@@ -85,6 +85,7 @@ Most feature files open with `@rpc @in-process @file` to indicate universal appl
 | `@resolve` | Scenarios testing the terminal `resolve` custom operator (variant, reason, and rule metadata); exclude until the provider supports it |
 | `@caching` | Scenarios testing RPC response caching behaviour |
 | `@events` | Scenarios testing provider state-change event emission |
+| `@change-event-excludes-unchanged` | Scenario asserting that a change event payload lists only the flags that changed (the `unchanging-flag` must not be in it); exclude until the SDK binds the step |
 | `@metadata` | Scenarios testing flag/flag-set metadata |
 | `@contextEnrichment` | Scenarios testing server-side context enrichment |
 
@@ -101,6 +102,9 @@ SDKs that do not support a feature can exclude its scenarios:
 
 # Skip resolve operator tests until supported
 -t 'not @resolve'
+
+# Skip the unchanged-flag change event check until supported
+-t 'not @change-event-excludes-unchanged'
 
 # Use only v2 fractional bucketing
 -t 'not @fractional-v1'
