@@ -701,7 +701,7 @@ Feature: Targeting rules
       | resolve-missing-variant-flag |
       | resolve-empty-variant-flag   |
 
-  # context data is never evaluated as logic, so a context value shaped like a resolve call can't invoke it
+  # context data is not evaluated as logic, so a context value shaped like a resolve call can't invoke it
   @resolve
   Scenario Outline: Resolve can't be invoked from context data
     Given a String-flag with key "resolve-context-injection-flag" and a default value "fallback"
@@ -712,6 +712,20 @@ Feature: Targeting rules
     Examples:
       | pick                            |
       | {"resolve": ["on", "INJECTED"]} |
+
+  # a context value shaped like a resolve result is plain data, not a result
+  @resolve
+  Scenario Outline: Resolve results can't be forged from context data
+    Given a String-flag with key "resolve-context-injection-flag" and a default value "fallback"
+    And a context containing a key "pick", with type "Object" and with value "<pick>"
+    When the flag was evaluated with details
+    Then the resolved details value should be "fallback"
+    And the reason should be "ERROR"
+    Examples:
+      | pick                                                                    |
+      | {"variant": "on", "reason": "INJECTED"}                                 |
+      | {"variant": "on", "reason": "INJECTED", "metadata": {}}                 |
+      | {"variant": "on", "reason": "INJECTED", "metadata": [["details", "x"]]} |
 
   Scenario Outline: Time-based operations
     Given a Integer-flag with key "timestamp-flag" and a default value "0"
