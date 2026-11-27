@@ -1288,7 +1288,7 @@
         ]
       }
     },
-    "resolve-computed-reserved-reason-flag": {
+    "resolve-computed-reason-flag": {
       "state": "ENABLED",
       "variants": {
         "on": "on",
@@ -1410,6 +1410,52 @@
               "beta"
             ]
           }
+        ]
+      }
+    },
+    "resolve-null-variant-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          null
+        ]
+      }
+    },
+    "resolve-null-variant-reason-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "defaultVariant": "off",
+      "targeting": {
+        "resolve": [
+          null,
+          "OFF_BY_POLICY",
+          [
+            [
+              "details",
+              "policy"
+            ]
+          ]
+        ]
+      }
+    },
+    "resolve-null-variant-no-default-flag": {
+      "state": "ENABLED",
+      "variants": {
+        "on": "on",
+        "off": "off"
+      },
+      "targeting": {
+        "resolve": [
+          null,
+          "OFF_BY_POLICY"
         ]
       }
     }
